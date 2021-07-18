@@ -14,3 +14,5 @@
 # sequelize db:seed:all
 
 # npm run sequelize -- db:seed:all
+
+# npx sequelize-cli-typecript db:seed:all
