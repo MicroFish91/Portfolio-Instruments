@@ -1,11 +1,5 @@
-// * Default Seeder Data Constants
+import { PORTFOLIO_BENCHMARKS } from "./index";
 
-// * Note: Number of User Seeds = Number of unique Portfolio Benchmarks
-
+export const NUM_OF_USERS = PORTFOLIO_BENCHMARKS.length;
 export const SNAPSHOTS_PER_USER = 5;
 export const ACCOUNTS_PER_SNAPSHOT = 5;
-export const DEFAULT_ACCOUNT_LOCATIONS = [
-  "Test Brokerage One",
-  "Test Brokerage Two",
-  "Test Brokerage Three",
-];

@@ -2,23 +2,37 @@ import db from "../models";
 import { generateUsers } from "../seedGenerators";
 
 interface UserSeeder {
-  up: () => void;
-  down: () => void;
+  up: () => Promise<void>;
+  down: () => Promise<void>;
 }
 
 export const UserSeeder: UserSeeder = {
   up: () => {
-    generateUsers().up.forEach((user) => {
-      db.Users.create(user);
+    return new Promise((res, rej) => {
+      try {
+        generateUsers().up.forEach(async (user) => {
+          await db.Users.create(user);
+        });
+        res();
+      } catch (err) {
+        rej(err);
+      }
     });
   },
   down: () => {
-    generateUsers().down.forEach((user) => {
-      db.Users.destroy({
-        where: {
-          email: user,
-        },
-      });
+    return new Promise((res, rej) => {
+      try {
+        generateUsers().down.forEach(async (user) => {
+          await db.Users.destroy({
+            where: {
+              email: user,
+            },
+          });
+        });
+        res();
+      } catch (err) {
+        rej(err);
+      }
     });
   },
 };
