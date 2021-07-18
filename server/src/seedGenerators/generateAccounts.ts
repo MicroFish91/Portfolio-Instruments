@@ -21,7 +21,11 @@ interface AccountSeed {
 type DeleteLocation = string;
 
 /*
- * 5 accounts per snapshot
+ * Generates (n = NUM_OF_USERS * SNAPSHOTS_PER_USER * ACCOUNTS_PER_SNAPSHOT) snapshot seeds for each seed user
+ * The Account Type will rotate evenly between "Traditional", "Roth", and "Taxable"
+ * There are (n = ACCOUNTS_PER_SNAPSHOT) accounts per snapshot
+ * The deleteLocation is the text we will use to reverse the seeding (via the down() method)
+ * (i.e. delete... {where: { location = deleteLocation })  )
  */
 export function generateAccounts() {
   const accountSeedGenerator: AccountSeedGenerator = {
