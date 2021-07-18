@@ -1,4 +1,4 @@
-import { UserSeeder } from "./userSeeder";
+import { UserSeeder } from "./UserSeeder";
 
 export default function (migrateUp: boolean = true) {
   if (migrateUp) {

@@ -6,7 +6,6 @@ interface SnapshotAttributes {
   title: string;
   benchmark: string;
   notes?: string | null;
-  total: number;
   specifiedDate: Date;
   userId: number;
 }
@@ -23,7 +22,6 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
     public title!: string;
     public benchmark!: string;
     public notes?: string | null;
-    public total!: number;
     public specifiedDate!: Date;
     public userId!: number;
 
@@ -52,10 +50,6 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
         type: DataTypes.STRING(100),
         defaultValue: null,
         allowNull: true,
-      },
-      total: {
-        type: DataTypes.DECIMAL,
-        allowNull: false,
       },
       specifiedDate: {
         type: DataTypes.DATE,

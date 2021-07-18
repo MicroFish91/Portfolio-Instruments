@@ -1,4 +1,3 @@
-"use strict";
 import db from "../models";
 import { generateUsers } from "../seedGenerators";
 
