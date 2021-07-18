@@ -14,9 +14,6 @@ module.exports = {
       type: {
         type: Sequelize.STRING(15),
       },
-      total: {
-        type: Sequelize.DECIMAL,
-      },
       snapshotId: {
         type: Sequelize.INTEGER,
         references: {

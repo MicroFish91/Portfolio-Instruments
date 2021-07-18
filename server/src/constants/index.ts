@@ -8,3 +8,5 @@ export const PORTFOLIO_BENCHMARKS = [
   "Permanent Portfolio",
   "Golden Butterfly",
 ];
+
+export const ACCOUNT_TYPES = ["Traditional", "Roth", "Taxable"];

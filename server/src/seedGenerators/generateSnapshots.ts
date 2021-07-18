@@ -22,7 +22,7 @@ type SpecifiedDates = Date[];
 function generateSpecifiedDates() {
   const dates: Date[] = [];
 
-  for (let index = SNAPSHOTS_PER_USER; index >= 0; index++) {
+  for (let index = SNAPSHOTS_PER_USER - 1; index >= 0; index--) {
     const date: Date = new Date();
     const dateInterval = Math.floor(48 / SNAPSHOTS_PER_USER); // # of snapshots per 4 years period
     date.setMonth(date.getMonth() - dateInterval * index);
@@ -55,7 +55,7 @@ export function generateSnapshots() {
       snapshotIndex++
     ) {
       // Always ensures that the last posted snapshot matches the user's current benchmark
-      if (userIndex === PORTFOLIO_BENCHMARKS.length - 1) {
+      if (snapshotIndex === SNAPSHOTS_PER_USER - 1) {
         snapshotSeedGenerator.up.push({
           title: `Snapshot Title #${snapshotIndex + 1}`,
           benchmark,

@@ -3,7 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 // import db from "./models";
-// import seedMigrator from "./seeders";
+import seedMigrator from "./seeders";
 
 const app = express();
 app.use(helmet());
@@ -26,4 +26,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 // Seed Database
-// seedMigrator();
+seedMigrator();
