@@ -22,7 +22,7 @@ type SpecifiedDates = Date[];
 function generateSpecifiedDates() {
   const dates: Date[] = [];
 
-  for (let index = 0; index < SNAPSHOTS_PER_USER; index++) {
+  for (let index = SNAPSHOTS_PER_USER; index >= 0; index++) {
     const date: Date = new Date();
     const dateInterval = Math.floor(48 / SNAPSHOTS_PER_USER); // # of snapshots per 4 years period
     date.setMonth(date.getMonth() - dateInterval * index);
@@ -32,6 +32,13 @@ function generateSpecifiedDates() {
   return dates;
 }
 
+/*
+ * Generates (n = SNAPSHOTS_PER_USER) snapshot seeds for each seed user
+ * The last snapshot made for each user (i.e. the most recent snapshot) will always match
+ * the user's currently set benchmark
+ * The deleteNote is the text we will use to reverse the seeding (via the down() method)
+ * (i.e. delete... {where: { notes = deleteNote })  )
+ */
 export function generateSnapshots() {
   const deleteNote: DeleteNote = "THIS IS DUMMY DATA FOR TESTING";
   const specifiedDates: SpecifiedDates = generateSpecifiedDates();
