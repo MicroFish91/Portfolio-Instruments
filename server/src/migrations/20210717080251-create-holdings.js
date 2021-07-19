@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.STRING(10),
       },
       category: {
-        type: Sequelize.STRING(10),
+        type: Sequelize.STRING(20),
       },
       total: {
         type: Sequelize.DECIMAL,

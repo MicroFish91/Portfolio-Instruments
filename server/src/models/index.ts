@@ -1,12 +1,13 @@
 "use strict";
+import { database } from "../config";
+import { DatabaseConnection } from "../config/database";
+
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
-const config = require(path.join(__dirname, "..", "config", "database.ts"))[
-  env
-];
+const config: DatabaseConnection = database[env];
 const db: any = {};
 
 let sequelize: any;

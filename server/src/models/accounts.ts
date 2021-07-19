@@ -5,7 +5,6 @@ interface AccountAttributes {
   id: number;
   location: string;
   type: string;
-  total: number;
   snapshotId: number;
 }
 
@@ -19,7 +18,6 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
     public id!: number;
     public location!: string;
     public type!: string;
-    public total!: number;
     public snapshotId!: number;
 
     static associate(models: any) {
@@ -40,10 +38,6 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
       },
       type: {
         type: DataTypes.STRING,
-        allowNull: false,
-      },
-      total: {
-        type: DataTypes.DECIMAL,
         allowNull: false,
       },
       snapshotId: {
