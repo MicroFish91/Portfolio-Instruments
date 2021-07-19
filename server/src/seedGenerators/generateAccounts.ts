@@ -39,16 +39,6 @@ export function generateAccounts() {
   let accountTypeIndex = 0;
 
   for (let index = 0; index < numberOfAccounts; index++) {
-    let checking = {
-      location: `TEST LOCATION ${index + 1}`,
-      type: ACCOUNT_TYPES[accountTypeIndex],
-      snapshotId: snapshotIdIndex,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-
-    console.log(checking);
-
     accountSeedGenerator.up.push({
       location: `TEST LOCATION ${index + 1}`,
       type: ACCOUNT_TYPES[accountTypeIndex],
