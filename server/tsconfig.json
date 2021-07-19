@@ -8,7 +8,7 @@
     "outDir": "./dist",
     "moduleResolution": "node",
     "removeComments": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "noImplicitThis": true,
@@ -22,8 +22,13 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "baseUrl": ".",
-    "allowJs": true
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true
   },
   "exclude": ["node_modules"],
-  "include": ["./src/**/*.ts", "./src/**/*.js"]
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.js",
+    "src/seeders/20210717222215-users.hs"
+  ]
 }
