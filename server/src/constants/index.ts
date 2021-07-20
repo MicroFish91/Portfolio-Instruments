@@ -1,5 +1,4 @@
 export const ACCOUNT_TYPES = ["Traditional", "Roth", "Taxable"];
-
 export const HOLDING_CATEGORIES = [
   "tsm",
   "dlcb",
@@ -29,7 +28,6 @@ export const HOLDING_CATEGORIES = [
   "gold",
   "reits",
 ];
-
 export const PORTFOLIO_BENCHMARKS = [
   "Total Stock Market",
   "Classic 60/40",
@@ -40,7 +38,6 @@ export const PORTFOLIO_BENCHMARKS = [
   "Permanent Portfolio",
   "Golden Butterfly",
 ];
-
 export const BENCHMARK_ASSET_BREAKDOWN = [
   { tsm: 100 },
   {
