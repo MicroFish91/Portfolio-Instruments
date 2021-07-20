@@ -1,20 +1,20 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { register } from "../../redux/actions/user";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const history = useHistory();
+  const dispatch = useDispatch();
 
-  // const submitLogin = (e: Event) => {
-  //   e.preventDefault();
+  const submitRegistration = (e: React.SyntheticEvent): void => {
+    e.preventDefault();
 
-  //   // signin({ userName: email, userPassword: password }, () => {
-  //   //   history.push("/dashboard");
-  //   // });
-  // };
+    dispatch(register({ email, password, firstName, lastName }));
+  };
 
   return (
     <div>
@@ -27,7 +27,7 @@ const Register = () => {
                 <div className="text-center mb-6 ">
                   <img src="" className="h-6" alt=""></img>
                 </div>
-                <form className="card" method="post">
+                <form className="card" onSubmit={submitRegistration}>
                   <div className="card-body p-6">
                     <div className="card-title text-center">
                       Register your Account

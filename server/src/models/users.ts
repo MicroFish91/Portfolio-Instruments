@@ -69,7 +69,7 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
   return Users;
 };
 
-module.exports.validate = (user: UserAttributes) => {
+export const validate = (user: UserAttributes) => {
   const schema = Joi.object({
     email: Joi.string().email().min(8).max(45).required(),
     password: passwordComplexity({
