@@ -9,7 +9,6 @@ export default function () {
     new LocalStrategy(
       { usernameField: "email" },
       async (email, password, done) => {
-        console.log("made it");
         try {
           const records = await db.Users.findAll({ where: { email } });
           if (records !== null) {

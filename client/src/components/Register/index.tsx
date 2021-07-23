@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { register } from "../../redux/actions/user";
+import { userActions } from "../../redux/actions";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -13,7 +13,7 @@ const Register = () => {
   const submitRegistration = (e: React.SyntheticEvent): void => {
     e.preventDefault();
 
-    dispatch(register({ email, password, firstName, lastName }));
+    dispatch(userActions.register({ email, password, firstName, lastName }));
   };
 
   return (

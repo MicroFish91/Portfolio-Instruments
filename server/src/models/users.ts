@@ -1,6 +1,4 @@
 ("use strict");
-import Joi from "joi";
-import passwordComplexity from "joi-password-complexity";
 import { Model, Optional, Sequelize } from "sequelize";
 
 export interface UserAttributes {
@@ -67,30 +65,4 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
     }
   );
   return Users;
-};
-
-export const validate = (user: UserAttributes) => {
-  const schema = Joi.object({
-    email: Joi.string().email().min(8).max(45).required(),
-    password: passwordComplexity({
-      min: 5,
-      max: 255,
-      lowerCase: 1,
-      upperCase: 1,
-      numeric: 1,
-      requirementCount: 4,
-    }),
-    firstName: Joi.string()
-      .pattern(/^[a-zA-Z]*$/)
-      .min(2)
-      .max(20)
-      .required(),
-    lastName: Joi.string()
-      .pattern(/^[a-zA-Z]*$/)
-      .min(2)
-      .max(20)
-      .required(),
-  });
-
-  return schema.validate(user);
 };

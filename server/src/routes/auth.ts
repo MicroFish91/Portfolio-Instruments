@@ -2,7 +2,8 @@ import bcrypt from "bcryptjs";
 import express from "express";
 import { createToken, requireLogin } from "../auth";
 import db from "../models";
-import { UserAttributes as User, validate } from "../models/users";
+import { UserAttributes as User } from "../models/users";
+import { validateUser } from "../models/validation";
 
 const router = express.Router();
 
@@ -11,8 +12,8 @@ router.post("/login", requireLogin, async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.message);
+  const { error } = validateUser(req.body);
+  if (error) return res.status(400).json({ message: error.message });
 
   const { email, password, firstName, lastName } = req.body;
   const encryptedPassword = await bcrypt.hashSync(password, 8);
@@ -32,13 +33,13 @@ router.post("/register", async (req, res) => {
         firstName,
         lastName,
       });
-      const jwtToken = createToken(user);
+      const jwtToken = createToken(user.dataValues);
       return res.json({ token: jwtToken });
     } else {
-      return res.status(422).send({ error: "Error: Email already exists." });
+      return res.status(422).json({ message: "Email already exists." });
     }
   } catch (err) {
-    return res.status(423).send({ error: "Can't access database." });
+    return res.status(423).json({ message: "Can't access database." });
   }
 });
 
