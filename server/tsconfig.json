@@ -26,9 +26,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "exclude": ["node_modules"],
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.js",
-    "src/seeders/20210717222215-users.hs"
-  ]
+  "include": ["./src/**/*.ts", "./src/**/*.js"]
 }

@@ -1,7 +1,8 @@
-import { post } from "./user";
+import { login, post } from "./user";
 
 export const api = {
   user: {
+    login,
     post,
   },
 };

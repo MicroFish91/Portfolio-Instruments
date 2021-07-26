@@ -12,9 +12,7 @@ export const USER_TYPES = {
 };
 
 // API Endpoints
-const API_BASE_ROUTE = "http://localhost:3001";
-
 export const API_ROUTES = {
-  LOGIN: API_BASE_ROUTE + "/login",
-  REGISTER: API_BASE_ROUTE + "/register",
+  LOGIN: "/login",
+  REGISTER: "/register",
 };

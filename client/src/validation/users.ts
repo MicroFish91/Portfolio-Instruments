@@ -3,7 +3,12 @@ import yupPassword from "yup-password";
 
 yupPassword(yup);
 
-export const userFormSchema = yup.object().shape({
+export const loginFormSchema = yup.object().shape({
+  email: yup.string().email("Email is invalid.").required("Email is required."),
+  password: yup.string().required("Password is required."),
+});
+
+export const registrationFormSchema = yup.object().shape({
   firstName: yup
     .string()
     .min(2, "First name must be 2 characters or more.")

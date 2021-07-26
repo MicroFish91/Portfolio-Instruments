@@ -8,7 +8,12 @@ import { validateUser } from "../models/validation";
 const router = express.Router();
 
 router.post("/login", requireLogin, async (req, res) => {
-  res.json({ token: createToken(req.user as User) });
+  const { email, firstName, lastName } = req.user as User;
+  console.log(req.user);
+  res.json({
+    token: createToken(req.user as User),
+    currentUser: { email, firstName, lastName },
+  });
 });
 
 router.post("/register", async (req, res) => {

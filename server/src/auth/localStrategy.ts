@@ -18,7 +18,7 @@ export default function () {
               } else if (!isMatch) {
                 return done(null, false);
               } else {
-                return done(null, records[0]);
+                return done(null, records[0].dataValues);
               }
             });
           } else {

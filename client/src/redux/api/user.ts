@@ -1,11 +1,37 @@
 import axios from "axios";
 import { API_ROUTES } from "../constants";
-import { fetchedData, user } from "../types";
+import { user, userFetchedData, userLogin, userRegistration } from "../types";
+
+export async function login(
+  userData: userLogin
+): Promise<
+  userFetchedData<({ jwtToken: string } & { currentUser: user }) | null, any>
+> {
+  try {
+    const tokenResponse: { data: { token: string; currentUser: user } } =
+      await axios.post(API_ROUTES.LOGIN, userData);
+    return {
+      data: {
+        currentUser: tokenResponse.data.currentUser,
+        jwtToken: tokenResponse.data.token,
+      },
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: {
+        status: error.response.status,
+        message: error.message,
+      },
+    };
+  }
+}
 
 export async function post(
-  userData: user
+  userData: userRegistration
 ): Promise<
-  fetchedData<({ jwtToken: string } & { currentUser: user }) | null, any>
+  userFetchedData<({ jwtToken: string } & { currentUser: user }) | null, any>
 > {
   try {
     const tokenResponse: { data: { token: string } } = await axios.post(
@@ -24,7 +50,6 @@ export async function post(
       error: null,
     };
   } catch (error) {
-    console.log("my error: ", error.response.status);
     return {
       data: null,
       error: {

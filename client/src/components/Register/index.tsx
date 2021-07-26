@@ -2,14 +2,14 @@ import { Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { userActions } from "../../redux/actions";
-import { userFormSchema } from "../../validation";
-import { UserForm } from "../../validation/types";
-import TextField from "./TextField";
+import { registrationFormSchema } from "../../validation";
+import { RegistrationForm } from "../../validation/types";
+import InputField from "../forms/InputField";
 
 const Register = () => {
   const dispatch = useDispatch();
 
-  const submitRegistration = (values: UserForm): void => {
+  const submitRegistration = (values: RegistrationForm): void => {
     const user = { ...values };
     delete user.confirmPassword;
     dispatch(userActions.register(user));
@@ -24,7 +24,7 @@ const Register = () => {
         password: "",
         confirmPassword: "",
       }}
-      validationSchema={userFormSchema}
+      validationSchema={registrationFormSchema}
       onSubmit={(values) => submitRegistration(values)}
     >
       {() => (
@@ -43,25 +43,34 @@ const Register = () => {
                         <div className="card-title text-center">
                           Register your Account
                         </div>
-                        <TextField
+                        <InputField
                           label="First Name"
                           name="firstName"
+                          placeholder="Enter first name"
                           type="text"
                         />
-                        <TextField
+                        <InputField
                           label="Last Name"
                           name="lastName"
+                          placeholder="Enter last name"
                           type="text"
                         />
-                        <TextField label="Email" name="email" type="email" />
-                        <TextField
+                        <InputField
+                          label="Email"
+                          name="email"
+                          placeholder="Enter email"
+                          type="email"
+                        />
+                        <InputField
                           label="Password"
                           name="password"
+                          placeholder="Enter password"
                           type="password"
                         />
-                        <TextField
+                        <InputField
                           label="Confirm Password"
                           name="confirmPassword"
+                          placeholder="Enter Password"
                           type="password"
                         />
                         <div className="form-footer">

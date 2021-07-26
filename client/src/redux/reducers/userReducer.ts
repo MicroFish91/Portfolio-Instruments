@@ -17,7 +17,7 @@ const INITIAL_STATE = {
 
 const userReducer = (state = INITIAL_STATE, action: action) => {
   switch (action.type) {
-    case USER_TYPES.REGISTER:
+    case USER_TYPES.LOGIN || USER_TYPES.REGISTER:
       return {
         ...state,
         isLoading: true,
@@ -34,6 +34,29 @@ const userReducer = (state = INITIAL_STATE, action: action) => {
         isLoading: false,
       };
     case USER_TYPES.REGISTER_FAIL:
+      return {
+        ...state,
+        currentUser: {
+          email: "",
+          firstName: "",
+          lastName: "",
+        },
+        jwtToken: "",
+        error: action.payload,
+        isLoading: false,
+      };
+    case USER_TYPES.LOGIN_SUCCESS:
+      return {
+        ...state,
+        currentUser: action.payload.currentUser,
+        jwtToken: action.payload.jwtToken,
+        error: {
+          status: "",
+          message: "",
+        },
+        isLoading: false,
+      };
+    case USER_TYPES.LOGIN_FAIL:
       return {
         ...state,
         currentUser: {

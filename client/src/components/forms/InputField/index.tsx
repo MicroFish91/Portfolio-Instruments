@@ -4,6 +4,7 @@ interface TextFieldProps {
   label: string;
   name: string;
   type: string;
+  placeholder: string;
 }
 
 const TextField: React.FC<TextFieldProps> = ({ label, ...props }) => {
