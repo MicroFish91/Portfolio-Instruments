@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 // import { PURGE } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import App from "./App";
-import { persistor, store } from "./redux/createStore";
+import { persistor, store } from "./redux/configureStore";
 
 // store.dispatch({
 //   type: PURGE,

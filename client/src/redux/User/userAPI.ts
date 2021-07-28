@@ -1,14 +1,18 @@
 import axios from "axios";
-import { API_ROUTES } from "../constants";
-import { user, userFetchedData, userLogin, userRegistration } from "../types";
+import { LoginForm, RegistrationForm } from "../../validation/types";
+import { API_ROUTES } from "./userConstants";
+import { CurrentUser, userFetchedData } from "./userTypes";
 
-export async function login(
-  userData: userLogin
+export async function userLoginAPI(
+  userData: LoginForm
 ): Promise<
-  userFetchedData<({ jwtToken: string } & { currentUser: user }) | null, any>
+  userFetchedData<
+    ({ jwtToken: string } & { currentUser: CurrentUser }) | null,
+    any
+  >
 > {
   try {
-    const tokenResponse: { data: { token: string; currentUser: user } } =
+    const tokenResponse: { data: { token: string; currentUser: CurrentUser } } =
       await axios.post(API_ROUTES.LOGIN, userData);
     return {
       data: {
@@ -28,10 +32,13 @@ export async function login(
   }
 }
 
-export async function post(
-  userData: userRegistration
+export async function userRegistrationAPI(
+  userData: RegistrationForm
 ): Promise<
-  userFetchedData<({ jwtToken: string } & { currentUser: user }) | null, any>
+  userFetchedData<
+    ({ jwtToken: string } & { currentUser: CurrentUser }) | null,
+    any
+  >
 > {
   try {
     const tokenResponse: { data: { token: string } } = await axios.post(

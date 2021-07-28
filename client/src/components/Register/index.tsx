@@ -1,7 +1,7 @@
 import { Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { userActions } from "../../redux/actions";
+import { userRegisterAction } from "../../redux/User/userSlice";
 import { registrationFormSchema } from "../../validation";
 import { RegistrationForm } from "../../validation/types";
 import InputField from "../forms/InputField";
@@ -12,7 +12,7 @@ const Register = () => {
   const submitRegistration = (values: RegistrationForm): void => {
     const user = { ...values };
     delete user.confirmPassword;
-    dispatch(userActions.register(user));
+    dispatch(userRegisterAction(user));
   };
 
   return (

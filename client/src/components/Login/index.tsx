@@ -1,7 +1,7 @@
 import { Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { userActions } from "../../redux/actions";
+import { userLoginAction } from "../../redux/User/userSlice";
 import { loginFormSchema } from "../../validation";
 import { LoginForm } from "../../validation/types";
 import InputField from "../forms/InputField";
@@ -10,7 +10,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const submitLogin = (values: LoginForm) => {
-    dispatch(userActions.login(values));
+    dispatch(userLoginAction(values));
   };
 
   return (

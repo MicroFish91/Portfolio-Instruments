@@ -1,5 +1,5 @@
 import * as Effects from "redux-saga/effects";
-import userSagas from "../sagas/user";
+import userSagas from "./User/userSagas";
 
 const call: any = Effects.call;
 
