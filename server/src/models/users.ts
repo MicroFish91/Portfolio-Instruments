@@ -1,7 +1,7 @@
 ("use strict");
 import { Model, Optional, Sequelize } from "sequelize";
 
-interface UserAttributes {
+export interface UserAttributes {
   id: number;
   email: string;
   password: string;
@@ -37,7 +37,7 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
         primaryKey: true,
       },
       email: {
-        type: DataTypes.STRING(30),
+        type: DataTypes.STRING(45),
         unique: true,
         allowNull: false,
       },
