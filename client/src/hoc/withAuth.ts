@@ -1,7 +1,10 @@
 import { useAuth } from "../customHooks";
 
-type WithAuthProps = any;
+interface WithAuthProps {
+  children?: any;
+}
 
-const WithAuth = (props: WithAuthProps) => useAuth() && props.children;
+const WithAuth: React.FC<WithAuthProps> = (props) =>
+  useAuth() && props.children;
 
 export default WithAuth;

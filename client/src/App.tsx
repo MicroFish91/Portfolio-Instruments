@@ -4,6 +4,7 @@ import "./App.css";
 import Dashboard from "./components/Dashboard";
 import DashboardFallback from "./components/ErrorFallbacks/DashboardFallback";
 import WithAuth from "./hoc/withAuth";
+import DashboardLayout from "./layouts/DashboardLayout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
@@ -21,12 +22,14 @@ const App = () => {
           path="/dashboard"
           render={() => (
             <WithAuth>
-              <ErrorBoundary
-                FallbackComponent={DashboardFallback}
-                onError={errorHandler}
-              >
-                <Dashboard />
-              </ErrorBoundary>
+              <DashboardLayout>
+                <ErrorBoundary
+                  FallbackComponent={DashboardFallback}
+                  onError={errorHandler}
+                >
+                  <Dashboard />
+                </ErrorBoundary>
+              </DashboardLayout>
             </WithAuth>
           )}
         />
