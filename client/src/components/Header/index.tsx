@@ -1,6 +1,19 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { selectUserFullName } from "../../redux/User/userSelectors";
+import { clearUserAction } from "../../redux/User/userSlice";
 
 const Header: React.FC = () => {
+  const userFullName = useSelector(selectUserFullName);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleLogout = () => {
+    dispatch(clearUserAction());
+    history.push("/login");
+  };
+
   return (
     <div>
       <header className="app-header header">
@@ -10,7 +23,7 @@ const Header: React.FC = () => {
         {/* <!-- Navbar Top --> */}
         <div className="container-fluid">
           <div className="d-flex">
-            <a className="header-brand" href="index.html">
+            <a className="header-brand">
               <img
                 alt="ren logo"
                 className="header-brand-img"
@@ -58,9 +71,14 @@ const Header: React.FC = () => {
                   data-toggle="dropdown"
                   href=""
                 >
-                  <span className="avatar avatar-md brround"></span>
+                  <img
+                    className="avatar avatar-md brround"
+                    src="/assets/images/profile.jpg"
+                    alt="profile_image"
+                  />
+
                   <span className="ml-2 d-none d-lg-block">
-                    <span className="text-white">Matthew Fisher</span>
+                    <span className="text-white">{userFullName}</span>
                   </span>
                 </a>
                 <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
@@ -73,7 +91,7 @@ const Header: React.FC = () => {
                     <i className="dropdown-icon mdi mdi-compass-outline"></i>
                     Getting Started
                   </a>
-                  <a className="dropdown-item" href="login.html">
+                  <a className="dropdown-item" href="#" onClick={handleLogout}>
                     <i className="dropdown-icon mdi mdi-logout-variant"></i>{" "}
                     Sign out
                   </a>

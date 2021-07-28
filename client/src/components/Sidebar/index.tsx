@@ -1,10 +1,26 @@
 import $ from "jquery";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import {
+  selectUserEmail,
+  selectUserFullName,
+} from "../../redux/User/userSelectors";
+import { clearUserAction } from "../../redux/User/userSlice";
 
 interface SidebarProps {}
 
 const Sidebar: React.FC<SidebarProps> = () => {
+  const userEmail = useSelector(selectUserEmail);
+  const userFullName = useSelector(selectUserFullName);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleLogout = () => {
+    dispatch(clearUserAction());
+    history.push("/login");
+  };
+
   useEffect(() => {
     const slideMenu = $(".side-menu");
 
@@ -49,14 +65,18 @@ const Sidebar: React.FC<SidebarProps> = () => {
               data-toggle="dropdown"
               href=""
             >
-              <span className="avatar avatar-md brround"></span>
+              <img
+                className="avatar avatar-md brround"
+                src="/assets/images/profile.jpg"
+                alt="profile_image"
+              />
               <span className="ml-2 ">
                 <span className="text-white app-sidebar__user-name font-weight-semibold">
-                  Matthew Fisher
+                  {userFullName}
                 </span>
                 <br></br>
                 <span className="text-muted app-sidebar__user-name text-sm">
-                  mwfisher91@gmail.com
+                  {userEmail}
                 </span>
               </span>
             </a>
@@ -70,7 +90,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
                 <i className="dropdown-icon mdi mdi-compass-outline"></i>Getting
                 Started
               </a>
-              <a className="dropdown-item" href="login.html">
+              <a className="dropdown-item" href="#" onClick={handleLogout}>
                 <i className="dropdown-icon mdi mdi-logout-variant"></i> Sign
                 out
               </a>
