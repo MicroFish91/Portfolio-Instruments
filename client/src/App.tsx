@@ -1,16 +1,10 @@
-import { ErrorBoundary } from "react-error-boundary";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
 import DashboardFallback from "./components/ErrorFallbacks/DashboardFallback";
-import WithAuth from "./hoc/withAuth";
-import DashboardLayout from "./layouts/DashboardLayout";
+import ContentWrapper from "./hoc/contentWrapper";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-
-const errorHandler = (error: Error, errorInfo: { componentStack: string }) => {
-  console.log("Logging", error, errorInfo);
-};
 
 const App = () => {
   return (
@@ -21,16 +15,9 @@ const App = () => {
         <Route
           path="/dashboard"
           render={() => (
-            <WithAuth>
-              <DashboardLayout>
-                <ErrorBoundary
-                  FallbackComponent={DashboardFallback}
-                  onError={errorHandler}
-                >
-                  <Dashboard />
-                </ErrorBoundary>
-              </DashboardLayout>
-            </WithAuth>
+            <ContentWrapper fallback={DashboardFallback}>
+              <Dashboard />
+            </ContentWrapper>
           )}
         />
       </Switch>
