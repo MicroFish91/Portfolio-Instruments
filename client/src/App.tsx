@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
 import DashboardFallback from "./components/ErrorFallbacks/DashboardFallback";
+import WithAuth from "./hoc/withAuth";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
@@ -19,12 +20,14 @@ const App = () => {
         <Route
           path="/dashboard"
           render={() => (
-            <ErrorBoundary
-              FallbackComponent={DashboardFallback}
-              onError={errorHandler}
-            >
-              <Dashboard />
-            </ErrorBoundary>
+            <WithAuth>
+              <ErrorBoundary
+                FallbackComponent={DashboardFallback}
+                onError={errorHandler}
+              >
+                <Dashboard />
+              </ErrorBoundary>
+            </WithAuth>
           )}
         />
       </Switch>

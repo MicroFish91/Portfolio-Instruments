@@ -1,10 +1,12 @@
 import { Form, Formik } from "formik";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import {
   selectUserErrorMessage,
   selectUserLoading,
+  selectUserToken,
 } from "../../redux/User/userSelectors";
 import {
   clearUserAction,
@@ -17,8 +19,15 @@ import InputField from "../forms/InputField";
 const Register = () => {
   const errorMessage = useSelector(selectUserErrorMessage);
   const isLoading = useSelector(selectUserLoading);
+  const userToken = useSelector(selectUserToken);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  useEffect(() => {
+    if (userToken) {
+      history.push("/dashboard");
+    }
+  }, [userToken]);
 
   const navigateLogin = () => {
     dispatch(clearUserAction());
