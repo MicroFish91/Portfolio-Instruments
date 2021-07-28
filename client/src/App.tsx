@@ -2,7 +2,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
-import Fallback from "./components/Fallback";
+import DashboardFallback from "./components/ErrorFallbacks/DashboardFallback";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
@@ -19,7 +19,10 @@ const App = () => {
         <Route
           path="/dashboard"
           render={() => (
-            <ErrorBoundary FallbackComponent={Fallback} onError={errorHandler}>
+            <ErrorBoundary
+              FallbackComponent={DashboardFallback}
+              onError={errorHandler}
+            >
               <Dashboard />
             </ErrorBoundary>
           )}
