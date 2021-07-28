@@ -1,3 +1,4 @@
+import cors from "cors";
 import debug from "debug";
 import express from "express";
 import helmet from "helmet";
@@ -16,6 +17,13 @@ if (app.get("env") === "development") {
   app.use(morgan("tiny"));
   debug("Morgan enabled...");
 }
+
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 
 //Body Parser
 app.use(express.json());

@@ -9,17 +9,16 @@ export default function () {
     new LocalStrategy(
       { usernameField: "email" },
       async (email, password, done) => {
-        console.log("made it");
         try {
           const records = await db.Users.findAll({ where: { email } });
-          if (records !== null) {
+          if (records.length) {
             bcrypt.compare(password, records[0].password, (err, isMatch) => {
               if (err) {
                 return done(err);
               } else if (!isMatch) {
                 return done(null, false);
               } else {
-                return done(null, records[0]);
+                return done(null, records[0].dataValues);
               }
             });
           } else {
