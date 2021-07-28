@@ -11,7 +11,7 @@ export default function () {
       async (email, password, done) => {
         try {
           const records = await db.Users.findAll({ where: { email } });
-          if (records !== null) {
+          if (records.length) {
             bcrypt.compare(password, records[0].password, (err, isMatch) => {
               if (err) {
                 return done(err);

@@ -17,6 +17,7 @@ const INITIAL_STATE = {
 };
 
 /*
+ * No Saga: clearUser
  * SAGA Watchers: login, register
  * SAGA Workers: loginFail, loginSuccess, registerFail, registerSuccess
  */
@@ -24,6 +25,19 @@ const userSlice = createSlice({
   name: "user",
   initialState: INITIAL_STATE,
   reducers: {
+    clearUser: (state) => {
+      state.currentUser = {
+        email: "",
+        firstName: "",
+        lastName: "",
+      };
+      state.jwtToken = "";
+      state.error = {
+        status: "",
+        message: "",
+      };
+      state.isLoading = false;
+    },
     login: (state, _action: PayloadAction<LoginForm>) => {
       state.isLoading = true;
     },
@@ -84,6 +98,7 @@ const userSlice = createSlice({
 });
 
 export const {
+  clearUser: clearUserAction,
   login: userLoginAction,
   loginSuccess: userLoginSuccessAction,
   loginFail: userLoginFailAction,

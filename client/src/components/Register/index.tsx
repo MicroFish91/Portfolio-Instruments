@@ -1,23 +1,29 @@
 import { Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import {
   selectUserErrorMessage,
-  selectUserErrorStatus,
   selectUserLoading,
 } from "../../redux/User/userSelectors";
-import { userRegisterAction } from "../../redux/User/userSlice";
+import {
+  clearUserAction,
+  userRegisterAction,
+} from "../../redux/User/userSlice";
 import { registrationFormSchema } from "../../validation";
 import { RegistrationForm } from "../../validation/types";
 import InputField from "../forms/InputField";
 
 const Register = () => {
   const errorMessage = useSelector(selectUserErrorMessage);
-  const errorStatus = useSelector(selectUserErrorStatus);
   const isLoading = useSelector(selectUserLoading);
-
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const navigateLogin = () => {
+    dispatch(clearUserAction());
+    history.push("/login");
+  };
 
   const submitRegistration = (values: RegistrationForm): void => {
     const user = { ...values };
@@ -90,7 +96,7 @@ const Register = () => {
                             placeholder="Enter Password"
                             type="password"
                           />
-                          {errorMessage || errorStatus ? (
+                          {errorMessage ? (
                             <div>
                               <span className="form-error-major">{`${errorMessage}`}</span>
                             </div>
@@ -111,7 +117,9 @@ const Register = () => {
                           </div>
                           <div className="text-center text-muted mt-3">
                             Already have an account?{" "}
-                            <Link to="/login">Login Here</Link>
+                            <a href="#" onClick={navigateLogin}>
+                              Login Here
+                            </a>
                           </div>
                         </div>
                       </Form>
