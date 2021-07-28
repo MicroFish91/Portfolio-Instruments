@@ -1,13 +1,25 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../rootReducer";
 
+export const selectUserEmail = (state: RootState) =>
+  state.user.currentUser.email;
+export const selectUserFirstName = (state: RootState) =>
+  state.user.currentUser.firstName;
+export const selectUserLastName = (state: RootState) =>
+  state.user.currentUser.lastName;
+export const selectCurrentUser = (state: RootState) => state.user.currentUser;
+export const selectUserToken = (state: RootState) => state.user.jwtToken;
 export const selectUserErrorStatus = (state: RootState) =>
   state.user.error.status;
 export const selectUserErrorMessage = (state: RootState) =>
   state.user.error.message;
-export const selectCurrentUser = (state: RootState) => state.user.currentUser;
-export const selectUserToken = (state: RootState) => state.user.jwtToken;
 export const selectUserLoading = (state: RootState) => state.user.isLoading;
+
+export const selectUserFullName = createSelector(
+  selectUserFirstName,
+  selectUserLastName,
+  (firstName, lastName) => `${firstName} ${lastName}`
+);
 
 export const selectCustomUserErrorMessage = createSelector(
   selectUserErrorStatus,
