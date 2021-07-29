@@ -1,19 +1,20 @@
 import axios from "axios";
 import { LoginForm, RegistrationForm } from "../../validation/types";
-import { API_ROUTES } from "./userConstants";
-import { CurrentUser, userFetchedData } from "./userTypes";
+import { USER_ENDPOINT } from "./constants";
+import {
+  IncomingUserFetchStandardized,
+  IncomingUserLoginFetchRaw,
+  IncomingUserRegistrationFetchRaw,
+} from "./types";
 
-export async function userLoginAPI(
+export async function userLoginApi(
   userData: LoginForm
-): Promise<
-  userFetchedData<
-    ({ jwtToken: string } & { currentUser: CurrentUser }) | null,
-    any
-  >
-> {
+): Promise<IncomingUserFetchStandardized> {
   try {
-    const tokenResponse: { data: { token: string; currentUser: CurrentUser } } =
-      await axios.post(API_ROUTES.LOGIN, userData);
+    const tokenResponse: IncomingUserLoginFetchRaw = await axios.post(
+      USER_ENDPOINT.LOGIN,
+      userData
+    );
     return {
       data: {
         currentUser: tokenResponse.data.currentUser,
@@ -32,17 +33,12 @@ export async function userLoginAPI(
   }
 }
 
-export async function userRegistrationAPI(
+export async function userRegistrationApi(
   userData: RegistrationForm
-): Promise<
-  userFetchedData<
-    ({ jwtToken: string } & { currentUser: CurrentUser }) | null,
-    any
-  >
-> {
+): Promise<IncomingUserFetchStandardized> {
   try {
-    const tokenResponse: { data: { token: string } } = await axios.post(
-      API_ROUTES.REGISTER,
+    const tokenResponse: IncomingUserRegistrationFetchRaw = await axios.post(
+      USER_ENDPOINT.REGISTER,
       userData
     );
     return {

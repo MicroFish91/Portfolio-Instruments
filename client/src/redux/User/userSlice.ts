@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LoginForm, RegistrationForm } from "../../validation/types";
-import { CurrentUser, UserError } from "./userTypes";
+import { CurrentUser, UserError } from "./types";
 
 const INITIAL_STATE = {
   currentUser: {
