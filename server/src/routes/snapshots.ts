@@ -16,21 +16,28 @@ const router = express.Router();
  *          Holdings: [{}]
  *    }]
  * }
+ * returns null if no snapshots exist
  */
 router.get("/latest", requireJwt, async (req, res) => {
   const { id } = req.user as User;
-  const snapshot = await db.Snapshots.findOne({
-    where: { userId: id },
-    include: {
-      model: db.Accounts,
+  try {
+    const snapshot = await db.Snapshots.findOne({
+      where: { userId: id },
       include: {
-        model: db.Holdings,
+        model: db.Accounts,
+        include: {
+          model: db.Holdings,
+        },
       },
-    },
-    order: [["specifiedDate", "DESC"]],
-    limit: 1,
-  });
-  res.json(snapshot);
+      order: [["specifiedDate", "DESC"]],
+      limit: 1,
+    });
+    res.json(snapshot);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Internal server error - could not process request." });
+  }
 });
 
 /*
@@ -39,6 +46,7 @@ router.get("/latest", requireJwt, async (req, res) => {
  * minus the number of input years as json.  Does not include accounts/holdings info.
  *
  * Snapshots = [ {}, {}, {} ] where {} = snapshot
+ * returns null if no snapshots exist
  */
 router.get("/range/:years", requireJwt, async (req, res) => {
   const { id } = req.user as User;
@@ -47,15 +55,21 @@ router.get("/range/:years", requireJwt, async (req, res) => {
 
   startDate.setMonth(new Date().getMonth() - parseInt(years) * 12);
 
-  const snapshots = await db.Snapshots.findAll({
-    where: {
-      userId: id,
-      specifiedDate: { [Op.gte]: startDate },
-    },
-    order: [["specifiedDate", "DESC"]],
-  });
+  try {
+    const snapshots = await db.Snapshots.findAll({
+      where: {
+        userId: id,
+        specifiedDate: { [Op.gte]: startDate },
+      },
+      order: [["specifiedDate", "DESC"]],
+    });
 
-  res.json(snapshots);
+    res.json(snapshots);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Internal server error - could not process request." });
+  }
 });
 
 export default router;

@@ -43,7 +43,9 @@ router.post("/register", async (req, res) => {
       return res.status(422).json({ message: "Email already exists." });
     }
   } catch (err) {
-    return res.status(423).json({ message: "Can't access database." });
+    return res
+      .status(500)
+      .json({ message: "Internal server error - could not process request." });
   }
 });
 

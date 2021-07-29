@@ -24,7 +24,7 @@ state.benchmark = {
   error: {},
 };
 
-// Only update on user initialization and when certain amount of time has collapsed OR new snapshot has been added
+// Only update on user initialization and when new snapshot has been added
 state.dashboard = {
   totals: {
     traditional: "Sum",
@@ -56,7 +56,6 @@ state.dashboard = {
     isLoading: true || false,
     error: {},
   },
-  dateOfLastQuery:
 };
 
 state.snapshots = {
