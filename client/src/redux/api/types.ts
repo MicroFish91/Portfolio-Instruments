@@ -1,4 +1,4 @@
-import { CurrentUser } from "../../User/types";
+import { CurrentUser } from "../User/types";
 
 // * API Incoming - General Std. Format
 export type FetchedData<TData, TError> = {
@@ -31,11 +31,15 @@ export type IncomingUserFetchStandardized = FetchedData<
 // ! Snapshots
 // * Incoming
 export type IncomingSnapshotFetchRaw = {
+  data: IncomingSnapshotRaw;
+};
+
+export type IncomingSnapshotsFetchRaw = {
   data: IncomingSnapshotRaw[];
 };
 
 export type IncomingSnapshotsFetchStandardized = FetchedData<
-  IncomingSnapshotFetchRaw | null,
+  IncomingSnapshotFetchRaw | IncomingSnapshotsFetchRaw | null,
   GenericError | null
 >;
 

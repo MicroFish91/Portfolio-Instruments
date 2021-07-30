@@ -1,8 +1,8 @@
 import { SnapshotsReducerSuccess } from "../../../Snapshots/types";
-import { IncomingSnapshotFetchRaw } from "../../endpoints/types";
+import { IncomingSnapshotsFetchRaw } from "../../types";
 
 export const toClient = (
-  serverSnapshots: IncomingSnapshotFetchRaw
+  serverSnapshots: IncomingSnapshotsFetchRaw
 ): SnapshotsReducerSuccess => {
   const reducerData: SnapshotsReducerSuccess = {
     byId: {},

@@ -1,4 +1,4 @@
-import { GenericError } from "../api/endpoints/types";
+import { GenericError } from "../api/types";
 
 // Reducer State
 export interface CurrentUser {

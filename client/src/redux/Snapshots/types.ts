@@ -1,4 +1,4 @@
-import { GenericError } from "../api/endpoints/types";
+import { GenericError } from "../api/types";
 
 export type SnapshotsReducerState = SnapshotsReducerSuccess & {
   error: SnapshotsError;

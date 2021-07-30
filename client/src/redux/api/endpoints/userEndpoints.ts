@@ -1,11 +1,11 @@
 import axios from "axios";
 import { LoginForm, RegistrationForm } from "../../../validation/types";
-import { USER_ENDPOINT } from "./constants";
 import {
   IncomingUserFetchStandardized,
   IncomingUserLoginFetchRaw,
   IncomingUserRegistrationFetchRaw,
-} from "./types";
+} from "../types";
+import { USER_ENDPOINT } from "./constants";
 
 export async function userLoginEndpoint(
   userData: LoginForm
