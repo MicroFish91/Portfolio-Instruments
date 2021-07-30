@@ -1,13 +1,13 @@
 import axios from "axios";
-import { LoginForm, RegistrationForm } from "../../validation/types";
-import { USER_ENDPOINT } from "./constants";
+import { LoginForm, RegistrationForm } from "../../../validation/types";
 import {
   IncomingUserFetchStandardized,
   IncomingUserLoginFetchRaw,
   IncomingUserRegistrationFetchRaw,
-} from "./types";
+} from "../types";
+import { USER_ENDPOINT } from "./constants";
 
-export async function userLoginApi(
+export async function userLoginEndpoint(
   userData: LoginForm
 ): Promise<IncomingUserFetchStandardized> {
   try {
@@ -33,7 +33,7 @@ export async function userLoginApi(
   }
 }
 
-export async function userRegistrationApi(
+export async function userRegistrationEndpoint(
   userData: RegistrationForm
 ): Promise<IncomingUserFetchStandardized> {
   try {

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LoginForm, RegistrationForm } from "../../validation/types";
 import { CurrentUser, UserError } from "./types";
+import { removeToken, storeToken } from "./userUtils";
 
 const INITIAL_STATE = {
   currentUser: {
@@ -37,6 +38,7 @@ const userSlice = createSlice({
         message: "",
       };
       state.isLoading = false;
+      removeToken();
     },
     login: (state, _action: PayloadAction<LoginForm>) => {
       state.isLoading = true;
@@ -52,6 +54,7 @@ const userSlice = createSlice({
         message: "",
       };
       state.isLoading = false;
+      storeToken(payload.jwtToken);
     },
     loginFail: (state, { payload }: PayloadAction<UserError>) => {
       state.currentUser = {
@@ -65,6 +68,7 @@ const userSlice = createSlice({
         message: payload?.message ? payload.message : "",
       };
       state.isLoading = false;
+      removeToken();
     },
     register: (state, _action: PayloadAction<RegistrationForm>) => {
       state.isLoading = true;
@@ -80,6 +84,7 @@ const userSlice = createSlice({
         message: "",
       };
       state.isLoading = false;
+      storeToken(payload.jwtToken);
     },
     registerFail: (state, { payload }: PayloadAction<UserError>) => {
       state.currentUser = {
@@ -93,6 +98,7 @@ const userSlice = createSlice({
         message: payload?.message ? payload.message : "",
       };
       state.isLoading = false;
+      removeToken();
     },
   },
 });
