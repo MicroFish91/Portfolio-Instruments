@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LoginForm, RegistrationForm } from "../../validation/types";
+import { LoginForm, RegistrationForm } from "../../../validation/types";
 import { USER_ENDPOINT } from "./constants";
 import {
   IncomingUserFetchStandardized,
@@ -7,7 +7,7 @@ import {
   IncomingUserRegistrationFetchRaw,
 } from "./types";
 
-export async function userLoginApi(
+export async function userLoginEndpoint(
   userData: LoginForm
 ): Promise<IncomingUserFetchStandardized> {
   try {
@@ -33,7 +33,7 @@ export async function userLoginApi(
   }
 }
 
-export async function userRegistrationApi(
+export async function userRegistrationEndpoint(
   userData: RegistrationForm
 ): Promise<IncomingUserFetchStandardized> {
   try {

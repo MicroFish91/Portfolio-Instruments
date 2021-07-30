@@ -1,3 +1,5 @@
+import { GenericError } from "../api/endpoints/types";
+
 // Reducer State
 export interface CurrentUser {
   email: string;
@@ -5,7 +7,4 @@ export interface CurrentUser {
   lastName: string;
 }
 
-export interface UserError {
-  status: string;
-  message: string;
-}
+export type UserError = GenericError;
