@@ -9,7 +9,7 @@ export const toClient = (
     allIds: [],
   };
 
-  serverSnapshot.data?.Accounts?.forEach((account) => {
+  serverSnapshot.data.Accounts?.forEach((account) => {
     reducedAccounts.byId[account.id] = {
       location: account.location,
       type: account.type,

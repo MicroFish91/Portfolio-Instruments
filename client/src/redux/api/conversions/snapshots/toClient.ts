@@ -4,19 +4,19 @@ import { IncomingSnapshotsFetchRaw } from "../../types";
 export const toClient = (
   serverSnapshots: IncomingSnapshotsFetchRaw
 ): SnapshotsReducerSuccess => {
-  const reducerData: SnapshotsReducerSuccess = {
+  const reducedSnapshots: SnapshotsReducerSuccess = {
     byId: {},
     allIds: [],
   };
 
   serverSnapshots.data.forEach((snapshot) => {
-    reducerData.byId[snapshot.id] = {
+    reducedSnapshots.byId[snapshot.id] = {
       title: snapshot.title,
       benchmark: snapshot.benchmark,
       notes: snapshot.notes,
       date: snapshot.specifiedDate,
     };
-    reducerData.allIds.push(snapshot.id.toString());
+    reducedSnapshots.allIds.push(snapshot.id.toString());
   });
-  return reducerData;
+  return reducedSnapshots;
 };

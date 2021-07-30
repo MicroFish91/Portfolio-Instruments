@@ -5,6 +5,7 @@ import {
   getLatestSnapshotEndpoint,
   getRecentSnapshotsEndpoint,
 } from "../api/endpoints/snapshotEndpoints";
+import { clearHoldings, setHoldings } from "../Holdings/holdingSaga";
 import {
   initSnapshotsAction,
   setSnapshotsFailAction,
@@ -25,9 +26,11 @@ function* getLatestSnapshot() {
   const { data, error } = yield getLatestSnapshotEndpoint();
   if (data) {
     yield call(setAccounts, data);
+    yield call(setHoldings, data);
   } else if (error) {
     yield Effects.put(setSnapshotsFailAction(error));
     yield Effects.call(clearAccounts);
+    yield Effects.call(clearHoldings);
   }
   return;
 }
@@ -40,6 +43,7 @@ function* getRecentSnapshots() {
   } else if (error) {
     yield Effects.put(setSnapshotsFailAction(error));
     yield Effects.call(clearAccounts);
+    yield Effects.call(clearHoldings);
   }
   return;
 }
