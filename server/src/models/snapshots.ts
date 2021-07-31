@@ -26,7 +26,7 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
     public userId!: number;
 
     static associate(models: any) {
-      Snapshots.belongsTo(models.Users, { foreignKey: "userId" });
+      // Snapshots.hasOne(models.Users, { foreignKey: "userId" });
       Snapshots.hasMany(models.Accounts, { foreignKey: "snapshotId" });
     }
   }

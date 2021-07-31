@@ -1,6 +1,9 @@
 import * as Effects from "redux-saga/effects";
 import { LoginForm, RegistrationForm } from "../../validation/types";
-import { userLoginAPI, userRegistrationAPI } from "./userAPI";
+import {
+  userLoginEndpoint,
+  userRegistrationEndpoint,
+} from "../api/endpoints/userEndpoints";
 import {
   userLoginAction,
   userLoginFailAction,
@@ -24,7 +27,7 @@ function* onRegisterUser() {
 
 // Workers
 function* loginUser({ payload }: { payload: LoginForm }) {
-  const { data, error } = yield userLoginAPI(payload);
+  const { data, error } = yield userLoginEndpoint(payload);
   if (data) {
     yield Effects.put(userLoginSuccessAction(data));
   } else if (error) {
@@ -34,7 +37,7 @@ function* loginUser({ payload }: { payload: LoginForm }) {
 }
 
 function* registerUser({ payload }: { payload: RegistrationForm }) {
-  const { data, error } = yield userRegistrationAPI(payload);
+  const { data, error } = yield userRegistrationEndpoint(payload);
   if (data) {
     yield Effects.put(userRegisterSuccessAction(data));
   } else if (error) {

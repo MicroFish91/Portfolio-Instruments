@@ -24,7 +24,7 @@ state.benchmark = {
   error: {},
 };
 
-// Only update on user initialization and when
+// Only update on user initialization and when new snapshot has been added
 state.dashboard = {
   totals: {
     traditional: "Sum",
