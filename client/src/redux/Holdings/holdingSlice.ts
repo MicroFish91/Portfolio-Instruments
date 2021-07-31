@@ -7,7 +7,7 @@ const INITIAL_STATE: HoldingsReducerState = {
 };
 
 const HoldingSlice = createSlice({
-  name: "accounts",
+  name: "holdings",
   initialState: INITIAL_STATE,
   reducers: {
     setHoldings: (state, { payload }: PayloadAction<HoldingsReducerState>) => {

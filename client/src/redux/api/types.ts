@@ -78,8 +78,8 @@ export type IncomingHoldingRaw = {
   title: string;
   ticker: string;
   category: string;
-  total: number;
-  expenseRatio: number;
+  total: string;
+  expenseRatio: string;
   accountId: number;
   createdAt: Date;
   updatedAt: Date;

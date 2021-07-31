@@ -1,8 +1,8 @@
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
-import Dashboard from "./components/Dashboard";
 import DashboardFallback from "./components/ErrorFallbacks/DashboardFallback";
 import ContentWrapper from "./hoc/contentWrapper";
+import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
@@ -15,7 +15,11 @@ const App = () => {
         <Route
           path="/dashboard"
           render={() => (
-            <ContentWrapper fallback={DashboardFallback}>
+            <ContentWrapper
+              fallback={DashboardFallback}
+              majorTitle={"Dashboard View"}
+              minorTitle={"Home"}
+            >
               <Dashboard />
             </ContentWrapper>
           )}
