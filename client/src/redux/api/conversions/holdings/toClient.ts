@@ -15,8 +15,8 @@ export const toClient = (
         title: holding.title,
         ticker: holding.ticker,
         category: holding.category,
-        total: holding.total,
-        expenseRatio: holding.expenseRatio,
+        total: parseFloat(holding.total),
+        expenseRatio: parseFloat(holding.expenseRatio),
         accountId: holding.accountId,
       };
       reducedHoldings.allIds.push(holding.id.toString());
