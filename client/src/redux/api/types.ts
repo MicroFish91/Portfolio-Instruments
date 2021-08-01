@@ -35,7 +35,7 @@ export type IncomingSnapshotFetchRaw = {
 };
 
 export type IncomingSnapshotsFetchRaw = {
-  data: IncomingSnapshotRaw[];
+  data: IncomingSnapshotsRaw[];
 };
 
 export type IncomingSnapshotsFetchStandardized = FetchedData<
@@ -49,6 +49,18 @@ export type IncomingSnapshotRaw = {
   benchmark: string;
   notes: string;
   Accounts?: IncomingAccountRaw[];
+  userId: number;
+  specifiedDate: Date;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type IncomingSnapshotsRaw = {
+  id: number;
+  title: string;
+  benchmark: string;
+  notes: string;
+  total: number;
   userId: number;
   specifiedDate: Date;
   createdAt: Date;

@@ -21,9 +21,6 @@ const selectorFn: SelectorFn = {
   Roth: () => useSelector(selectTotalRoth),
   Taxable: () => useSelector(selectTotalTaxable),
   ["Net Worth"]: () => {
-    console.log(useSelector(selectTotalTraditional));
-    console.log(useSelector(selectTotalRoth));
-    console.log(useSelector(selectTotalTaxable));
     return (
       useSelector(selectTotalTraditional) +
       useSelector(selectTotalRoth) +
