@@ -29,3 +29,12 @@ export const createXAxisLabels = (): string[] => {
 
   return dateLabels;
 };
+
+export const createYearRange = (monthsBeforeNow = 0): string => {
+  const endDate = new Date();
+  const startDate = new Date();
+  endDate.setMonth(endDate.getMonth() - monthsBeforeNow);
+  startDate.setMonth(startDate.getMonth() - monthsBeforeNow - 24);
+
+  return `${startDate.getFullYear()} - ${endDate.getFullYear()}`;
+};

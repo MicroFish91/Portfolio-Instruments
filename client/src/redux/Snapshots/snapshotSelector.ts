@@ -1,8 +1,11 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../rootReducer";
-import { consolidateSnapshotsMonthlyById } from "./workers/consolidateSnapshots";
-import { convertIdsToTotals } from "./workers/convertIdsToTotals";
-import { createXAxisLabels } from "./workers/createXAxisLabels";
+import {
+  consolidateSnapshotsMonthlyById,
+  convertIdsToTotals,
+  createXAxisLabels,
+  createYearRange,
+} from "./workers";
 
 export const selectSnapshotsById = (state: RootState) => state.snapshots.byId;
 export const selectSnapshotsIdList = (state: RootState) =>
@@ -12,6 +15,8 @@ export const selectSnapshotLoading = (state: RootState) =>
   state.snapshots.isLoading;
 
 export const selectXAxisLabels = createXAxisLabels();
+export const selectYearRangeOne = createYearRange();
+export const selectYearRangeTwo = createYearRange(24);
 
 export const selectLineChartValuesRangeOne = createSelector(
   selectSnapshotsById,
