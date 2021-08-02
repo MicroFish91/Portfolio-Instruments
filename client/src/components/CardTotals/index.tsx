@@ -5,7 +5,7 @@ import {
   selectTotalTaxable,
   selectTotalTraditional,
 } from "../../redux/Holdings/holdingSelectors";
-import { convertToDollarString } from "../../utils/index";
+import { usdFormatter } from "../../utils/index";
 
 interface CardTotalsProps {
   accountType: string;
@@ -21,9 +21,6 @@ const selectorFn: SelectorFn = {
   Roth: () => useSelector(selectTotalRoth),
   Taxable: () => useSelector(selectTotalTaxable),
   ["Net Worth"]: () => {
-    console.log(useSelector(selectTotalTraditional));
-    console.log(useSelector(selectTotalRoth));
-    console.log(useSelector(selectTotalTaxable));
     return (
       useSelector(selectTotalTraditional) +
       useSelector(selectTotalRoth) +
@@ -33,7 +30,9 @@ const selectorFn: SelectorFn = {
 };
 
 const CardTotals: React.FC<CardTotalsProps> = ({ accountType, color }) => {
-  const total = convertToDollarString(selectorFn[accountType]());
+  const dollarFormatter = usdFormatter();
+  const total = selectorFn[accountType]();
+  const formattedTotal = dollarFormatter.format(total);
 
   return (
     <div className="col-sm-12 col-md-6 col-lg-3">
@@ -43,7 +42,7 @@ const CardTotals: React.FC<CardTotalsProps> = ({ accountType, color }) => {
           <div className="col">
             <div className="text-muted">{accountType}</div>
             <div className={`h3 m-0 text-${color} counter font-30`}>
-              <b>{total}</b>
+              <b>{formattedTotal}</b>
             </div>
           </div>
           <div className="col-auto align-self-center ">

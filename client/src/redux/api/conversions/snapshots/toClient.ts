@@ -15,6 +15,7 @@ export const toClient = (
       benchmark: snapshot.benchmark,
       notes: snapshot.notes,
       date: snapshot.specifiedDate,
+      total: snapshot.total,
     };
     reducedSnapshots.allIds.push(snapshot.id.toString());
   });
