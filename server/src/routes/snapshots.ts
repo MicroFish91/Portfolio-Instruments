@@ -1,8 +1,8 @@
 import express from "express";
+import { QueryTypes } from "sequelize";
 import { requireJwt } from "../auth";
 import db from "../models";
 import { UserAttributes as User } from "../models/users";
-const { Op } = require("sequelize");
 
 const router = express.Router();
 
@@ -56,13 +56,47 @@ router.get("/range/:years", requireJwt, async (req, res) => {
   startDate.setMonth(new Date().getMonth() - parseInt(years) * 12);
 
   try {
-    const snapshots = await db.Snapshots.findAll({
-      where: {
-        userId: id,
-        specifiedDate: { [Op.gte]: startDate },
-      },
-      order: [["specifiedDate", "DESC"]],
-    });
+    const snapshots = await db.sequelize.query(
+      `select
+        "Snapshots"."id",
+        "Snapshots"."title",
+        "Snapshots"."benchmark",
+        "Snapshots"."notes",
+        "Snapshots"."specifiedDate",
+        SUM("combined"."total") as "total"
+      from
+        "Snapshots"
+      inner join
+      (
+        select
+          "Accounts"."id",
+          "Accounts"."snapshotId",
+          SUM("Holdings"."total") as "total"
+        from
+          "Accounts"
+        inner join "Holdings" on
+          "Accounts"."id" = "Holdings"."accountId"
+        group by
+          "Accounts"."id",
+          "Accounts"."snapshotId"
+      ) as "combined" on
+        "Snapshots"."id" = "combined"."snapshotId"
+      where
+        "Snapshots"."userId" = :id and
+        "Snapshots"."specifiedDate" >= :date
+      group by
+        "Snapshots"."id",
+        "Snapshots"."title",
+        "Snapshots"."benchmark",
+        "Snapshots"."notes",
+        "Snapshots"."specifiedDate"
+      order by
+        "Snapshots"."specifiedDate" desc`,
+      {
+        replacements: { id, date: startDate.toISOString() },
+        type: QueryTypes.SELECT,
+      }
+    );
 
     res.json(snapshots);
   } catch (err) {

@@ -15,6 +15,7 @@ export type ReducedSnapshot = {
   benchmark: string;
   notes: string;
   date: Date;
+  total: number;
 };
 
 export type SnapshotsError = GenericError;

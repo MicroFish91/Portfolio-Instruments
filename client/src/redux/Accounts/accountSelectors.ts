@@ -4,6 +4,19 @@ import { RootState } from "../rootReducer";
 export const selectAccountsById = (state: RootState) => state.accounts.byId;
 export const selectAccountsIdList = (state: RootState) => state.accounts.allIds;
 
+// export const selectAccountsBySnapshotId = (snapshotId) => {
+//   return createSelector(
+//     selectAccountsById,
+//     selectAccountsIdList,
+//     (accountsById, accountsList) => {
+//       const accountIdList = [];
+//       accountsList.forEach(accountId => {
+//         if(accountsById[accountId].snapshotId === snapshotId)
+//       })
+//     }
+//   )
+// }
+
 export const selectTraditionalAccounts = createSelector(
   selectAccountsById,
   selectAccountsIdList,
