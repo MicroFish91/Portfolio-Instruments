@@ -29,7 +29,6 @@ export const HOLDING_CATEGORIES = [
   "reits",
 ];
 export const PORTFOLIO_BENCHMARKS = [
-  "Total Stock Market",
   "Classic 60/40",
   "Three-Fund Portfolio",
   "No-Brainer Portfolio",
@@ -39,7 +38,6 @@ export const PORTFOLIO_BENCHMARKS = [
   "Golden Butterfly",
 ];
 export const BENCHMARK_ASSET_BREAKDOWN = [
-  { tsm: 100 },
   {
     tsm: 60,
     itb: 40,

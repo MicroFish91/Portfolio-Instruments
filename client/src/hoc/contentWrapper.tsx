@@ -4,8 +4,10 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import WithAuth from "./withAuth";
 
 interface ContentWrapperProps {
+  majorTitle: string;
+  minorTitle: string;
   fallback: React.ComponentType<any>;
-  children?: any;
+  children?: React.ReactNode;
 }
 
 const errorHandler = (error: Error, errorInfo: { componentStack: string }) => {
@@ -15,7 +17,10 @@ const errorHandler = (error: Error, errorInfo: { componentStack: string }) => {
 const ContentWrapper: React.FC<ContentWrapperProps> = (props) => {
   return (
     <WithAuth>
-      <DashboardLayout>
+      <DashboardLayout
+        majorTitle={props.majorTitle}
+        minorTitle={props.minorTitle}
+      >
         <ErrorBoundary
           FallbackComponent={props.fallback}
           onError={errorHandler}

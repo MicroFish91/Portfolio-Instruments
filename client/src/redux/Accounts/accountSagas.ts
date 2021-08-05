@@ -1,7 +1,16 @@
 import * as Effects from "redux-saga/effects";
 import { accountsConverter } from "../api/conversions";
 import { IncomingSnapshotFetchRaw } from "../api/types";
+import { clearUserAction } from "../User/userSlice";
 import { clearAccountsAction, setAccountsAction } from "./accountSlice";
+
+const call: any = Effects.call;
+const takeLatest: any = Effects.takeLatest;
+
+// Watchers
+function* onLogoutUser() {
+  yield takeLatest(clearUserAction.type, clearAccounts);
+}
 
 // Workers - triggered by snapshotSagas
 export function* setAccounts(snapshot: IncomingSnapshotFetchRaw) {
@@ -13,4 +22,9 @@ export function* setAccounts(snapshot: IncomingSnapshotFetchRaw) {
 export function* clearAccounts() {
   yield Effects.put(clearAccountsAction());
   return;
+}
+
+// Export
+export default function* accountSagas() {
+  yield Effects.all([call(onLogoutUser)]);
 }

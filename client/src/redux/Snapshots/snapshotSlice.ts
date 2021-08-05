@@ -22,6 +22,15 @@ const snapshotSlice = createSlice({
     initSnapshots: (state) => {
       state.isLoading = true;
     },
+    clearSnapshots: (state) => {
+      state.byId = {};
+      state.allIds = [];
+      state.error = {
+        status: "",
+        message: "",
+      };
+      state.isLoading = false;
+    },
     setSnapshotsSuccess: (
       state,
       { payload }: PayloadAction<SnapshotsReducerSuccess>
@@ -48,6 +57,7 @@ const snapshotSlice = createSlice({
 
 export const {
   initSnapshots: initSnapshotsAction,
+  clearSnapshots: clearSnapshotsAction,
   setSnapshotsSuccess: setSnapshotsSuccessAction,
   setSnapshotsFail: setSnapshotsFailAction,
 } = snapshotSlice.actions;
