@@ -12,9 +12,9 @@ import {
 interface LinechartProps {}
 
 const Linechart: React.FC<LinechartProps> = ({}) => {
-  const xAxisLabels = selectXAxisLabels;
-  const yearRangeOne = selectYearRangeOne;
-  const yearRangeTwo = selectYearRangeTwo;
+  const xAxisLabels = useSelector(selectXAxisLabels);
+  const yearRangeOne = useSelector(selectYearRangeOne);
+  const yearRangeTwo = useSelector(selectYearRangeTwo);
   const monthlyDatasetOne = useSelector(selectLineChartValuesRangeOne);
   const monthlyDatasetTwo = useSelector(selectLineChartValuesRangeTwo);
 
