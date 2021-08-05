@@ -6,7 +6,9 @@ import {
   getRecentSnapshotsEndpoint,
 } from "../api/endpoints/snapshotEndpoints";
 import { clearHoldings, setHoldings } from "../Holdings/holdingSaga";
+import { clearUserAction } from "../User/userSlice";
 import {
+  clearSnapshotsAction,
   initSnapshotsAction,
   setSnapshotsFailAction,
   setSnapshotsSuccessAction,
@@ -21,6 +23,10 @@ function* onInitSnapshots() {
   yield takeLatest(initSnapshotsAction.type, getRecentSnapshots);
 }
 
+function* onLogoutUser() {
+  yield takeLatest(clearUserAction.type, logoutUser);
+}
+
 // Workers
 function* getLatestSnapshot() {
   const { data, error } = yield getLatestSnapshotEndpoint();
@@ -33,6 +39,10 @@ function* getLatestSnapshot() {
     yield Effects.call(clearHoldings);
   }
   return;
+}
+
+function* logoutUser() {
+  yield Effects.put(clearSnapshotsAction());
 }
 
 function* getRecentSnapshots() {
@@ -50,5 +60,5 @@ function* getRecentSnapshots() {
 
 // Export
 export default function* userSagas() {
-  yield Effects.all([call(onInitSnapshots)]);
+  yield Effects.all([call(onInitSnapshots), call(onLogoutUser)]);
 }
