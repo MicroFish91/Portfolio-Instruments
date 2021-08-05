@@ -16,6 +16,7 @@ export async function getLatestSnapshotEndpoint(): Promise<IncomingSnapshotsFetc
         },
       }
     );
+    console.log("getlatestsnapshot:", snapshotResponse);
     return {
       data: snapshotResponse,
       error: null,
@@ -41,6 +42,7 @@ export async function getRecentSnapshotsEndpoint(): Promise<IncomingSnapshotsFet
         },
       }
     );
+    console.log("getRecentSnapshots", snapshotResponse);
     return {
       data: snapshotResponse,
       error: null,

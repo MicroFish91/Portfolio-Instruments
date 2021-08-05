@@ -5,8 +5,8 @@ import helmet from "helmet";
 import morgan from "morgan";
 import passport from "passport";
 import { passportAuthInit } from "./auth";
-import { combineRouter } from "./routes";
 // import db from "./models";
+import { combineRouter } from "./routes";
 // import seedMigrator from "./seeders";
 
 const app = express();
@@ -39,7 +39,6 @@ combineRouter(app);
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-
 // db.sequelize.sync().then(() => {
 //   app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 // });

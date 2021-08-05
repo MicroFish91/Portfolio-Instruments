@@ -82,7 +82,7 @@ export function generateHoldings() {
           capitalization: "lowercase",
         }),
         category,
-        total: round(Math.random() * 7500, 2),
+        total: generateTotal(holdingsPerUser, holdingsIndex),
         expenseRatio: Math.floor(Math.random() * 30) / 100,
         accountId,
         createdAt: new Date(),
@@ -104,4 +104,23 @@ export function generateHoldings() {
   }
 
   return holdingSeedGenerator;
+}
+
+// Generates an increasingly larger net worth amount over time
+// Simulates an increasing net worth over time
+function generateTotal(holdingsPerUser: number, holdingNumber: number): number {
+  const holdingsPerSnapshot = holdingsPerUser / SNAPSHOTS_PER_USER;
+  const factor = Math.floor((holdingNumber + 1) / holdingsPerSnapshot) + 1;
+  let total = 0;
+
+  while (true) {
+    total = round(Math.random() * 7500 * factor, 2);
+
+    // Ensures demo data has more money saved than last the previous snapshot entry
+    if (total > round(7500 * (factor - 1), 2) && total > 1000) {
+      break;
+    }
+  }
+
+  return total;
 }
