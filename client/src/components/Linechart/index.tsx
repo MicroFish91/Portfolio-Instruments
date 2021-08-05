@@ -61,6 +61,8 @@ const Linechart: React.FC<LinechartProps> = ({}) => {
     },
   };
 
+  console.log(monthlyDatasetOne);
+
   return (
     <div>
       <div className="row">
@@ -74,7 +76,7 @@ const Linechart: React.FC<LinechartProps> = ({}) => {
               monthlyDatasetTwo !== undefined ? (
                 <Line data={data} options={options} height={100} />
               ) : (
-                <Line data={undefined} />
+                <Line data={undefined} height={100} />
               )}
             </div>
           </div>
