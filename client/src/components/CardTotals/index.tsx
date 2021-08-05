@@ -41,8 +41,8 @@ const CardTotals: React.FC<CardTotalsProps> = ({ accountType, color }) => {
         <div className="card-body row">
           <div className="col">
             <div className="text-muted">{accountType}</div>
-            <div className={`h3 m-0 text-${color} counter font-30`}>
-              <b>{formattedTotal}</b>
+            <div className={`h3 m-0 text-${color} counter font-24`}>
+              <b>{formattedTotal.slice(1)}</b>
             </div>
           </div>
           <div className="col-auto align-self-center ">

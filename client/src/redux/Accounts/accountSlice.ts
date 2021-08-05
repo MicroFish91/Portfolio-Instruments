@@ -10,13 +10,13 @@ const accountSlice = createSlice({
   name: "accounts",
   initialState: INITIAL_STATE,
   reducers: {
-    setAccounts: (state, { payload }: PayloadAction<AccountsReducerState>) => {
-      state.byId = payload.byId;
-      state.allIds = payload.allIds;
-    },
     clearAccounts: (state) => {
       state.byId = {};
       state.allIds = [];
+    },
+    setAccounts: (state, { payload }: PayloadAction<AccountsReducerState>) => {
+      state.byId = payload.byId;
+      state.allIds = payload.allIds;
     },
   },
 });
