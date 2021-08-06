@@ -61,8 +61,6 @@ const Linechart: React.FC<LinechartProps> = ({}) => {
     },
   };
 
-  console.log(monthlyDatasetOne);
-
   return (
     <div>
       <div className="row">

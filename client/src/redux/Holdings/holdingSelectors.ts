@@ -1,5 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import {
+  selectAccountsById,
+  selectAccountsIdList,
   selectRothAccounts,
   selectTaxableAccounts,
   selectTraditionalAccounts,
@@ -8,6 +10,52 @@ import { RootState } from "../rootReducer";
 
 export const selectHoldingsById = (state: RootState) => state.holdings.byId;
 export const selectHoldingsIdList = (state: RootState) => state.holdings.allIds;
+
+export const selectTotalsByInstitutions = createSelector(
+  selectHoldingsById,
+  selectHoldingsIdList,
+  selectAccountsById,
+  selectAccountsIdList,
+  (holdingsById, holdingsIdList, accountsById, accountsIdList) => {
+    const institutionTotals: { [accountName: string]: number } = {};
+    holdingsIdList.forEach((holdingId) => {
+      const holding = holdingsById[holdingId];
+      const holdingAccountId = holding.accountId.toString();
+      if (accountsIdList.includes(holdingAccountId)) {
+        const accountName = accountsById[holding.accountId].location;
+        if (institutionTotals[accountName]) {
+          institutionTotals[accountName] += holding.total;
+        } else {
+          institutionTotals[accountName] = holding.total;
+        }
+      }
+    });
+    return institutionTotals;
+  }
+);
+
+export const selectPercentageByInstitution = createSelector(
+  selectTotalsByInstitutions,
+  (institutionTotals) => {
+    const netWorth = Object.keys(institutionTotals).reduce(
+      (acc, accountName) => {
+        return acc + institutionTotals[accountName];
+      },
+      0
+    );
+    const newPercentages = Object.keys(institutionTotals).reduce(
+      (
+        acc: { [accountName: string]: number },
+        accountName: string
+      ): { [accountName: string]: number } => {
+        acc[accountName] = (institutionTotals[accountName] / netWorth) * 100;
+        return acc;
+      },
+      {}
+    );
+    return newPercentages;
+  }
+);
 
 export const selectTotalTraditional = createSelector(
   selectHoldingsById,
