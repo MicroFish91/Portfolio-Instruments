@@ -5,7 +5,7 @@ import {
   convertIdsToTotals,
   createXAxisLabels,
   createYearRange,
-} from "./workers";
+} from "./utils";
 
 export const selectSnapshotsById = (state: RootState) => state.snapshots.byId;
 export const selectSnapshotsIdList = (state: RootState) =>
