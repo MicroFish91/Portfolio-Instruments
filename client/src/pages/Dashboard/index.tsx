@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import CardInstitutions from "../../components/CardInstitutions";
+import CardTaxShelter from "../../components/CardTaxShelter";
 import CardTotals from "../../components/CardTotals";
 import Linechart from "../../components/Linechart";
 import { initSnapshotsAction } from "../../redux/Snapshots/snapshotSlice";
@@ -20,6 +22,10 @@ const Dashboard = () => {
         <CardTotals accountType={"Net Worth"} color={"blue"} />
       </div>
       <Linechart />
+      <div className="row">
+        <CardInstitutions />
+        <CardTaxShelter />
+      </div>
     </>
   );
 };
