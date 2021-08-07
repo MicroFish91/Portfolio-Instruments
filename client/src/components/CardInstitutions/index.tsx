@@ -1,13 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectPercentageByInstitution } from "../../redux/Holdings/holdingSelectors";
+import { selectPercentageByInstitutions } from "../../redux/Holdings/holdingSelectors";
 import Institution from "./Institution";
 
 interface CardInstitutionsProps {}
 
 const CardInstitutions: React.FC<CardInstitutionsProps> = () => {
-  const institutionAmounts = useSelector(selectPercentageByInstitution);
-  console.log(institutionAmounts);
+  const institutionAmounts = useSelector(selectPercentageByInstitutions);
 
   return (
     <div className="col-lg-6 col-md-12">

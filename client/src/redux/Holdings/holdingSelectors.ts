@@ -34,7 +34,7 @@ export const selectTotalsByInstitutions = createSelector(
   }
 );
 
-export const selectPercentageByInstitution = createSelector(
+export const selectPercentageByInstitutions = createSelector(
   selectTotalsByInstitutions,
   (institutionTotals) => {
     const netWorth = Object.keys(institutionTotals).reduce(
@@ -107,5 +107,20 @@ export const selectTotalTaxable = createSelector(
       }
     });
     return taxableTotal;
+  }
+);
+
+export const selectTaxShelterPercentages = createSelector(
+  selectTotalTraditional,
+  selectTotalRoth,
+  selectTotalTaxable,
+  (traditional, roth, taxable) => {
+    const netWorth = traditional + roth + taxable;
+    const taxShelterMap = {
+      traditional: (traditional / netWorth) * 100,
+      roth: (roth / netWorth) * 100,
+      taxable: (taxable / netWorth) * 100,
+    };
+    return taxShelterMap;
   }
 );
