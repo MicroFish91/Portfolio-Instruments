@@ -2,6 +2,7 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import DashboardFallback from "./components/ErrorFallbacks/DashboardFallback";
 import ContentWrapper from "./hoc/contentWrapper";
+import Benchmarks from "./pages/Benchmarks";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -21,6 +22,18 @@ const App = () => {
               minorTitle={"Home"}
             >
               <Dashboard />
+            </ContentWrapper>
+          )}
+        />
+        <Route
+          path="/benchmarks/:benchmarkIndex"
+          render={() => (
+            <ContentWrapper
+              fallback={DashboardFallback}
+              majorTitle={"Benchmark Portfolios"}
+              minorTitle={"General"}
+            >
+              <Benchmarks />
             </ContentWrapper>
           )}
         />
