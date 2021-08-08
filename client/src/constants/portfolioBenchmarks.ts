@@ -1,3 +1,5 @@
+import { ASSET_CODE } from "./";
+
 interface PortfolioBenchmarks {
   assetNames: string[];
   assetTitles: string[][];
@@ -10,6 +12,7 @@ interface PortfolioBenchmarks {
   assetLongestDraw: string[];
   linkTo: string[];
   colors: string[][];
+  externalUrl: string[];
 }
 
 const PORTFOLIO_BENCHMARKS: PortfolioBenchmarks = {} as PortfolioBenchmarks;
@@ -25,38 +28,24 @@ PORTFOLIO_BENCHMARKS.assetNames = [
 ];
 
 PORTFOLIO_BENCHMARKS.assetTitles = [
-  ["Total Stock Market (TSM)", "Intermediate Term Bonds (ITB)"],
+  [ASSET_CODE.TSM, ASSET_CODE.ITB],
+  [ASSET_CODE.DLCB, ASSET_CODE.ILCB, ASSET_CODE.ITB],
+  [ASSET_CODE.DLCB, ASSET_CODE.DSCB, ASSET_CODE.ILCB, ASSET_CODE.STB],
+  [ASSET_CODE.DLCB, ASSET_CODE.ILCB, ASSET_CODE.ITB, ASSET_CODE.REITS],
   [
-    "Domestic Large Cap Blend (DLCB)",
-    "International Large Cap Blend (ILCB)",
-    "Intermediate Term Bonds (ITB)",
+    ASSET_CODE.DLCB,
+    ASSET_CODE.ILCB,
+    ASSET_CODE.ITB,
+    ASSET_CODE.COMMODITIES,
+    ASSET_CODE.REITS,
   ],
+  [ASSET_CODE.DLCB, ASSET_CODE.LTB, ASSET_CODE.GOLD, ASSET_CODE.CASH],
   [
-    "Domestic Large Cap Blend (DLCB)",
-    "Domestic Small Cap Blend (DSCB)",
-    "International Large Cap Blend (ILCB)",
-    "Short Term Bonds (STB)",
-  ],
-  [
-    "Domestic Large Cap Blend (DLCB)",
-    "International Large Cap Blend (ILCB)",
-    "Intermediate Term Bonds (ITB)",
-    "Real Estate Investment Trusts (REITs)",
-  ],
-  [
-    "Domestic Large Cap Blend (DLCB)",
-    "International Large Cap Blend (ILCB)",
-    "Intermediate Term Bonds (ITB)",
-    "Commodities",
-    "Real Estate Investment Trusts (REITs)",
-  ],
-  ["Domestic Large Cap Blend (DLCB)", "Long Term Bond (LTB)", "Gold", "Cash"],
-  [
-    "Domestic Large Cap Blend (DLCB)",
-    "Domestic Small Cap Value (DSCV)",
-    "Long Term Bonds (LTB)",
-    "Short Term Bonds (STB)",
-    "Gold",
+    ASSET_CODE.DLCB,
+    ASSET_CODE.DSCV,
+    ASSET_CODE.LTB,
+    ASSET_CODE.STB,
+    ASSET_CODE.GOLD,
   ],
 ];
 
@@ -150,4 +139,14 @@ PORTFOLIO_BENCHMARKS.colors = [
   ["#f66d9b", "#8ecf4d", "#4ecc48", "#f999b9", "#5797fc"],
 ];
 
-export default PORTFOLIO_BENCHMARKS;
+PORTFOLIO_BENCHMARKS.externalUrl = [
+  "https://portfoliocharts.com/portfolio/classic-60-40/",
+  "https://portfoliocharts.com/portfolio/three-fund-portfolio/",
+  "https://portfoliocharts.com/portfolio/no-brainer-portfolio/",
+  "https://portfoliocharts.com/portfolio/rick-ferri-core-four/",
+  "https://portfoliocharts.com/portfolio/ivy-portfolio/",
+  "https://portfoliocharts.com/portfolio/permanent-portfolio/",
+  "https://portfoliocharts.com/portfolio/golden-butterfly/",
+];
+
+export { PORTFOLIO_BENCHMARKS };

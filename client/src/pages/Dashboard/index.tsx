@@ -4,6 +4,7 @@ import CardInstitutions from "../../components/CardInstitutions";
 import CardTaxShelter from "../../components/CardTaxShelter";
 import CardTotals from "../../components/CardTotals";
 import Linechart from "../../components/Linechart";
+import { initGetBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
 import { initSnapshotsAction } from "../../redux/Snapshots/snapshotSlice";
 
 const Dashboard = () => {
@@ -11,6 +12,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(initSnapshotsAction());
+    dispatch(initGetBenchmarkAction());
   }, []);
 
   return (

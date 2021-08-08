@@ -1,12 +1,18 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
-import PORTFOLIO_BENCHMARKS from "../../pages/Benchmarks/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { PORTFOLIO_BENCHMARKS } from "../../constants";
+import { selectBenchmarkTitle } from "../../redux/Benchmarks/benchmarkSelector";
+import { initPostBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
 
 interface BenchmarkProps {
   benchmarkIndex: number;
 }
 
 const Benchmark: React.FC<BenchmarkProps> = ({ benchmarkIndex }) => {
+  const benchmarkTitle = useSelector(selectBenchmarkTitle);
+  const dispatch = useDispatch();
+
   const data = {
     labels: PORTFOLIO_BENCHMARKS.assetTitles[benchmarkIndex],
     datasets: [
@@ -16,6 +22,13 @@ const Benchmark: React.FC<BenchmarkProps> = ({ benchmarkIndex }) => {
         hoverBackgroundColor: PORTFOLIO_BENCHMARKS.colors[benchmarkIndex],
       },
     ],
+  };
+
+  const onSetBenchmark = (e: React.MouseEvent<HTMLElement>): void => {
+    e.preventDefault();
+    dispatch(
+      initPostBenchmarkAction(PORTFOLIO_BENCHMARKS.assetNames[benchmarkIndex])
+    );
   };
 
   return (
@@ -61,21 +74,23 @@ const Benchmark: React.FC<BenchmarkProps> = ({ benchmarkIndex }) => {
               : {PORTFOLIO_BENCHMARKS.assetLongestDraw[benchmarkIndex]}
               <br></br>{" "}
             </p>
-            <a href="" className="btn btn-indigo btn-lg mt-2">
+            <a
+              href={PORTFOLIO_BENCHMARKS.externalUrl[benchmarkIndex]}
+              target="_blank"
+              className="btn btn-indigo btn-lg mt-2"
+            >
               View More
             </a>
             &nbsp;&nbsp;
             <a
               href=""
               className="btn btn-indigo btn-lg mt-2"
-              // onClick={(e) => {
-              //   e.preventDefault();
-              //   this.props.onSetBenchmark(
-              //     localStorage.getItem("user"),
-              //     this.props.assetInfo.assetNames[this.props.index]
-              //   );
-              // }}
+              onClick={onSetBenchmark}
             >
+              {benchmarkTitle ===
+              PORTFOLIO_BENCHMARKS.assetNames[benchmarkIndex] ? (
+                <span>&#10003;</span>
+              ) : null}{" "}
               Set Benchmark
             </a>
           </div>
