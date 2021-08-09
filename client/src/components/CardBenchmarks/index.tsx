@@ -26,9 +26,11 @@ const Benchmark: React.FC<BenchmarkProps> = ({ benchmarkIndex }) => {
 
   const onSetBenchmark = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
-    dispatch(
-      initPostBenchmarkAction(PORTFOLIO_BENCHMARKS.assetNames[benchmarkIndex])
-    );
+    if (benchmarkTitle !== PORTFOLIO_BENCHMARKS.assetNames[benchmarkIndex]) {
+      dispatch(
+        initPostBenchmarkAction(PORTFOLIO_BENCHMARKS.assetNames[benchmarkIndex])
+      );
+    }
   };
 
   return (

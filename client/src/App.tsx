@@ -1,5 +1,6 @@
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
+import BenchmarkFallback from "./components/ErrorFallbacks/BenchmarkFallback";
 import DashboardFallback from "./components/ErrorFallbacks/DashboardFallback";
 import ContentWrapper from "./hoc/contentWrapper";
 import Benchmarks from "./pages/Benchmarks";
@@ -29,7 +30,7 @@ const App = () => {
           path="/benchmarks/:benchmarkIndex"
           render={() => (
             <ContentWrapper
-              fallback={DashboardFallback}
+              fallback={BenchmarkFallback}
               majorTitle={"Benchmark Portfolios"}
               minorTitle={"General"}
             >
