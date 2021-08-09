@@ -28,6 +28,31 @@ export type IncomingUserFetchStandardized = FetchedData<
 
 // * Outgoing
 
+// ! Benchmarks
+// * Incoming
+export type IncomingGetBenchmarkFetchRaw = {
+  data: {
+    benchmark: string;
+  };
+};
+
+export type IncomingGetBenchmarkFetchStandardized = FetchedData<
+  string | null,
+  GenericError | null
+>;
+
+// * Outgoing
+export type IncomingSetBenchmarkFetchRaw = {
+  data: {
+    message: string;
+  };
+};
+
+export type IncomingSetBenchmarkFetchStandardized = FetchedData<
+  string | null,
+  GenericError | null
+>;
+
 // ! Snapshots
 // * Incoming
 export type IncomingSnapshotFetchRaw = {

@@ -12,7 +12,7 @@ export async function getLatestSnapshotEndpoint(): Promise<IncomingSnapshotsFetc
       SNAPSHOT_ENDPOINT.GET_LATEST,
       {
         headers: {
-          Authorization: getToken(),
+          authorization: getToken(),
         },
       }
     );
@@ -37,7 +37,7 @@ export async function getRecentSnapshotsEndpoint(): Promise<IncomingSnapshotsFet
       SNAPSHOT_ENDPOINT.GET_RANGE(4),
       {
         headers: {
-          Authorization: getToken(),
+          authorization: getToken(),
         },
       }
     );
