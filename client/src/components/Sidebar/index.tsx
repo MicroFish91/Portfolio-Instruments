@@ -142,70 +142,47 @@ const Sidebar: React.FC<SidebarProps> = () => {
           <li className="slide">
             <a className="side-menu__item" data-toggle="slide" href="">
               <i className="side-menu__icon fas fa-table"></i>
-              <span className="side-menu__label">Lazy Portfolios</span>
+              <span className="side-menu__label">Benchmark Portfolios</span>
               <i className="angle fas fa-angle-right"></i>
             </a>
             <ul className="slide-menu">
               <li>
-                <Link to="/dashboard/general" className="slide-item">
+                <Link to="/benchmarks/general" className="slide-item">
                   General
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard/lazyPortfolios/tsm" className="slide-item">
-                  Total Stock Market
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/dashboard/lazyPortfolios/sixtyForty"
-                  className="slide-item"
-                >
+                <Link to="/benchmarks/0" className="slide-item">
                   Classic 60/40
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/dashboard/lazyPortfolios/threeFund"
-                  className="slide-item"
-                >
+                <Link to="/benchmarks/1" className="slide-item">
                   Three Fund Portfolio
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/dashboard/lazyPortfolios/noBrainer"
-                  className="slide-item"
-                >
+                <Link to="/benchmarks/2" className="slide-item">
                   No-Brainer Portfolio
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/dashboard/lazyPortfolios/rickFerri"
-                  className="slide-item"
-                >
+                <Link to="/benchmarks/3" className="slide-item">
                   Rick Ferri Core Four
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard/lazyPortfolios/ivy" className="slide-item">
+                <Link to="/benchmarks/4" className="slide-item">
                   Ivy Portfolio
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/dashboard/lazyPortfolios/permanent"
-                  className="slide-item"
-                >
+                <Link to="/benchmarks/5" className="slide-item">
                   Permanent Portfolio
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/dashboard/lazyPortfolios/goldenButterfly"
-                  className="slide-item"
-                >
+                <Link to="/benchmarks/6" className="slide-item">
                   Golden Butterfly
                 </Link>
               </li>
