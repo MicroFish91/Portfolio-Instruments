@@ -2,11 +2,14 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import BenchmarkFallback from "./components/ErrorFallbacks/BenchmarkFallback";
 import DashboardFallback from "./components/ErrorFallbacks/DashboardFallback";
+import SnapshotsFallback from "./components/ErrorFallbacks/SnapshotsFallback";
 import ContentWrapper from "./hoc/contentWrapper";
+import AddSnapshots from "./pages/AddSnapshots";
 import Benchmarks from "./pages/Benchmarks";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ViewSnapshots from "./pages/ViewSnapshots";
 
 const App = () => {
   return (
@@ -35,6 +38,30 @@ const App = () => {
               minorTitle={"General"}
             >
               <Benchmarks />
+            </ContentWrapper>
+          )}
+        />
+        <Route
+          path="/portfolio-wizard/add-snapshots"
+          render={() => (
+            <ContentWrapper
+              fallback={SnapshotsFallback}
+              majorTitle={"Add Snapshots"}
+              minorTitle={"Portfolio Wizard"}
+            >
+              <AddSnapshots />
+            </ContentWrapper>
+          )}
+        />
+        <Route
+          path="/portfolio-wizard/view-snapshots"
+          render={() => (
+            <ContentWrapper
+              fallback={SnapshotsFallback}
+              majorTitle={"View Snapshots"}
+              minorTitle={"Portfolio Wizard"}
+            >
+              <ViewSnapshots />
             </ContentWrapper>
           )}
         />

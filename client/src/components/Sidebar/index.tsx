@@ -121,13 +121,19 @@ const Sidebar: React.FC<SidebarProps> = () => {
             </a>
             <ul className="slide-menu">
               <li>
-                <Link to="/dashboard/addSnapshot" className="slide-item">
-                  Add Snapshot
+                <Link
+                  to="/portfolio-wizard/add-snapshots"
+                  className="slide-item"
+                >
+                  Add Snapshots
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard/portfolioSnapshots" className="slide-item">
-                  Portfolio Snapshots
+                <Link
+                  to="/portfolio-wizard/view-snapshots"
+                  className="slide-item"
+                >
+                  View Snapshots
                 </Link>
               </li>
               <li>

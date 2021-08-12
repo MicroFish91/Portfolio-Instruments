@@ -10,3 +10,10 @@ export interface RegistrationForm {
   firstName: string;
   lastName: string;
 }
+
+export interface HoldingForm {
+  holdingLocation: string;
+  holdingAmount: number;
+  accountType: string;
+  assetType: string;
+}
