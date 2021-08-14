@@ -29,10 +29,24 @@ const selectorFn: SelectorFn = {
   },
 };
 
+const baseSize = (length: number): string => {
+  if (length >= 0 && length <= 6) {
+    return "h2";
+  } else if (length > 5 && length <= 10) {
+    return "h3";
+  } else if (length > 10 && length <= 12) {
+    return "h4";
+  } else {
+    return "h5";
+  }
+};
+
 const CardTotals: React.FC<CardTotalsProps> = ({ accountType, color }) => {
   const dollarFormatter = usdFormatter();
   const total = selectorFn[accountType]();
+  const maxTotal = selectorFn["Net Worth"]();
   const formattedTotal = dollarFormatter.format(total);
+  const formattedMaxTotal = dollarFormatter.format(maxTotal);
 
   return (
     <div className="col-sm-12 col-md-6 col-lg-3">
@@ -41,7 +55,11 @@ const CardTotals: React.FC<CardTotalsProps> = ({ accountType, color }) => {
         <div className="card-body row">
           <div className="col">
             <div className="text-muted">{accountType}</div>
-            <div className={`h3 m-0 text-${color} counter font-24`}>
+            <div
+              className={`${baseSize(
+                formattedMaxTotal.length - 1
+              )} m-0 text-${color} counter font-24`}
+            >
               <b>{formattedTotal.slice(1)}</b>
             </div>
           </div>
