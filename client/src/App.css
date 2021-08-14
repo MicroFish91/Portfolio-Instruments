@@ -1,9 +1,11 @@
 .form-error {
+  margin-left: 0.2em;
   color: red;
   font-size: 0.8rem;
 }
 
 .form-error-major {
+  margin-left: 0.2em;
   color: red;
   font-size: 1.1rem;
   -webkit-animation: fadeOut 8s;
