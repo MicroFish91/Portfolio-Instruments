@@ -1,8 +1,8 @@
 ("use strict");
 import { Model, Optional, Sequelize } from "sequelize";
 
-interface SnapshotAttributes {
-  id: number;
+export interface SnapshotAttributes {
+  id?: number;
   title: string;
   benchmark: string;
   notes?: string | null;
@@ -47,7 +47,7 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
         allowNull: false,
       },
       notes: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(255),
         defaultValue: null,
         allowNull: true,
       },

@@ -4,12 +4,15 @@ import { snapshotsConverter } from "../api/conversions";
 import {
   getLatestSnapshotEndpoint,
   getRecentSnapshotsEndpoint,
+  postSnapshotEndpoint,
 } from "../api/endpoints/snapshotEndpoints";
+import { OutgoingSnapshot, OutgoingSnapshotRaw } from "../api/types";
 import { clearHoldings, setHoldings } from "../Holdings/holdingSaga";
 import { clearUserAction } from "../User/userSlice";
 import {
   clearSnapshotsAction,
   initSnapshotsAction,
+  postSnapshotAction,
   setSnapshotsFailAction,
   setSnapshotsSuccessAction,
 } from "./snapshotSlice";
@@ -21,6 +24,10 @@ const takeLatest: any = Effects.takeLatest;
 function* onInitSnapshots() {
   yield takeLatest(initSnapshotsAction.type, getLatestSnapshot);
   yield takeLatest(initSnapshotsAction.type, getRecentSnapshots);
+}
+
+function* onPostSnapshot() {
+  yield takeLatest(postSnapshotAction.type, postSnapshot);
 }
 
 function* onLogoutUser() {
@@ -41,10 +48,6 @@ function* getLatestSnapshot() {
   return;
 }
 
-function* logoutUser() {
-  yield Effects.put(clearSnapshotsAction());
-}
-
 function* getRecentSnapshots() {
   const { data, error } = yield getRecentSnapshotsEndpoint();
   if (data) {
@@ -58,7 +61,30 @@ function* getRecentSnapshots() {
   return;
 }
 
+function* postSnapshot(clientAction: {
+  type: string;
+  payload: OutgoingSnapshotRaw;
+}) {
+  const formattedSnapshot: OutgoingSnapshot =
+    snapshotsConverter.toServer(clientAction);
+  const { data, error } = yield postSnapshotEndpoint(formattedSnapshot);
+  if (data) {
+    yield Effects.put(clearSnapshotsAction());
+    yield Effects.put(initSnapshotsAction());
+  } else {
+    yield Effects.put(setSnapshotsFailAction(error));
+  }
+}
+
+function* logoutUser() {
+  yield Effects.put(clearSnapshotsAction());
+}
+
 // Export
 export default function* userSagas() {
-  yield Effects.all([call(onInitSnapshots), call(onLogoutUser)]);
+  yield Effects.all([
+    call(onInitSnapshots),
+    call(onPostSnapshot),
+    call(onLogoutUser),
+  ]);
 }

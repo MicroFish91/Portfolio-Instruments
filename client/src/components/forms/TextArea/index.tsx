@@ -1,16 +1,18 @@
 import { ErrorMessage, useField } from "formik";
 
-interface TextFieldProps {
+interface TextAreaProps {
   label: string;
   className?: string;
   name: string;
   type: string;
   placeholder: string;
+  rows: number;
 }
 
-const TextField: React.FC<TextFieldProps> = ({
+const TextArea: React.FC<TextAreaProps> = ({
   label,
   className = "form-group",
+  rows,
   ...props
 }) => {
   const [field, meta] = useField(props);
@@ -19,15 +21,16 @@ const TextField: React.FC<TextFieldProps> = ({
       <label htmlFor={field.name} className="form-label">
         {label}
       </label>
-      <input
+      <textarea
         className={`form-control ${meta.touched && meta.error && "is-invalid"}`}
+        rows={rows}
+        autoComplete="off"
         {...field}
         {...props}
-        autoComplete="off"
-      />
+      ></textarea>
       <ErrorMessage component="div" name={field.name} className="form-error" />
     </div>
   );
 };
 
-export default TextField;
+export default TextArea;

@@ -1,8 +1,8 @@
 "use strict";
 import { Model, Optional, Sequelize } from "sequelize";
 
-interface AccountAttributes {
-  id: number;
+export interface AccountAttributes {
+  id?: number;
   location: string;
   type: string;
   snapshotId: number;
@@ -33,11 +33,11 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
         primaryKey: true,
       },
       location: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(40),
         allowNull: false,
       },
       type: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(15),
         allowNull: false,
       },
       snapshotId: {

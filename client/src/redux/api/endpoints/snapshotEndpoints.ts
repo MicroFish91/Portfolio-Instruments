@@ -1,8 +1,11 @@
 import axios from "axios";
 import { getToken } from "../../User/userUtils";
 import {
+  IncomingPostSnapshotFetchRaw,
+  IncomingPostSnapshotFetchStandardized,
   IncomingSnapshotFetchRaw,
   IncomingSnapshotsFetchStandardized,
+  OutgoingSnapshot,
 } from "../types";
 import { SNAPSHOT_ENDPOINT } from "./constants";
 
@@ -43,6 +46,34 @@ export async function getRecentSnapshotsEndpoint(): Promise<IncomingSnapshotsFet
     );
     return {
       data: snapshotResponse,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: {
+        status: error.response.status,
+        message: error.message,
+      },
+    };
+  }
+}
+
+export async function postSnapshotEndpoint(
+  snapshot: OutgoingSnapshot
+): Promise<IncomingPostSnapshotFetchStandardized> {
+  try {
+    const snapshotResponse: IncomingPostSnapshotFetchRaw = await axios.post(
+      SNAPSHOT_ENDPOINT.POST_SNAPSHOT,
+      { snapshot },
+      {
+        headers: {
+          authorization: getToken(),
+        },
+      }
+    );
+    return {
+      data: snapshotResponse.data.message,
       error: null,
     };
   } catch (error) {

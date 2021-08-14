@@ -1,14 +1,13 @@
 import { ErrorMessage, useField } from "formik";
 
-interface TextFieldProps {
+interface DateFieldProps {
   label: string;
   className?: string;
   name: string;
-  type: string;
   placeholder: string;
 }
 
-const TextField: React.FC<TextFieldProps> = ({
+const DateField: React.FC<DateFieldProps> = ({
   label,
   className = "form-group",
   ...props
@@ -20,7 +19,10 @@ const TextField: React.FC<TextFieldProps> = ({
         {label}
       </label>
       <input
-        className={`form-control ${meta.touched && meta.error && "is-invalid"}`}
+        className={`form-control fc-datepicker ${
+          meta.touched && meta.error && "is-invalid"
+        }`}
+        type="date"
         {...field}
         {...props}
         autoComplete="off"
@@ -30,4 +32,4 @@ const TextField: React.FC<TextFieldProps> = ({
   );
 };
 
-export default TextField;
+export default DateField;

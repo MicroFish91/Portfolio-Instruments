@@ -1,3 +1,4 @@
+import { SnapshotFormatted } from "../../pages/AddSnapshots/types";
 import { GenericError } from "../api/types";
 
 export type SnapshotsReducerState = SnapshotsReducerSuccess & {
@@ -17,5 +18,7 @@ export type ReducedSnapshot = {
   date: Date;
   total: number;
 };
+
+export type PostSnapshot = SnapshotFormatted;
 
 export type SnapshotsError = GenericError;
