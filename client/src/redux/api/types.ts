@@ -87,6 +87,7 @@ export type IncomingSnapshotsRaw = {
   benchmark: string;
   notes: string;
   total: number;
+  weightedExpenseRatio: number;
   userId: number;
   specifiedDate: Date;
   createdAt: Date;

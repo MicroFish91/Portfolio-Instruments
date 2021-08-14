@@ -2,7 +2,10 @@ import * as Effects from "redux-saga/effects";
 import { accountsConverter } from "../api/conversions";
 import { IncomingSnapshotFetchRaw } from "../api/types";
 import { clearUserAction } from "../User/userSlice";
-import { clearAccountsAction, setAccountsAction } from "./accountSlice";
+import {
+  clearAccountsAction,
+  setDashboardAccountsAction,
+} from "./accountSlice";
 
 const call: any = Effects.call;
 const takeLatest: any = Effects.takeLatest;
@@ -15,7 +18,7 @@ function* onLogoutUser() {
 // Workers - triggered by snapshotSagas
 export function* setAccounts(snapshot: IncomingSnapshotFetchRaw) {
   const convertedData = accountsConverter.toClient(snapshot);
-  yield Effects.put(setAccountsAction(convertedData));
+  yield Effects.put(setDashboardAccountsAction(convertedData));
   return;
 }
 

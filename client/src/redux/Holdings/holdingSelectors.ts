@@ -1,7 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import {
   selectAccountsById,
-  selectAccountsIdList,
+  selectAccountsDashboardIds,
   selectRothAccounts,
   selectTaxableAccounts,
   selectTraditionalAccounts,
@@ -9,13 +9,15 @@ import {
 import { RootState } from "../rootReducer";
 
 export const selectHoldingsById = (state: RootState) => state.holdings.byId;
-export const selectHoldingsIdList = (state: RootState) => state.holdings.allIds;
+export const selectHoldingsDashboardIds = (state: RootState) =>
+  state.holdings.dashboardIds;
+export const selectHoldingsAllIds = (state: RootState) => state.holdings.allIds;
 
 export const selectTotalsByInstitutions = createSelector(
   selectHoldingsById,
-  selectHoldingsIdList,
+  selectHoldingsDashboardIds,
   selectAccountsById,
-  selectAccountsIdList,
+  selectAccountsDashboardIds,
   (holdingsById, holdingsIdList, accountsById, accountsIdList) => {
     const institutionTotals: { [accountName: string]: number } = {};
     holdingsIdList.forEach((holdingId) => {
@@ -59,7 +61,7 @@ export const selectPercentageByInstitutions = createSelector(
 
 export const selectTotalTraditional = createSelector(
   selectHoldingsById,
-  selectHoldingsIdList,
+  selectHoldingsDashboardIds,
   selectTraditionalAccounts,
   (holdingsById, holdingsIdList, traditionalAccountIds): number => {
     let traditionalTotal = 0;
@@ -78,7 +80,7 @@ export const selectTotalTraditional = createSelector(
 
 export const selectTotalRoth = createSelector(
   selectHoldingsById,
-  selectHoldingsIdList,
+  selectHoldingsDashboardIds,
   selectRothAccounts,
   (holdingsById, holdingsIdList, rothAccountIds): number => {
     let rothTotal = 0;
@@ -95,7 +97,7 @@ export const selectTotalRoth = createSelector(
 
 export const selectTotalTaxable = createSelector(
   selectHoldingsById,
-  selectHoldingsIdList,
+  selectHoldingsDashboardIds,
   selectTaxableAccounts,
   (holdingsById, holdingsIdList, taxableAccountIds): number => {
     let taxableTotal = 0;

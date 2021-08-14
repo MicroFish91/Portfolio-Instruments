@@ -2,11 +2,13 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../rootReducer";
 
 export const selectAccountsById = (state: RootState) => state.accounts.byId;
-export const selectAccountsIdList = (state: RootState) => state.accounts.allIds;
+export const selectAccountsDashboardIds = (state: RootState) =>
+  state.accounts.dashboardIds;
+export const selectAccountsAllIds = (state: RootState) => state.accounts.allIds;
 
 export const selectTraditionalAccounts = createSelector(
   selectAccountsById,
-  selectAccountsIdList,
+  selectAccountsDashboardIds,
   (accountsById, accountsList) => {
     const traditionalIds: string[] = [];
     accountsList.forEach((accountId) => {
@@ -20,7 +22,7 @@ export const selectTraditionalAccounts = createSelector(
 
 export const selectRothAccounts = createSelector(
   selectAccountsById,
-  selectAccountsIdList,
+  selectAccountsDashboardIds,
   (accountsById, accountsList) => {
     const rothIds: string[] = [];
     accountsList.forEach((accountId) => {
@@ -34,7 +36,7 @@ export const selectRothAccounts = createSelector(
 
 export const selectTaxableAccounts = createSelector(
   selectAccountsById,
-  selectAccountsIdList,
+  selectAccountsDashboardIds,
   (accountsById, accountsList) => {
     const taxableIds: string[] = [];
     accountsList.forEach((accountId) => {

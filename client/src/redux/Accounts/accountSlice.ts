@@ -1,8 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AccountsReducerState } from "./types";
+import {
+  AccountsDashboardReducer,
+  AccountsPaginatedReducer,
+  AccountsReducerState,
+} from "./types";
 
 const INITIAL_STATE: AccountsReducerState = {
   byId: {},
+  dashboardIds: [],
   allIds: [],
 };
 
@@ -12,17 +17,29 @@ const accountSlice = createSlice({
   reducers: {
     clearAccounts: (state) => {
       state.byId = {};
+      state.dashboardIds = [];
       state.allIds = [];
     },
-    setAccounts: (state, { payload }: PayloadAction<AccountsReducerState>) => {
-      state.byId = payload.byId;
+    setDashboardAccounts: (
+      state,
+      { payload }: PayloadAction<AccountsDashboardReducer>
+    ) => {
+      state.byId = { ...state.byId, ...payload.byId };
+      state.dashboardIds = payload.dashboardIds;
+    },
+    setPaginatedAccounts: (
+      state,
+      { payload }: PayloadAction<AccountsPaginatedReducer>
+    ) => {
+      state.byId = { ...state.byId, ...payload.byId };
       state.allIds = payload.allIds;
     },
   },
 });
 
 export const {
-  setAccounts: setAccountsAction,
+  setDashboardAccounts: setDashboardAccountsAction,
+  setPaginatedAccounts: setPaginatedAccountsAction,
   clearAccounts: clearAccountsAction,
 } = accountSlice.actions;
 

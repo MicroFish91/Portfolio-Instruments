@@ -19,10 +19,11 @@ const CardViewSnapshotsTable: React.FC<CardViewSnapshotsTableProps> = () => {
             <thead>
               <tr>
                 <th className="wd-20p">Title</th>
-                <th className="wd-15p">Benchmark</th>
-                <th className="wd-30p">Notes</th>
+                <th className="wd-10p">Benchmark</th>
+                <th className="wd-25p">Notes</th>
                 <th className="wd-15p">Date</th>
                 <th className="wd-10p">Net Worth</th>
+                <th className="wd-10p">Weighted ER</th>
                 <th className="wd-10p">Delete</th>
               </tr>
             </thead>
@@ -34,6 +35,7 @@ const CardViewSnapshotsTable: React.FC<CardViewSnapshotsTableProps> = () => {
                 <td>notes</td>
                 <td>date</td>
                 <td>total</td>
+                <td>$200.89</td>
                 <td>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <a className="icon"></a>

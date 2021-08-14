@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   PostSnapshot,
+  SnapshotsDashboardReducerSuccess,
   SnapshotsError,
+  SnapshotsPaginatedReducerSuccess,
   SnapshotsReducerState,
-  SnapshotsReducerSuccess,
 } from "./types";
 
 const INITIAL_STATE: SnapshotsReducerState = {
   byId: {},
+  dashboardIds: [],
   allIds: [],
   error: {
     status: "",
@@ -20,7 +22,10 @@ const snapshotSlice = createSlice({
   name: "snapshots",
   initialState: INITIAL_STATE,
   reducers: {
-    initSnapshots: (state) => {
+    initDashboardSnapshots: (state) => {
+      state.isLoading = true;
+    },
+    initPaginatedSnapshots: (state) => {
       state.isLoading = true;
     },
     postSnapshot: (state, _action: PayloadAction<PostSnapshot>) => {
@@ -28,6 +33,7 @@ const snapshotSlice = createSlice({
     },
     clearSnapshots: (state) => {
       state.byId = {};
+      state.dashboardIds = [];
       state.allIds = [];
       state.error = {
         status: "",
@@ -35,11 +41,23 @@ const snapshotSlice = createSlice({
       };
       state.isLoading = false;
     },
-    setSnapshotsSuccess: (
+    setDashboardSnapshotsSuccess: (
       state,
-      { payload }: PayloadAction<SnapshotsReducerSuccess>
+      { payload }: PayloadAction<SnapshotsDashboardReducerSuccess>
     ) => {
-      state.byId = payload.byId;
+      state.byId = { ...state.byId, ...payload.byId };
+      state.dashboardIds = payload.dashboardIds;
+      state.error = {
+        status: "",
+        message: "",
+      };
+      state.isLoading = false;
+    },
+    setPaginatedSnapshotsSuccess: (
+      state,
+      { payload }: PayloadAction<SnapshotsPaginatedReducerSuccess>
+    ) => {
+      state.byId = { ...state.byId, ...payload.byId };
       state.allIds = payload.allIds;
       state.error = {
         status: "",
@@ -49,6 +67,7 @@ const snapshotSlice = createSlice({
     },
     setSnapshotsFail: (state, { payload }: PayloadAction<SnapshotsError>) => {
       state.byId = {};
+      state.dashboardIds = [];
       state.allIds = [];
       state.error = {
         status: payload?.status ? payload.status.toString() : "",
@@ -60,10 +79,12 @@ const snapshotSlice = createSlice({
 });
 
 export const {
-  initSnapshots: initSnapshotsAction,
+  initDashboardSnapshots: initDashboardSnapshotsAction,
+  initPaginatedSnapshots: initPaginatedSnapshotsAction,
   clearSnapshots: clearSnapshotsAction,
   postSnapshot: postSnapshotAction,
-  setSnapshotsSuccess: setSnapshotsSuccessAction,
+  setDashboardSnapshotsSuccess: setDashboardSnapshotsSuccessAction,
+  setPaginatedSnapshotsSuccess: setPaginatedSnapshotsSuccessAction,
   setSnapshotsFail: setSnapshotsFailAction,
 } = snapshotSlice.actions;
 

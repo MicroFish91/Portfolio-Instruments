@@ -126,6 +126,20 @@ const AddSnapshots = () => {
   return (
     <div className="row">
       <div className="col-md-12 col-lg-12">
+        <div className="card card-body p-6 about-con pabout">
+          <h2 className="mb-4 font-weight-semibold">
+            <u>General Information</u>
+          </h2>
+          <p className="leading-normal">
+            Add any assets that you own using the "Holdings" form below. As you
+            add holdings, the snapshots table below will populate. When you are
+            done adding assets, finish by hitting the save snapshot button to
+            store your data.
+          </p>
+        </div>{" "}
+        <br></br>
+      </div>
+      <div className="col-md-12 col-lg-12">
         <CardAddSnapshotsForm addHolding={addHolding} />
         <CardAddSnapshotsTable
           deleteHolding={deleteHolding}

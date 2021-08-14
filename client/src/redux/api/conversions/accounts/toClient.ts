@@ -1,12 +1,12 @@
-import { AccountsReducerState } from "../../../Accounts/types";
+import { AccountsDashboardReducer } from "../../../Accounts/types";
 import { IncomingSnapshotFetchRaw } from "../../types";
 
 export const toClient = (
   serverSnapshot: IncomingSnapshotFetchRaw
-): AccountsReducerState => {
-  const reducedAccounts: AccountsReducerState = {
+): AccountsDashboardReducer => {
+  const reducedAccounts: AccountsDashboardReducer = {
     byId: {},
-    allIds: [],
+    dashboardIds: [],
   };
 
   serverSnapshot.data.Accounts?.forEach((account) => {
@@ -15,7 +15,7 @@ export const toClient = (
       type: account.type,
       snapshotId: account.snapshotId,
     };
-    reducedAccounts.allIds.push(account.id.toString());
+    reducedAccounts.dashboardIds.push(account.id.toString());
   });
 
   return reducedAccounts;

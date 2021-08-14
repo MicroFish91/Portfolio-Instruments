@@ -1,5 +1,16 @@
 export type AccountsReducerState = {
   byId: { [id: string]: ReducedAccount };
+  dashboardIds: string[];
+  allIds: string[];
+};
+
+export type AccountsDashboardReducer = {
+  byId: { [id: string]: ReducedAccount };
+  dashboardIds: string[];
+};
+
+export type AccountsPaginatedReducer = {
+  byId: { [id: string]: ReducedAccount };
   allIds: string[];
 };
 

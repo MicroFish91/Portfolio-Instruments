@@ -1,12 +1,12 @@
-import { SnapshotsReducerSuccess } from "../../../Snapshots/types";
+import { SnapshotsDashboardReducerSuccess } from "../../../Snapshots/types";
 import { IncomingSnapshotsFetchRaw } from "../../types";
 
 export const toClient = (
   serverSnapshots: IncomingSnapshotsFetchRaw
-): SnapshotsReducerSuccess => {
-  const reducedSnapshots: SnapshotsReducerSuccess = {
+): SnapshotsDashboardReducerSuccess => {
+  const reducedSnapshots: SnapshotsDashboardReducerSuccess = {
     byId: {},
-    allIds: [],
+    dashboardIds: [],
   };
 
   serverSnapshots.data.forEach((snapshot) => {
@@ -16,8 +16,9 @@ export const toClient = (
       notes: snapshot.notes,
       date: snapshot.specifiedDate,
       total: snapshot.total,
+      weightedExpenseRatio: snapshot.weightedExpenseRatio,
     };
-    reducedSnapshots.allIds.push(snapshot.id.toString());
+    reducedSnapshots.dashboardIds.push(snapshot.id.toString());
   });
   return reducedSnapshots;
 };

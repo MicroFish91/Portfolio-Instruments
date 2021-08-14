@@ -1,5 +1,16 @@
 export type HoldingsReducerState = {
   byId: { [id: string]: ReducedHoldings };
+  dashboardIds: string[];
+  allIds: string[];
+};
+
+export type HoldingsDashboardReducer = {
+  byId: { [id: string]: ReducedHoldings };
+  dashboardIds: string[];
+};
+
+export type HoldingsPaginatedReducer = {
+  byId: { [id: string]: ReducedHoldings };
   allIds: string[];
 };
 

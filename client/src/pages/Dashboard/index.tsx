@@ -5,13 +5,13 @@ import CardTaxShelter from "../../components/CardTaxShelter";
 import CardTotals from "../../components/CardTotals";
 import Linechart from "../../components/Linechart";
 import { initGetBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
-import { initSnapshotsAction } from "../../redux/Snapshots/snapshotSlice";
+import { initDashboardSnapshotsAction } from "../../redux/Snapshots/snapshotSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(initSnapshotsAction());
+    dispatch(initDashboardSnapshotsAction());
     dispatch(initGetBenchmarkAction());
   }, []);
 

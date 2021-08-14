@@ -3,7 +3,7 @@ import { clearAccounts, setAccounts } from "../Accounts/accountSagas";
 import { snapshotsConverter } from "../api/conversions";
 import {
   getLatestSnapshotEndpoint,
-  getRecentSnapshotsEndpoint,
+  getLineChartSnapshotsEndpoint,
   postSnapshotEndpoint,
 } from "../api/endpoints/snapshotEndpoints";
 import { OutgoingSnapshot, OutgoingSnapshotRaw } from "../api/types";
@@ -11,19 +11,19 @@ import { clearHoldings, setHoldings } from "../Holdings/holdingSaga";
 import { clearUserAction } from "../User/userSlice";
 import {
   clearSnapshotsAction,
-  initSnapshotsAction,
+  initDashboardSnapshotsAction,
   postSnapshotAction,
+  setDashboardSnapshotsSuccessAction,
   setSnapshotsFailAction,
-  setSnapshotsSuccessAction,
 } from "./snapshotSlice";
 
 const call: any = Effects.call;
 const takeLatest: any = Effects.takeLatest;
 
 // Watchers
-function* onInitSnapshots() {
-  yield takeLatest(initSnapshotsAction.type, getLatestSnapshot);
-  yield takeLatest(initSnapshotsAction.type, getRecentSnapshots);
+function* onInitDashboardSnapshots() {
+  yield takeLatest(initDashboardSnapshotsAction.type, getLatestSnapshot);
+  yield takeLatest(initDashboardSnapshotsAction.type, getLineChartSnapshots);
 }
 
 function* onPostSnapshot() {
@@ -48,11 +48,11 @@ function* getLatestSnapshot() {
   return;
 }
 
-function* getRecentSnapshots() {
-  const { data, error } = yield getRecentSnapshotsEndpoint();
+function* getLineChartSnapshots() {
+  const { data, error } = yield getLineChartSnapshotsEndpoint();
   if (data) {
     const convertedData = snapshotsConverter.toClient(data);
-    yield Effects.put(setSnapshotsSuccessAction(convertedData));
+    yield Effects.put(setDashboardSnapshotsSuccessAction(convertedData));
   } else if (error) {
     yield Effects.put(setSnapshotsFailAction(error));
     yield Effects.call(clearAccounts);
@@ -70,7 +70,7 @@ function* postSnapshot(clientAction: {
   const { data, error } = yield postSnapshotEndpoint(formattedSnapshot);
   if (data) {
     yield Effects.put(clearSnapshotsAction());
-    yield Effects.put(initSnapshotsAction());
+    yield Effects.put(initDashboardSnapshotsAction());
   } else {
     yield Effects.put(setSnapshotsFailAction(error));
   }
@@ -83,7 +83,7 @@ function* logoutUser() {
 // Export
 export default function* userSagas() {
   yield Effects.all([
-    call(onInitSnapshots),
+    call(onInitDashboardSnapshots),
     call(onPostSnapshot),
     call(onLogoutUser),
   ]);

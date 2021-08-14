@@ -1,12 +1,12 @@
-import { HoldingsReducerState } from "../../../Holdings/types";
+import { HoldingsDashboardReducer } from "../../../Holdings/types";
 import { IncomingSnapshotFetchRaw } from "../../types";
 
 export const toClient = (
   serverSnapshot: IncomingSnapshotFetchRaw
-): HoldingsReducerState => {
-  const reducedHoldings: HoldingsReducerState = {
+): HoldingsDashboardReducer => {
+  const reducedHoldings: HoldingsDashboardReducer = {
     byId: {},
-    allIds: [],
+    dashboardIds: [],
   };
 
   serverSnapshot.data.Accounts?.forEach((account) => {
@@ -19,7 +19,7 @@ export const toClient = (
         expenseRatio: parseFloat(holding.expenseRatio),
         accountId: holding.accountId,
       };
-      reducedHoldings.allIds.push(holding.id.toString());
+      reducedHoldings.dashboardIds.push(holding.id.toString());
     });
   });
 

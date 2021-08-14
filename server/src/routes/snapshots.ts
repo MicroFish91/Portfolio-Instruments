@@ -69,7 +69,8 @@ router.get("/range/:years", requireJwt, async (req, res) => {
         "Snapshots"."benchmark",
         "Snapshots"."notes",
         "Snapshots"."specifiedDate",
-        SUM("combined"."total") as "total"
+        SUM("combined"."total") as "total",
+        (SUM("combined"."fees") / SUM("combined"."total")) as "weightedExpenseRatio"
       from
         "Snapshots"
       inner join
@@ -77,14 +78,16 @@ router.get("/range/:years", requireJwt, async (req, res) => {
         select
           "Accounts"."id",
           "Accounts"."snapshotId",
-          SUM("Holdings"."total") as "total"
+          SUM("Holdings"."total") as "total",
+          ("Holdings"."total" * "Holdings"."expenseRatio") as "fees"
         from
           "Accounts"
         inner join "Holdings" on
           "Accounts"."id" = "Holdings"."accountId"
         group by
           "Accounts"."id",
-          "Accounts"."snapshotId"
+          "Accounts"."snapshotId",
+          ("Holdings"."total" * "Holdings"."expenseRatio")
       ) as "combined" on
         "Snapshots"."id" = "combined"."snapshotId"
       where

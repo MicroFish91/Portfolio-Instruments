@@ -34,7 +34,7 @@ export async function getLatestSnapshotEndpoint(): Promise<IncomingSnapshotsFetc
   }
 }
 
-export async function getRecentSnapshotsEndpoint(): Promise<IncomingSnapshotsFetchStandardized> {
+export async function getLineChartSnapshotsEndpoint(): Promise<IncomingSnapshotsFetchStandardized> {
   try {
     const snapshotResponse: IncomingSnapshotFetchRaw = await axios.get(
       SNAPSHOT_ENDPOINT.GET_RANGE(4),
