@@ -1,94 +1,291 @@
+import { Form, Formik, FormikHelpers } from "formik";
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
+import { Snapshot } from "../../pages/AddSnapshots/types";
+import { usdFormatter } from "../../utils";
+import { snapshotFormSchema } from "../../validation/snapshots";
+import { SnapshotForm } from "../../validation/types";
 import Button from "../forms/Button";
+import DateField from "../forms/DateField";
+import InputField from "../forms/InputField";
+import TextArea from "../forms/TextArea";
 
-interface CardAddSnapshotsTable {}
+interface CardAddSnapshotsTableProps {
+  deleteHolding: (
+    e: React.MouseEvent<HTMLElement>,
+    accountName: string,
+    accountType: string,
+    holdingTicker: string
+  ) => void;
+  resetSnapshotData: () => void;
+  submitSnapshotData: (snapshot: SnapshotForm) => void;
+  snapshot: Snapshot;
+}
 
-const CardAddSnapshots: React.FC<CardAddSnapshotsTable> = () => {
+const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
+  deleteHolding,
+  resetSnapshotData,
+  submitSnapshotData,
+  snapshot,
+}) => {
+  const dollarFormatter = usdFormatter();
+
+  const submitSnapshot = (
+    values: SnapshotForm,
+    actions: FormikHelpers<SnapshotForm>
+  ) => {
+    submitSnapshotData(values);
+    actions.resetForm();
+  };
+
+  const resetSnapshot = () => {
+    resetSnapshotData();
+  };
+
+  const renderSnapshots = () => {
+    const table: JSX.Element[] = [];
+
+    snapshot.forEach((account) => {
+      const keys = ["traditional", "roth", "taxable"];
+      let accountTotal: number = 0;
+      let firstRow = true;
+
+      keys.forEach((accountTypeKey) => {
+        let accountTypeTotal = 0;
+        account.accountType[accountTypeKey].forEach((holding, holdingIndex) => {
+          accountTypeTotal += holding.holdingAmount;
+          accountTotal += holding.holdingAmount;
+          if (firstRow && holdingIndex === 0) {
+            firstRow = false;
+            table.push(
+              <tr key={uuidv4()}>
+                <td>
+                  {account.accountName[0].toUpperCase() +
+                    account.accountName.slice(1)}
+                </td>
+                <td>
+                  {accountTypeKey[0].toUpperCase() + accountTypeKey.slice(1)}
+                </td>
+                <td>{holding.holdingTicker.toUpperCase()}</td>
+                <td>
+                  {holding.assetType[0].toUpperCase() +
+                    holding.assetType.slice(1)}
+                </td>
+                <td>
+                  {"$" + dollarFormatter.format(holding.holdingAmount).slice(1)}
+                </td>
+                <td>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a className="icon"></a>
+                  <a
+                    href="javascript:void(0)"
+                    className="btn btn-danger btn-sm"
+                    onClick={(e: React.MouseEvent<HTMLElement>) =>
+                      deleteHolding(
+                        e,
+                        account.accountName,
+                        accountTypeKey,
+                        holding.holdingTicker
+                      )
+                    }
+                  >
+                    <i className="fas fa-trash"></i> Delete{" "}
+                  </a>
+                </td>
+              </tr>
+            );
+          } else if (holdingIndex === 0) {
+            table.push(
+              <tr key={uuidv4()}>
+                <td>-</td>
+                <td>
+                  {accountTypeKey[0].toUpperCase() + accountTypeKey.slice(1)}
+                </td>
+                <td>{holding.holdingTicker.toUpperCase()}</td>
+                <td>
+                  {holding.assetType[0].toUpperCase() +
+                    holding.assetType.slice(1)}
+                </td>
+                <td>
+                  {"$" + dollarFormatter.format(holding.holdingAmount).slice(1)}
+                </td>
+                <td>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a className="icon"></a>
+                  <a
+                    href="javascript:void(0)"
+                    className="btn btn-danger btn-sm"
+                    onClick={(e: React.MouseEvent<HTMLElement>) =>
+                      deleteHolding(
+                        e,
+                        account.accountName,
+                        accountTypeKey,
+                        holding.holdingTicker
+                      )
+                    }
+                  >
+                    <i className="fas fa-trash"></i> Delete{" "}
+                  </a>
+                </td>
+              </tr>
+            );
+          } else {
+            table.push(
+              <tr key={uuidv4()}>
+                <td>-</td>
+                <td>-</td>
+                <td>{holding.holdingTicker.toUpperCase()}</td>
+                <td>
+                  {holding.assetType[0].toUpperCase() +
+                    holding.assetType.slice(1)}
+                </td>
+                <td>
+                  {"$" + dollarFormatter.format(holding.holdingAmount).slice(1)}
+                </td>
+                <td>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a className="icon"></a>
+                  <a
+                    href="javascript:void(0)"
+                    className="btn btn-danger btn-sm"
+                    onClick={(e: React.MouseEvent<HTMLElement>) =>
+                      deleteHolding(
+                        e,
+                        account.accountName,
+                        accountTypeKey,
+                        holding.holdingTicker
+                      )
+                    }
+                  >
+                    <i className="fas fa-trash"></i> Delete{" "}
+                  </a>
+                </td>
+              </tr>
+            );
+          }
+        });
+
+        if (account.accountType[accountTypeKey].length) {
+          table.push(
+            <tr key={uuidv4()}>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>
+                <b>
+                  **
+                  {accountTypeKey[0].toUpperCase() +
+                    accountTypeKey.slice(1)}{" "}
+                  Total: **
+                </b>
+              </td>
+              <td>{"$" + dollarFormatter.format(accountTypeTotal).slice(1)}</td>
+            </tr>
+          );
+        }
+      });
+      table.push(
+        <tr key={uuidv4()}>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>
+            <b>
+              {" "}
+              ***
+              {account.accountName[0].toUpperCase() +
+                account.accountName.slice(1)}{" "}
+              Total: ***
+            </b>
+          </td>
+          <td>{"$" + dollarFormatter.format(accountTotal).slice(1)}</td>
+        </tr>
+      );
+    });
+
+    return table;
+  };
+
   return (
-    <form>
-      <div className="card">
-        <div className="card-status bg-yellow br-tr-3 br-tl-3"></div>
-        <div className="row">
-          {/* Title */}
-          <div className="col-md-7 col-lg-7">
-            <div className="card-header">
-              <input
-                type="text"
-                className="form-control"
-                name="example-text-input"
-                placeholder="Snapshot Title Goes Here"
-                required
-              ></input>
-            </div>
-          </div>
+    <Formik
+      initialValues={{
+        snapshotTitle: "",
+        snapshotDate: "",
+        snapshotNotes: "",
+      }}
+      validationSchema={snapshotFormSchema}
+      onSubmit={(values, actions) => submitSnapshot(values, actions)}
+      onReset={resetSnapshot}
+    >
+      {() => (
+        <Form>
+          <div className="card">
+            <div className="card-status bg-yellow br-tr-3 br-tl-3"></div>
+            <div className="row">
+              {/* Title */}
+              <div className="col-md-7 col-lg-7">
+                <InputField
+                  label=""
+                  className="card-header"
+                  name="snapshotTitle"
+                  placeholder="Snapshot title goes here"
+                  type="text"
+                />
+              </div>
 
-          {/* Date */}
-          <div className="col-md-5 col-lg-5">
-            <div className="card-header">
-              <input
-                type="date"
-                className="form-control fc-datepicker"
-                placeholder="Date"
-                required
-              ></input>
-            </div>
-          </div>
-        </div>
-
-        <div className="card-body">
-          <div className="table-responsive">
-            <table
-              id="example"
-              className="table table-striped table-bordered"
-              style={{ width: "100%", borderTop: "1px solid grey" }}
-            >
-              <thead>
-                <tr>
-                  <th className="wd-10p">Location</th>
-                  <th className="wd-10p">Type</th>
-                  <th className="wd-10p">Other ($)</th>
-                  <th className="wd-10p">Total ($)</th>
-                  <th className="wd-10p"></th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr>
-                  <td>column data</td>
-                  <td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a className="icon"></a>
-                    <a
-                      href="javascript:void(0)"
-                      className="btn btn-danger btn-sm"
-                    >
-                      <i className="fas fa-trash"></i> Delete{" "}
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-            <br></br>
-
-            <div className="form-group">
-              <label className="form-label">Notes</label>
-              <textarea
-                className="form-control"
-                name="example-textarea-input"
-                rows={2}
-                placeholder="Enter notes here"
-              ></textarea>
+              {/* Date */}
+              <div className="col-md-5 col-lg-5">
+                <DateField
+                  label=""
+                  className="card-header"
+                  name="snapshotDate"
+                  placeholder="Date"
+                />
+              </div>
             </div>
 
-            <br></br>
+            <div className="card-body">
+              <div className="table-responsive">
+                <table
+                  id="example"
+                  className="table table-striped table-bordered"
+                  style={{ width: "100%", borderTop: "1px solid grey" }}
+                >
+                  <thead>
+                    <tr>
+                      <th className="wd-10p">Holding Location</th>
+                      <th className="wd-10p">Account Type</th>
+                      <th className="wd-10p">Holding Ticker</th>
+                      <th className="wd-10p">Holding Type</th>
+                      <th className="wd-10p">Amount</th>
+                      <th className="wd-10p">Delete</th>
+                    </tr>
+                  </thead>
 
-            <Button title="Save Snapshot" />
+                  <tbody>{renderSnapshots()}</tbody>
+                </table>
+
+                <br></br>
+
+                <TextArea
+                  label="Snapshot Notes"
+                  name="snapshotNotes"
+                  placeholder="Notes"
+                  rows={2}
+                  type="text"
+                />
+
+                <br></br>
+
+                <Button title="Save Snapshot" />
+                <Button title="Reset Snapshot" type="reset" />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </form>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
-export default CardAddSnapshots;
+export default CardAddSnapshotsTable;

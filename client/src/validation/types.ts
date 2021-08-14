@@ -12,8 +12,17 @@ export interface RegistrationForm {
 }
 
 export interface HoldingForm {
+  holdingTitle: string;
+  holdingTicker: string;
   holdingLocation: string;
-  holdingAmount: number;
-  accountType: string;
+  holdingAmount: string;
+  holdingExpenseRatio: string;
+  accountType: "Traditional" | "Roth" | "Taxable";
   assetType: string;
+}
+
+export interface SnapshotForm {
+  snapshotTitle: string;
+  snapshotDate: string;
+  snapshotNotes: string;
 }

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
+  PostSnapshot,
   SnapshotsError,
   SnapshotsReducerState,
   SnapshotsReducerSuccess,
@@ -20,6 +21,9 @@ const snapshotSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     initSnapshots: (state) => {
+      state.isLoading = true;
+    },
+    postSnapshot: (state, _action: PayloadAction<PostSnapshot>) => {
       state.isLoading = true;
     },
     clearSnapshots: (state) => {
@@ -58,6 +62,7 @@ const snapshotSlice = createSlice({
 export const {
   initSnapshots: initSnapshotsAction,
   clearSnapshots: clearSnapshotsAction,
+  postSnapshot: postSnapshotAction,
   setSnapshotsSuccess: setSnapshotsSuccessAction,
   setSnapshotsFail: setSnapshotsFailAction,
 } = snapshotSlice.actions;

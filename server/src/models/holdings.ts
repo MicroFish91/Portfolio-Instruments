@@ -1,8 +1,8 @@
 "use strict";
 import { Model, Optional, Sequelize } from "sequelize";
 
-interface HoldingAttributes {
-  id: number;
+export interface HoldingAttributes {
+  id?: number;
   title: string;
   ticker: string;
   category: string;

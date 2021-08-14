@@ -3,6 +3,8 @@ import { QueryTypes } from "sequelize";
 import { requireJwt } from "../auth";
 import db from "../models";
 import { UserAttributes as User } from "../models/users";
+import { validateAccount, validateSnapshot } from "../models/validation";
+import { IncomingSnapshot } from "../models/validation/types";
 
 const router = express.Router();
 
@@ -103,6 +105,36 @@ router.get("/range/:years", requireJwt, async (req, res) => {
     res
       .status(500)
       .json({ message: "Internal server error - could not process request." });
+  }
+});
+
+// Post a snapshot to database
+router.post("/", requireJwt, async (req, res) => {
+  const { id } = req.user as User;
+  const incomingSnapshot = req.body.snapshot as IncomingSnapshot;
+
+  const postSnapshot = {
+    title: incomingSnapshot.title,
+    benchmark: incomingSnapshot.benchmark,
+    notes: incomingSnapshot.notes,
+    specifiedDate: new Date(incomingSnapshot.specifiedDate),
+    userId: id,
+  };
+
+  let snapshotId = 0;
+  let accountId = 0;
+  let holdingIds = [];
+
+  const postAccounts = [];
+  const postHoldings = [];
+
+  let { error } = validateSnapshot(postSnapshot);
+  if (error) return res.status(400).json({ message: error.message });
+
+  try {
+    const { id: snapshotId } = await db.Snapshots.create(postSnapshot);
+  } catch (err) {
+    console.log(err);
   }
 });
 

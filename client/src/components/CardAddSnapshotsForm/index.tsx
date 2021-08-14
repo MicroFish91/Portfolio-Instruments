@@ -7,24 +7,36 @@ import InputField from "../forms/InputField";
 import SelectField from "../forms/SelectField";
 import { selectAccountTypeMap, selectAssetTypeMap } from "./constants";
 
-interface CardAddSnapshotsFormProps {}
+interface CardAddSnapshotsFormProps {
+  addHolding: (holding: HoldingForm) => void;
+}
 
 type FieldValue = (nextState?: Partial<FormikState<HoldingForm>>) => void;
 
-const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = () => {
+const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
+  addHolding,
+}) => {
   const submitHolding = (values: HoldingForm, actions: any): void => {
-    console.log(values);
+    addHolding(values);
+    actions.setFieldValue("holdingTitle", "") as FieldValue;
+    actions.setFieldValue("holdingTicker", "") as FieldValue;
     actions.setFieldValue("holdingAmount", 0) as FieldValue;
+    actions.setFieldValue("holdingExpenseRatio", 0) as FieldValue;
   };
 
   return (
     <Formik
-      initialValues={{
-        holdingLocation: "",
-        holdingAmount: 0,
-        accountType: "Taxable",
-        assetType: "cash",
-      }}
+      initialValues={
+        {
+          holdingLocation: "",
+          holdingTitle: "",
+          holdingTicker: "",
+          holdingExpenseRatio: "0",
+          holdingAmount: "0",
+          accountType: "Taxable",
+          assetType: "cash",
+        } as HoldingForm
+      }
       validationSchema={holdingFormSchema}
       onSubmit={(values, actions) => submitHolding(values, actions)}
     >
@@ -38,9 +50,16 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = () => {
               {/* Left Column */}
               <div className="col-md-6 col-lg-6">
                 <InputField
-                  label="Holding Location"
-                  name="holdingLocation"
-                  placeholder="Ex. Vanguard"
+                  label="Holding Title"
+                  name="holdingTitle"
+                  placeholder="Ex. Vanguard Total Stock Market Index Fund"
+                  type="text"
+                />
+
+                <InputField
+                  label="Holding Ticker"
+                  name="holdingTicker"
+                  placeholder="Ex. VITSX"
                   type="text"
                 />
 
@@ -51,12 +70,26 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = () => {
                   type="text"
                 />
 
+                <InputField
+                  label="Holding Expense Ratio"
+                  name="holdingExpenseRatio"
+                  placeholder="Ex. 0.25"
+                  type="text"
+                />
+
                 <Button title="Submit Holding" />
                 <Button title="Reset Holding" type="reset" />
               </div>
 
               {/* Right Column */}
               <div className="col-md-6 col-lg-6">
+                <InputField
+                  label="Holding Location"
+                  name="holdingLocation"
+                  placeholder="Ex. Vanguard"
+                  type="text"
+                />
+
                 <SelectField
                   label="Account Type"
                   selectMap={selectAccountTypeMap}

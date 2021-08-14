@@ -1,3 +1,4 @@
+import { SnapshotFormatted } from "../../pages/AddSnapshots/types";
 import { CurrentUser } from "../User/types";
 
 // * API Incoming - General Std. Format
@@ -93,6 +94,29 @@ export type IncomingSnapshotsRaw = {
 };
 
 // * Outgoing
+// Before Formatting
+export type OutgoingSnapshotRaw = SnapshotFormatted;
+
+// After Formatting
+export type OutgoingSnapshot = {
+  title: string;
+  benchmark: string;
+  notes: string;
+  specifiedDate: string;
+  userId?: number;
+  accounts: OutgoingAccount[];
+};
+
+export type IncomingPostSnapshotFetchRaw = {
+  data: {
+    message: string;
+  };
+};
+
+export type IncomingPostSnapshotFetchStandardized = FetchedData<
+  string | null,
+  GenericError | null
+>;
 
 // ! Accounts
 // * Incoming
@@ -107,6 +131,12 @@ export type IncomingAccountRaw = {
 };
 
 // * Outgoing
+export type OutgoingAccount = {
+  location: string;
+  type: string;
+  snapshotId?: number;
+  holdings: OutgoingHolding[];
+};
 
 // ! Holdings
 // * Incoming
@@ -123,3 +153,11 @@ export type IncomingHoldingRaw = {
 };
 
 // * Outgoing
+export type OutgoingHolding = {
+  title: string;
+  ticker: string;
+  category: string;
+  total: number;
+  expenseRatio: number;
+  accountId?: number;
+};
