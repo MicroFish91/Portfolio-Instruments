@@ -1,10 +1,14 @@
 import * as Effects from "redux-saga/effects";
 import { holdingsConverter } from "../api/conversions";
-import { IncomingSnapshotFetchRaw } from "../api/types";
+import {
+  IncomingPaginateSnapshotsFetchRaw,
+  IncomingSnapshotFetchRaw,
+} from "../api/types";
 import { clearUserAction } from "../User/userSlice";
 import {
   clearHoldingsAction,
   setDashboardHoldingsAction,
+  setPaginateHoldingsAction,
 } from "./holdingSlice";
 
 const call: any = Effects.call;
@@ -16,9 +20,17 @@ function* onLogoutUser() {
 }
 
 // Workers - triggered by snapshotSagas
-export function* setHoldings(snapshot: IncomingSnapshotFetchRaw) {
-  const convertedData = holdingsConverter.toClient(snapshot);
+export function* setDashboardHoldings(snapshot: IncomingSnapshotFetchRaw) {
+  const convertedData = holdingsConverter.toClientDashboard(snapshot);
   yield Effects.put(setDashboardHoldingsAction(convertedData));
+  return;
+}
+
+export function* setPaginateHoldings(
+  snapshot: IncomingPaginateSnapshotsFetchRaw
+) {
+  const convertedData = holdingsConverter.toClientPaginate(snapshot);
+  yield Effects.put(setPaginateHoldingsAction(convertedData));
   return;
 }
 

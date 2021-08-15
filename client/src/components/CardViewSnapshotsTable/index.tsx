@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { initPaginateSnapshotsAction } from "../../redux/Snapshots/snapshotSlice";
 
 interface CardViewSnapshotsTableProps {}
 
 const CardViewSnapshotsTable: React.FC<CardViewSnapshotsTableProps> = () => {
+  const [_page, _setPage] = useState(1);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initPaginateSnapshotsAction());
+  }, []);
+
   return (
     <div className="card">
       <div className="card-status bg-yellow br-tr-3 br-tl-3"></div>

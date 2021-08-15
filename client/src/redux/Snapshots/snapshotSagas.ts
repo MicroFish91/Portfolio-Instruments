@@ -1,19 +1,30 @@
 import * as Effects from "redux-saga/effects";
-import { clearAccounts, setAccounts } from "../Accounts/accountSagas";
+import {
+  clearAccounts,
+  setDashboardAccounts,
+  setPaginateAccounts,
+} from "../Accounts/accountSagas";
 import { snapshotsConverter } from "../api/conversions";
 import {
   getLatestSnapshotEndpoint,
   getLineChartSnapshotsEndpoint,
+  getPaginateSnapshotsEndpoint,
   postSnapshotEndpoint,
 } from "../api/endpoints/snapshotEndpoints";
 import { OutgoingSnapshot, OutgoingSnapshotRaw } from "../api/types";
-import { clearHoldings, setHoldings } from "../Holdings/holdingSaga";
+import {
+  clearHoldings,
+  setDashboardHoldings,
+  setPaginateHoldings,
+} from "../Holdings/holdingSaga";
 import { clearUserAction } from "../User/userSlice";
 import {
   clearSnapshotsAction,
   initDashboardSnapshotsAction,
+  initPaginateSnapshotsAction,
   postSnapshotAction,
   setDashboardSnapshotsSuccessAction,
+  setPaginateSnapshotsSuccessAction,
   setSnapshotsFailAction,
 } from "./snapshotSlice";
 
@@ -26,6 +37,10 @@ function* onInitDashboardSnapshots() {
   yield takeLatest(initDashboardSnapshotsAction.type, getLineChartSnapshots);
 }
 
+function* onInitPaginateSnapshots() {
+  yield takeLatest(initPaginateSnapshotsAction.type, getPaginateSnapshots);
+}
+
 function* onPostSnapshot() {
   yield takeLatest(postSnapshotAction.type, postSnapshot);
 }
@@ -35,11 +50,27 @@ function* onLogoutUser() {
 }
 
 // Workers
+function* getPaginateSnapshots() {
+  const { data, error } = yield getPaginateSnapshotsEndpoint();
+  console.log("data", data);
+  if (data) {
+    const convertedData = snapshotsConverter.toClientPaginate(data);
+    yield Effects.put(setPaginateSnapshotsSuccessAction(convertedData));
+    yield Effects.call(setPaginateAccounts, data);
+    yield Effects.call(setPaginateHoldings, data);
+  } else if (error) {
+    yield Effects.put(setSnapshotsFailAction(error));
+    yield Effects.call(clearAccounts);
+    yield Effects.call(clearHoldings);
+  }
+  return;
+}
+
 function* getLatestSnapshot() {
   const { data, error } = yield getLatestSnapshotEndpoint();
   if (data) {
-    yield call(setAccounts, data);
-    yield call(setHoldings, data);
+    yield call(setDashboardAccounts, data);
+    yield call(setDashboardHoldings, data);
   } else if (error) {
     yield Effects.put(setSnapshotsFailAction(error));
     yield Effects.call(clearAccounts);
@@ -51,7 +82,7 @@ function* getLatestSnapshot() {
 function* getLineChartSnapshots() {
   const { data, error } = yield getLineChartSnapshotsEndpoint();
   if (data) {
-    const convertedData = snapshotsConverter.toClient(data);
+    const convertedData = snapshotsConverter.toClientDashboard(data);
     yield Effects.put(setDashboardSnapshotsSuccessAction(convertedData));
   } else if (error) {
     yield Effects.put(setSnapshotsFailAction(error));
@@ -84,6 +115,7 @@ function* logoutUser() {
 export default function* userSagas() {
   yield Effects.all([
     call(onInitDashboardSnapshots),
+    call(onInitPaginateSnapshots),
     call(onPostSnapshot),
     call(onLogoutUser),
   ]);

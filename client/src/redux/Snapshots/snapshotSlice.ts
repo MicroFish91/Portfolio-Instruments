@@ -3,7 +3,7 @@ import {
   PostSnapshot,
   SnapshotsDashboardReducerSuccess,
   SnapshotsError,
-  SnapshotsPaginatedReducerSuccess,
+  SnapshotsPaginateReducerSuccess,
   SnapshotsReducerState,
 } from "./types";
 
@@ -25,7 +25,7 @@ const snapshotSlice = createSlice({
     initDashboardSnapshots: (state) => {
       state.isLoading = true;
     },
-    initPaginatedSnapshots: (state) => {
+    initPaginateSnapshots: (state) => {
       state.isLoading = true;
     },
     postSnapshot: (state, _action: PayloadAction<PostSnapshot>) => {
@@ -53,9 +53,9 @@ const snapshotSlice = createSlice({
       };
       state.isLoading = false;
     },
-    setPaginatedSnapshotsSuccess: (
+    setPaginateSnapshotsSuccess: (
       state,
-      { payload }: PayloadAction<SnapshotsPaginatedReducerSuccess>
+      { payload }: PayloadAction<SnapshotsPaginateReducerSuccess>
     ) => {
       state.byId = { ...state.byId, ...payload.byId };
       state.allIds = payload.allIds;
@@ -80,11 +80,11 @@ const snapshotSlice = createSlice({
 
 export const {
   initDashboardSnapshots: initDashboardSnapshotsAction,
-  initPaginatedSnapshots: initPaginatedSnapshotsAction,
+  initPaginateSnapshots: initPaginateSnapshotsAction,
   clearSnapshots: clearSnapshotsAction,
   postSnapshot: postSnapshotAction,
   setDashboardSnapshotsSuccess: setDashboardSnapshotsSuccessAction,
-  setPaginatedSnapshotsSuccess: setPaginatedSnapshotsSuccessAction,
+  setPaginateSnapshotsSuccess: setPaginateSnapshotsSuccessAction,
   setSnapshotsFail: setSnapshotsFailAction,
 } = snapshotSlice.actions;
 

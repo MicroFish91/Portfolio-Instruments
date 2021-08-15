@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   AccountsDashboardReducer,
-  AccountsPaginatedReducer,
+  AccountsPaginateReducer,
   AccountsReducerState,
 } from "./types";
 
@@ -29,7 +29,7 @@ const accountSlice = createSlice({
     },
     setPaginatedAccounts: (
       state,
-      { payload }: PayloadAction<AccountsPaginatedReducer>
+      { payload }: PayloadAction<AccountsPaginateReducer>
     ) => {
       state.byId = { ...state.byId, ...payload.byId };
       state.allIds = payload.allIds;

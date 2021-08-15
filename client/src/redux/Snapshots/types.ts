@@ -14,7 +14,7 @@ export type SnapshotsDashboardReducerSuccess = {
   dashboardIds: string[];
 };
 
-export type SnapshotsPaginatedReducerSuccess = {
+export type SnapshotsPaginateReducerSuccess = {
   byId: { [id: string]: ReducedSnapshot };
   allIds: string[];
 };

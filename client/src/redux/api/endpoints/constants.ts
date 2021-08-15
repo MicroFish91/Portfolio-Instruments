@@ -7,6 +7,7 @@ export const USER_ENDPOINT = {
 export const SNAPSHOT_ENDPOINT = {
   GET_LATEST: "/snapshots/latest",
   GET_RANGE: (years: number) => `/snapshots/range/${years}`,
+  GET_ALL: "/snapshots/all",
   POST_SNAPSHOT: "/snapshots",
 };
 

@@ -9,7 +9,7 @@ export type HoldingsDashboardReducer = {
   dashboardIds: string[];
 };
 
-export type HoldingsPaginatedReducer = {
+export type HoldingsPaginateReducer = {
   byId: { [id: string]: ReducedHoldings };
   allIds: string[];
 };

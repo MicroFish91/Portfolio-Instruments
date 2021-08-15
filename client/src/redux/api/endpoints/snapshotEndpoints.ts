@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getToken } from "../../User/userUtils";
 import {
+  IncomingPaginateSnapshotsFetchRaw,
   IncomingPostSnapshotFetchRaw,
   IncomingPostSnapshotFetchStandardized,
   IncomingSnapshotFetchRaw,
@@ -38,6 +39,31 @@ export async function getLineChartSnapshotsEndpoint(): Promise<IncomingSnapshots
   try {
     const snapshotResponse: IncomingSnapshotFetchRaw = await axios.get(
       SNAPSHOT_ENDPOINT.GET_RANGE(4),
+      {
+        headers: {
+          authorization: getToken(),
+        },
+      }
+    );
+    return {
+      data: snapshotResponse,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: {
+        status: error.response.status,
+        message: error.message,
+      },
+    };
+  }
+}
+
+export async function getPaginateSnapshotsEndpoint(): Promise<IncomingSnapshotsFetchStandardized> {
+  try {
+    const snapshotResponse: IncomingPaginateSnapshotsFetchRaw = await axios.get(
+      SNAPSHOT_ENDPOINT.GET_ALL,
       {
         headers: {
           authorization: getToken(),

@@ -9,7 +9,7 @@ export type AccountsDashboardReducer = {
   dashboardIds: string[];
 };
 
-export type AccountsPaginatedReducer = {
+export type AccountsPaginateReducer = {
   byId: { [id: string]: ReducedAccount };
   allIds: string[];
 };

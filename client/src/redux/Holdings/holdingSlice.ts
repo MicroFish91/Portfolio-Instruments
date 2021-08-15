@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   HoldingsDashboardReducer,
-  HoldingsPaginatedReducer,
+  HoldingsPaginateReducer,
   HoldingsReducerState,
 } from "./types";
 
@@ -22,9 +22,9 @@ const HoldingSlice = createSlice({
       state.byId = { ...state.byId, ...payload.byId };
       state.dashboardIds = payload.dashboardIds;
     },
-    setPaginatedHoldings: (
+    setPaginateHoldings: (
       state,
-      { payload }: PayloadAction<HoldingsPaginatedReducer>
+      { payload }: PayloadAction<HoldingsPaginateReducer>
     ) => {
       state.byId = { ...state.byId, ...payload.byId };
       state.allIds = payload.allIds;
@@ -39,7 +39,7 @@ const HoldingSlice = createSlice({
 
 export const {
   setDashboardHoldings: setDashboardHoldingsAction,
-  setPaginatedHoldings: setPaginatedHoldingsAction,
+  setPaginateHoldings: setPaginateHoldingsAction,
   clearHoldings: clearHoldingsAction,
 } = HoldingSlice.actions;
 
