@@ -1,16 +1,67 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
+import { selectAllSnapshots } from "../../redux/Snapshots/snapshotSelector";
 import { initPaginateSnapshotsAction } from "../../redux/Snapshots/snapshotSlice";
+import { formatDate, usdFormatter } from "../../utils";
 
 interface CardViewSnapshotsTableProps {}
 
 const CardViewSnapshotsTable: React.FC<CardViewSnapshotsTableProps> = () => {
-  const [_page, _setPage] = useState(1);
+  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
+  const snapshots = useSelector(selectAllSnapshots);
+  const dollarFormatter = usdFormatter();
+  const SNAPSHOTS_PER_PAGE = 10;
+
+  const maxPages = snapshots.length / SNAPSHOTS_PER_PAGE + 1;
 
   useEffect(() => {
     dispatch(initPaginateSnapshotsAction());
   }, []);
+
+  const onNextPage = () => {
+    setPage(page + 1);
+  };
+
+  const onPreviousPage = () => {
+    setPage(page - 1);
+  };
+
+  const renderRow = () => {
+    const snapshotRender = [];
+    const startIndex = (page - 1) * SNAPSHOTS_PER_PAGE;
+    const endIndex =
+      page !== Math.floor(maxPages)
+        ? startIndex + SNAPSHOTS_PER_PAGE
+        : (page - 1) * SNAPSHOTS_PER_PAGE +
+          (snapshots.length % SNAPSHOTS_PER_PAGE);
+    for (let pageIndex = startIndex; pageIndex < endIndex; pageIndex++) {
+      snapshotRender.push(
+        <tr key={uuidv4()} id={snapshots[pageIndex].id}>
+          <td>{snapshots[pageIndex].title}</td>
+          <td>{snapshots[pageIndex].benchmark}</td>
+          <td>{snapshots[pageIndex].notes}</td>
+          <td>{formatDate(snapshots[pageIndex].date)}</td>
+          <td>{dollarFormatter.format(snapshots[pageIndex].total)}</td>
+          <td>
+            {parseFloat(
+              snapshots[pageIndex].weightedExpenseRatio.toString()
+            ).toFixed(2)}
+          </td>
+          <td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a className="icon"></a>
+            <a href="javascript:void(0)" className="btn btn-danger btn-sm">
+              <i className="fas fa-trash"></i> Delete{" "}
+            </a>
+          </td>
+        </tr>
+      );
+    }
+
+    return snapshotRender;
+  };
 
   return (
     <div className="card">
@@ -37,35 +88,20 @@ const CardViewSnapshotsTable: React.FC<CardViewSnapshotsTableProps> = () => {
               </tr>
             </thead>
 
-            <tbody>
-              <tr>
-                <td>title</td>
-                <td>benchmark</td>
-                <td>notes</td>
-                <td>date</td>
-                <td>total</td>
-                <td>$200.89</td>
-                <td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <a className="icon"></a>
-                  <a
-                    href="javascript:void(0)"
-                    className="btn btn-danger btn-sm"
-                  >
-                    <i className="fas fa-trash"></i> Delete{" "}
-                  </a>
-                </td>
-              </tr>
-            </tbody>
+            <tbody>{renderRow()}</tbody>
           </table>
         </div>
-        <button type="submit" className="btn btn-primary ml-auto">
-          Next
-        </button>
+        {page < maxPages - 1 && (
+          <button onClick={onNextPage} className="btn btn-primary ml-auto">
+            Next
+          </button>
+        )}
         &nbsp; &nbsp;
-        <button type="submit" className="btn btn-primary ml-auto">
-          Previous
-        </button>
+        {page > 1 && (
+          <button onClick={onPreviousPage} className="btn btn-primary ml-auto">
+            Previous
+          </button>
+        )}
         <br></br>
       </div>
     </div>

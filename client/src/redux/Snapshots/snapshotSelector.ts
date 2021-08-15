@@ -1,5 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../rootReducer";
+import { ReducedSnapshot } from "./types";
 import {
   consolidateSnapshotsMonthlyById,
   convertIdsToTotals,
@@ -87,5 +88,23 @@ export const selectLineChartValuesRangeTwo = createSelector(
     } else {
       return undefined;
     }
+  }
+);
+
+export const selectAllSnapshots = createSelector(
+  selectSnapshotsById,
+  selectSnapshotsAllIds,
+  (snapshotsById, snapshotsList) => {
+    const newList: (ReducedSnapshot & { id: string })[] = [];
+
+    snapshotsList.forEach((snapshotId) => {
+      const newSnapshot = {
+        ...snapshotsById[snapshotId],
+        id: snapshotId,
+      };
+      newList.push(newSnapshot);
+    });
+
+    return newList;
   }
 );

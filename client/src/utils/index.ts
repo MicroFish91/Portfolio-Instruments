@@ -6,6 +6,18 @@ export const monthDifference = (d1: Date, d2: Date): number => {
   return months <= 0 ? 0 : months;
 };
 
+export const formatDate = (date: Date) => {
+  var d = new Date(date),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("-");
+};
+
 export const usdFormatter = () => {
   return new Intl.NumberFormat("en-US", {
     style: "currency",

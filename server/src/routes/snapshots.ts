@@ -228,6 +228,8 @@ router.post("/", requireJwt, async (req, res) => {
     if (error) throw new TypeError(error.message);
 
     const snapshot = await db.Snapshots.create(postSnapshot);
+
+    console.log(snapshot);
     snapshotId = snapshot.dataValues.id;
 
     const accountData = clientData.accounts;
