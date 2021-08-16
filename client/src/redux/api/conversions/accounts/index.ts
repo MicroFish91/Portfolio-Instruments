@@ -1,5 +1,6 @@
-import { toClient } from "./toClient";
+import { toClientDashboard, toClientPaginate } from "./toClient";
 
 export const accountsConverter = {
-  toClient,
+  toClientDashboard,
+  toClientPaginate,
 };

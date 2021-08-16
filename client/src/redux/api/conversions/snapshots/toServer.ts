@@ -43,7 +43,5 @@ export const toServer = (clientAction: {
     });
   });
 
-  console.log("Formatted", formattedSnapshot);
-
   return formattedSnapshot;
 };

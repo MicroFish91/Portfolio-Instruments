@@ -1,12 +1,15 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../rootReducer";
+import { ReducedAccountById } from "./types";
 
 export const selectAccountsById = (state: RootState) => state.accounts.byId;
-export const selectAccountsIdList = (state: RootState) => state.accounts.allIds;
+export const selectAccountsDashboardIds = (state: RootState) =>
+  state.accounts.dashboardIds;
+export const selectAccountsAllIds = (state: RootState) => state.accounts.allIds;
 
 export const selectTraditionalAccounts = createSelector(
   selectAccountsById,
-  selectAccountsIdList,
+  selectAccountsDashboardIds,
   (accountsById, accountsList) => {
     const traditionalIds: string[] = [];
     accountsList.forEach((accountId) => {
@@ -20,7 +23,7 @@ export const selectTraditionalAccounts = createSelector(
 
 export const selectRothAccounts = createSelector(
   selectAccountsById,
-  selectAccountsIdList,
+  selectAccountsDashboardIds,
   (accountsById, accountsList) => {
     const rothIds: string[] = [];
     accountsList.forEach((accountId) => {
@@ -34,7 +37,7 @@ export const selectRothAccounts = createSelector(
 
 export const selectTaxableAccounts = createSelector(
   selectAccountsById,
-  selectAccountsIdList,
+  selectAccountsDashboardIds,
   (accountsById, accountsList) => {
     const taxableIds: string[] = [];
     accountsList.forEach((accountId) => {
@@ -45,3 +48,32 @@ export const selectTaxableAccounts = createSelector(
     return taxableIds;
   }
 );
+
+export const selectAccountsBySnapshotId = (snapshotId: number) => {
+  const matchingAccountIdSelector = createSelector(
+    selectAccountsById,
+    selectAccountsAllIds,
+    (accountsById, accountsList) => {
+      const matchingAccountIds: ReducedAccountById[] = accountsList.reduce(
+        (accumulator, accountId) => {
+          if (accountsById[accountId].snapshotId === snapshotId) {
+            const account: ReducedAccountById = {
+              id: accountId,
+              location: accountsById[accountId].location,
+              type: accountsById[accountId].type,
+            };
+            accumulator.push(account);
+            return accumulator;
+          } else {
+            return accumulator;
+          }
+        },
+        [] as ReducedAccountById[]
+      );
+
+      return matchingAccountIds;
+    }
+  );
+
+  return matchingAccountIdSelector;
+};

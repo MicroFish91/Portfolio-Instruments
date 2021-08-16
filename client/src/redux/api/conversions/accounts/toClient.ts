@@ -1,12 +1,18 @@
-import { AccountsReducerState } from "../../../Accounts/types";
-import { IncomingSnapshotFetchRaw } from "../../types";
+import {
+  AccountsDashboardReducer,
+  AccountsPaginateReducer,
+} from "../../../Accounts/types";
+import {
+  IncomingPaginateSnapshotsFetchRaw,
+  IncomingSnapshotFetchRaw,
+} from "../../types";
 
-export const toClient = (
+export const toClientDashboard = (
   serverSnapshot: IncomingSnapshotFetchRaw
-): AccountsReducerState => {
-  const reducedAccounts: AccountsReducerState = {
+): AccountsDashboardReducer => {
+  const reducedAccounts: AccountsDashboardReducer = {
     byId: {},
-    allIds: [],
+    dashboardIds: [],
   };
 
   serverSnapshot.data.Accounts?.forEach((account) => {
@@ -15,7 +21,29 @@ export const toClient = (
       type: account.type,
       snapshotId: account.snapshotId,
     };
-    reducedAccounts.allIds.push(account.id.toString());
+    reducedAccounts.dashboardIds.push(account.id.toString());
+  });
+
+  return reducedAccounts;
+};
+
+export const toClientPaginate = (
+  serverSnapshot: IncomingPaginateSnapshotsFetchRaw
+): AccountsPaginateReducer => {
+  const reducedAccounts: AccountsPaginateReducer = {
+    byId: {},
+    allIds: [],
+  };
+
+  serverSnapshot.data.forEach((snapshot) => {
+    snapshot.Accounts.forEach((account) => {
+      reducedAccounts.byId[account.id] = {
+        location: account.location,
+        type: account.type,
+        snapshotId: account.snapshotId,
+      };
+      reducedAccounts.allIds.push(account.id.toString());
+    });
   });
 
   return reducedAccounts;
