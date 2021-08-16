@@ -19,3 +19,9 @@ export type ReducedAccount = {
   type: "Traditional" | "Roth" | "Taxable";
   snapshotId: number;
 };
+
+export type ReducedAccountById = {
+  id: string;
+  location: string;
+  type: string;
+};

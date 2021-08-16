@@ -22,3 +22,25 @@ export type ReducedHoldings = {
   expenseRatio: number;
   accountId: number;
 };
+
+export type ReducedHoldingsByAccount = {
+  [accountLocation: string]: ReducedHoldingsAccount;
+};
+
+export type ReducedHoldingsAccount = {
+  accountName: string;
+  accountType: {
+    traditional: ReducedHoldingByAccount[];
+    roth: ReducedHoldingByAccount[];
+    taxable: ReducedHoldingByAccount[];
+    [accountType: string]: ReducedHoldingByAccount[];
+  };
+};
+
+export type ReducedHoldingByAccount = {
+  title: string;
+  ticker: string;
+  category: string;
+  total: number;
+  expenseRatio: number;
+};

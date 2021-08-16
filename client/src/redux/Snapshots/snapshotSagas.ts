@@ -10,6 +10,7 @@ import {
   getLineChartSnapshotsEndpoint,
   getPaginateSnapshotsEndpoint,
   postSnapshotEndpoint,
+  removeSnapshotEndpoint,
 } from "../api/endpoints/snapshotEndpoints";
 import { OutgoingSnapshot, OutgoingSnapshotRaw } from "../api/types";
 import {
@@ -23,10 +24,12 @@ import {
   initDashboardSnapshotsAction,
   initPaginateSnapshotsAction,
   postSnapshotAction,
+  removeSnapshotAction,
   setDashboardSnapshotsSuccessAction,
   setPaginateSnapshotsSuccessAction,
   setSnapshotsFailAction,
 } from "./snapshotSlice";
+import { removeSnapshotPayload } from "./types";
 
 const call: any = Effects.call;
 const takeLatest: any = Effects.takeLatest;
@@ -45,6 +48,10 @@ function* onPostSnapshot() {
   yield takeLatest(postSnapshotAction.type, postSnapshot);
 }
 
+function* onRemoveSnapshot() {
+  yield takeLatest(removeSnapshotAction.type, removeSnapshot);
+}
+
 function* onLogoutUser() {
   yield takeLatest(clearUserAction.type, logoutUser);
 }
@@ -52,7 +59,6 @@ function* onLogoutUser() {
 // Workers
 function* getPaginateSnapshots() {
   const { data, error } = yield getPaginateSnapshotsEndpoint();
-  console.log("data", data);
   if (data) {
     const convertedData = snapshotsConverter.toClientPaginate(data);
     yield Effects.put(setPaginateSnapshotsSuccessAction(convertedData));
@@ -107,6 +113,20 @@ function* postSnapshot(clientAction: {
   }
 }
 
+function* removeSnapshot(clientAction: {
+  type: string;
+  payload: removeSnapshotPayload;
+}) {
+  const { data, error } = yield removeSnapshotEndpoint(clientAction.payload);
+  if (data) {
+    yield Effects.put(clearSnapshotsAction());
+    yield Effects.put(initDashboardSnapshotsAction());
+    yield Effects.put(initPaginateSnapshotsAction());
+  } else {
+    yield Effects.put(setSnapshotsFailAction(error));
+  }
+}
+
 function* logoutUser() {
   yield Effects.put(clearSnapshotsAction());
 }
@@ -116,6 +136,7 @@ export default function* userSagas() {
   yield Effects.all([
     call(onInitDashboardSnapshots),
     call(onInitPaginateSnapshots),
+    call(onRemoveSnapshot),
     call(onPostSnapshot),
     call(onLogoutUser),
   ]);

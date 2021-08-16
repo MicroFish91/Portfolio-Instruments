@@ -81,18 +81,15 @@ const Sidebar: React.FC<SidebarProps> = () => {
               </span>
             </a>
             <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-              <a className="dropdown-item" href="">
-                <i className="dropdown-icon mdi mdi-account-outline"></i>{" "}
+              <Link to="/profile" className="dropdown-item">
                 Profile
-              </a>
+              </Link>
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="">
-                <i className="dropdown-icon mdi mdi-compass-outline"></i>Getting
-                Started
-              </a>
+              <Link to="/benchmarks/general" className="dropdown-item">
+                Getting Started
+              </Link>
               <a className="dropdown-item" href="#" onClick={handleLogout}>
-                <i className="dropdown-icon mdi mdi-logout-variant"></i> Sign
-                out
+                Sign out
               </a>
             </div>
           </div>
@@ -129,11 +126,8 @@ const Sidebar: React.FC<SidebarProps> = () => {
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/portfolio-wizard/view-snapshots"
-                  className="slide-item"
-                >
-                  View Snapshots
+                <Link to="/portfolio-wizard/view-assets" className="slide-item">
+                  View Assets
                 </Link>
               </li>
               <li>

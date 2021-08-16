@@ -229,7 +229,6 @@ router.post("/", requireJwt, async (req, res) => {
 
     const snapshot = await db.Snapshots.create(postSnapshot);
 
-    console.log(snapshot);
     snapshotId = snapshot.dataValues.id;
 
     const accountData = clientData.accounts;
@@ -308,6 +307,26 @@ router.post("/", requireJwt, async (req, res) => {
           "Fatal Server Error: Potentially Corrupt Data - Please contact a system administrator to fix the issue.",
       });
     }
+  }
+});
+
+router.delete("/", requireJwt, async (req, res) => {
+  const { snapshotId, accountIds, holdingIds } = req.body.payload as {
+    snapshotId: number;
+    accountIds: string[];
+    holdingIds: string[];
+  };
+
+  try {
+    await db.Holdings.destroy({ where: { id: holdingIds } });
+    await db.Accounts.destroy({ where: { id: accountIds } });
+    await db.Snapshots.destroy({ where: { id: snapshotId } });
+
+    res.json({ message: "Success." });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Internal server error - could not process request." });
   }
 });
 

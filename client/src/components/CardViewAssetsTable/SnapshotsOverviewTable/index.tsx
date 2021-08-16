@@ -1,24 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { selectAllSnapshots } from "../../redux/Snapshots/snapshotSelector";
-import { initPaginateSnapshotsAction } from "../../redux/Snapshots/snapshotSlice";
-import { formatDate, usdFormatter } from "../../utils";
+import { ReducedSnapshot } from "../../../redux/Snapshots/types";
+import { formatDate, usdFormatter } from "../../../utils";
+import "./SnapshotsOverviewTable.css";
 
-interface CardViewSnapshotsTableProps {}
+interface SnapshotsOverviewTableProps {
+  deleteSnapshot: (id: number) => void;
+  setSnapshotId: (id: number) => void;
+  setToggleSnapshotView: (toggle: boolean) => void;
+  snapshots: (ReducedSnapshot & { id: string })[];
+}
 
-const CardViewSnapshotsTable: React.FC<CardViewSnapshotsTableProps> = () => {
+const SnapshotsOverviewTable: React.FC<SnapshotsOverviewTableProps> = ({
+  deleteSnapshot,
+  setSnapshotId,
+  setToggleSnapshotView,
+  snapshots,
+}) => {
   const [page, setPage] = useState(1);
-  const dispatch = useDispatch();
-  const snapshots = useSelector(selectAllSnapshots);
   const dollarFormatter = usdFormatter();
   const SNAPSHOTS_PER_PAGE = 10;
 
   const maxPages = snapshots.length / SNAPSHOTS_PER_PAGE + 1;
 
-  useEffect(() => {
-    dispatch(initPaginateSnapshotsAction());
-  }, []);
+  const toggleHoldingsView = (_e: React.MouseEvent, id: number) => {
+    setToggleSnapshotView(false);
+    setSnapshotId(id);
+  };
 
   const onNextPage = () => {
     setPage(page + 1);
@@ -38,21 +46,39 @@ const CardViewSnapshotsTable: React.FC<CardViewSnapshotsTableProps> = () => {
           (snapshots.length % SNAPSHOTS_PER_PAGE);
     for (let pageIndex = startIndex; pageIndex < endIndex; pageIndex++) {
       snapshotRender.push(
-        <tr key={uuidv4()} id={snapshots[pageIndex].id}>
-          <td>{snapshots[pageIndex].title}</td>
+        <tr key={uuidv4()}>
+          <td
+            className="tableHover"
+            onClick={(e) =>
+              toggleHoldingsView(e, parseInt(snapshots[pageIndex].id))
+            }
+          >
+            {snapshots[pageIndex].title}
+          </td>
           <td>{snapshots[pageIndex].benchmark}</td>
           <td>{snapshots[pageIndex].notes}</td>
           <td>{formatDate(snapshots[pageIndex].date)}</td>
-          <td>{dollarFormatter.format(snapshots[pageIndex].total)}</td>
+          <td
+            className="tableHover"
+            onClick={(e) =>
+              toggleHoldingsView(e, parseInt(snapshots[pageIndex].id))
+            }
+          >
+            {dollarFormatter.format(snapshots[pageIndex].total)}
+          </td>
           <td>
             {parseFloat(
               snapshots[pageIndex].weightedExpenseRatio.toString()
             ).toFixed(2)}
           </td>
           <td>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
             <a className="icon"></a>
-            <a href="javascript:void(0)" className="btn btn-danger btn-sm">
+            <a
+              href="javascript:void(0)"
+              className="btn btn-danger btn-sm"
+              onClick={() => deleteSnapshot(parseInt(snapshots[pageIndex].id))}
+            >
               <i className="fas fa-trash"></i> Delete{" "}
             </a>
           </td>
@@ -64,8 +90,7 @@ const CardViewSnapshotsTable: React.FC<CardViewSnapshotsTableProps> = () => {
   };
 
   return (
-    <div className="card">
-      <div className="card-status bg-yellow br-tr-3 br-tl-3"></div>
+    <>
       <div className="card-header">
         <div className="card-title">Snapshots List</div>
       </div>
@@ -102,10 +127,9 @@ const CardViewSnapshotsTable: React.FC<CardViewSnapshotsTableProps> = () => {
             Previous
           </button>
         )}
-        <br></br>
       </div>
-    </div>
+    </>
   );
 };
 
-export default CardViewSnapshotsTable;
+export default SnapshotsOverviewTable;

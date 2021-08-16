@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { selectUserFullName } from "../../redux/User/userSelectors";
 import { clearUserAction } from "../../redux/User/userSlice";
 
@@ -82,17 +82,14 @@ const Header: React.FC = () => {
                   </span>
                 </a>
                 <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                  <a className="dropdown-item" href="">
-                    <i className="dropdown-icon mdi mdi-account-outline"></i>{" "}
+                  <Link to="/profile" className="dropdown-item">
                     Profile
-                  </a>
+                  </Link>
                   <div className="dropdown-divider"></div>
-                  <a className="dropdown-item" href="">
-                    <i className="dropdown-icon mdi mdi-compass-outline"></i>
+                  <Link to="/benchmarks/general" className="dropdown-item">
                     Getting Started
-                  </a>
+                  </Link>
                   <a className="dropdown-item" href="#" onClick={handleLogout}>
-                    <i className="dropdown-icon mdi mdi-logout-variant"></i>{" "}
                     Sign out
                   </a>
                 </div>

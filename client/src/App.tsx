@@ -9,7 +9,7 @@ import Benchmarks from "./pages/Benchmarks";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import ViewSnapshots from "./pages/ViewSnapshots";
+import ViewAssets from "./pages/ViewAssets";
 
 const App = () => {
   return (
@@ -54,14 +54,14 @@ const App = () => {
           )}
         />
         <Route
-          path="/portfolio-wizard/view-snapshots"
+          path="/portfolio-wizard/view-assets"
           render={() => (
             <ContentWrapper
               fallback={SnapshotsFallback}
-              majorTitle={"View Snapshots"}
+              majorTitle={"View Assets"}
               minorTitle={"Portfolio Wizard"}
             >
-              <ViewSnapshots />
+              <ViewAssets />
             </ContentWrapper>
           )}
         />

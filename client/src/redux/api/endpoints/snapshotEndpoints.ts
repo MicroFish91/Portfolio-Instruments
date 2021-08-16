@@ -1,4 +1,5 @@
 import axios from "axios";
+import { removeSnapshotPayload } from "../../Snapshots/types";
 import { getToken } from "../../User/userUtils";
 import {
   IncomingPaginateSnapshotsFetchRaw,
@@ -93,6 +94,36 @@ export async function postSnapshotEndpoint(
       SNAPSHOT_ENDPOINT.POST_SNAPSHOT,
       { snapshot },
       {
+        headers: {
+          authorization: getToken(),
+        },
+      }
+    );
+    return {
+      data: snapshotResponse.data.message,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: {
+        status: error.response.status,
+        message: error.message,
+      },
+    };
+  }
+}
+
+export async function removeSnapshotEndpoint(
+  payload: removeSnapshotPayload
+): Promise<IncomingPostSnapshotFetchStandardized> {
+  try {
+    const snapshotResponse: IncomingPostSnapshotFetchRaw = await axios.delete(
+      SNAPSHOT_ENDPOINT.DELETE_SNAPSHOT,
+      {
+        data: {
+          payload,
+        },
         headers: {
           authorization: getToken(),
         },

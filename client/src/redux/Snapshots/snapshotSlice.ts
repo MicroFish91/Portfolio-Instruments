@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   PostSnapshot,
+  removeSnapshotPayload,
   SnapshotsDashboardReducerSuccess,
   SnapshotsError,
   SnapshotsPaginateReducerSuccess,
@@ -29,6 +30,9 @@ const snapshotSlice = createSlice({
       state.isLoading = true;
     },
     postSnapshot: (state, _action: PayloadAction<PostSnapshot>) => {
+      state.isLoading = true;
+    },
+    removeSnapshot: (state, _action: PayloadAction<removeSnapshotPayload>) => {
       state.isLoading = true;
     },
     clearSnapshots: (state) => {
@@ -81,6 +85,7 @@ const snapshotSlice = createSlice({
 export const {
   initDashboardSnapshots: initDashboardSnapshotsAction,
   initPaginateSnapshots: initPaginateSnapshotsAction,
+  removeSnapshot: removeSnapshotAction,
   clearSnapshots: clearSnapshotsAction,
   postSnapshot: postSnapshotAction,
   setDashboardSnapshotsSuccess: setDashboardSnapshotsSuccessAction,

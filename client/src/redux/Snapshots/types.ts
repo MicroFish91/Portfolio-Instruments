@@ -28,6 +28,12 @@ export type ReducedSnapshot = {
   weightedExpenseRatio: number;
 };
 
+export type removeSnapshotPayload = {
+  snapshotId: number;
+  accountIds: string[];
+  holdingIds: string[];
+};
+
 export type PostSnapshot = SnapshotFormatted;
 
 export type SnapshotsError = GenericError;
