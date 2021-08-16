@@ -1,5 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../rootReducer";
+import { ReducedSnapshot } from "./types";
 import {
   consolidateSnapshotsMonthlyById,
   convertIdsToTotals,
@@ -8,14 +9,16 @@ import {
 } from "./utils";
 
 export const selectSnapshotsById = (state: RootState) => state.snapshots.byId;
-export const selectSnapshotsIdList = (state: RootState) =>
+export const selectSnapshotsDashboardIds = (state: RootState) =>
+  state.snapshots.dashboardIds;
+export const selectSnapshotsAllIds = (state: RootState) =>
   state.snapshots.allIds;
 export const selectSnapshotErrors = (state: RootState) => state.snapshots.error;
 export const selectSnapshotLoading = (state: RootState) =>
   state.snapshots.isLoading;
 
 export const selectXAxisLabels = createSelector(
-  selectSnapshotsIdList,
+  selectSnapshotsDashboardIds,
   (snapshotsList) => {
     if (snapshotsList.length !== 0) {
       return createXAxisLabels();
@@ -26,7 +29,7 @@ export const selectXAxisLabels = createSelector(
 );
 
 export const selectYearRangeOne = createSelector(
-  selectSnapshotsIdList,
+  selectSnapshotsDashboardIds,
   (snapshotsList) => {
     if (snapshotsList.length !== 0) {
       return createYearRange();
@@ -37,7 +40,7 @@ export const selectYearRangeOne = createSelector(
 );
 
 export const selectYearRangeTwo = createSelector(
-  selectSnapshotsIdList,
+  selectSnapshotsDashboardIds,
   (snapshotsList) => {
     if (snapshotsList.length !== 0) {
       return createYearRange(24);
@@ -49,7 +52,7 @@ export const selectYearRangeTwo = createSelector(
 
 export const selectLineChartValuesRangeOne = createSelector(
   selectSnapshotsById,
-  selectSnapshotsIdList,
+  selectSnapshotsDashboardIds,
   (snapshotsById, snapshotsList) => {
     const snapshotIdsByMonth = consolidateSnapshotsMonthlyById(
       snapshotsById,
@@ -69,7 +72,7 @@ export const selectLineChartValuesRangeOne = createSelector(
 
 export const selectLineChartValuesRangeTwo = createSelector(
   selectSnapshotsById,
-  selectSnapshotsIdList,
+  selectSnapshotsDashboardIds,
   (snapshotsById, snapshotsList) => {
     if (snapshotsList.length !== 0) {
       const snapshotIdsByMonth = consolidateSnapshotsMonthlyById(
@@ -85,5 +88,23 @@ export const selectLineChartValuesRangeTwo = createSelector(
     } else {
       return undefined;
     }
+  }
+);
+
+export const selectAllSnapshots = createSelector(
+  selectSnapshotsById,
+  selectSnapshotsAllIds,
+  (snapshotsById, snapshotsList) => {
+    const newList: (ReducedSnapshot & { id: string })[] = [];
+
+    snapshotsList.forEach((snapshotId) => {
+      const newSnapshot = {
+        ...snapshotsById[snapshotId],
+        id: snapshotId,
+      };
+      newList.push(newSnapshot);
+    });
+
+    return newList;
   }
 );

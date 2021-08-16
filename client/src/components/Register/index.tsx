@@ -9,6 +9,7 @@ import {
   selectUserToken,
 } from "../../redux/User/userSelectors";
 import {
+  clearLoadingAction,
   clearUserAction,
   userRegisterAction,
 } from "../../redux/User/userSlice";
@@ -28,6 +29,15 @@ const Register = () => {
       history.push("/dashboard");
     }
   }, [userToken]);
+
+  useEffect(() => {
+    if (isLoading) {
+      const timer = setTimeout(() => {
+        dispatch(clearLoadingAction());
+        clearTimeout(timer);
+      }, 10000);
+    }
+  }, [isLoading]);
 
   const navigateLogin = () => {
     dispatch(clearUserAction());

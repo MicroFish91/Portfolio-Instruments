@@ -26,6 +26,9 @@ const userSlice = createSlice({
   name: "user",
   initialState: INITIAL_STATE,
   reducers: {
+    clearLoading: (state) => {
+      state.isLoading = false;
+    },
     clearUser: (state) => {
       state.currentUser = {
         email: "",
@@ -104,6 +107,7 @@ const userSlice = createSlice({
 });
 
 export const {
+  clearLoading: clearLoadingAction,
   clearUser: clearUserAction,
   login: userLoginAction,
   loginSuccess: userLoginSuccessAction,

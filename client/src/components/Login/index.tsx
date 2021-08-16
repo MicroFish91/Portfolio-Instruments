@@ -8,7 +8,11 @@ import {
   selectUserLoading,
   selectUserToken,
 } from "../../redux/User/userSelectors";
-import { clearUserAction, userLoginAction } from "../../redux/User/userSlice";
+import {
+  clearLoadingAction,
+  clearUserAction,
+  userLoginAction,
+} from "../../redux/User/userSlice";
 import { loginFormSchema } from "../../validation";
 import { LoginForm } from "../../validation/types";
 import InputField from "../forms/InputField";
@@ -25,6 +29,15 @@ const Login = () => {
       history.push("/dashboard");
     }
   }, [userToken]);
+
+  useEffect(() => {
+    if (isLoading) {
+      const timer = setTimeout(() => {
+        dispatch(clearLoadingAction());
+        clearTimeout(timer);
+      }, 10000);
+    }
+  }, [isLoading]);
 
   const navigateRegister = () => {
     dispatch(clearUserAction());

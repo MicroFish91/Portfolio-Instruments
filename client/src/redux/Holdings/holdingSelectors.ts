@@ -1,21 +1,25 @@
 import { createSelector } from "@reduxjs/toolkit";
 import {
   selectAccountsById,
-  selectAccountsIdList,
+  selectAccountsBySnapshotId,
+  selectAccountsDashboardIds,
   selectRothAccounts,
   selectTaxableAccounts,
   selectTraditionalAccounts,
 } from "../Accounts/accountSelectors";
 import { RootState } from "../rootReducer";
+import { ReducedHoldingsAccount, ReducedHoldingsByAccount } from "./types";
 
 export const selectHoldingsById = (state: RootState) => state.holdings.byId;
-export const selectHoldingsIdList = (state: RootState) => state.holdings.allIds;
+export const selectHoldingsDashboardIds = (state: RootState) =>
+  state.holdings.dashboardIds;
+export const selectHoldingsAllIds = (state: RootState) => state.holdings.allIds;
 
 export const selectTotalsByInstitutions = createSelector(
   selectHoldingsById,
-  selectHoldingsIdList,
+  selectHoldingsDashboardIds,
   selectAccountsById,
-  selectAccountsIdList,
+  selectAccountsDashboardIds,
   (holdingsById, holdingsIdList, accountsById, accountsIdList) => {
     const institutionTotals: { [accountName: string]: number } = {};
     holdingsIdList.forEach((holdingId) => {
@@ -59,7 +63,7 @@ export const selectPercentageByInstitutions = createSelector(
 
 export const selectTotalTraditional = createSelector(
   selectHoldingsById,
-  selectHoldingsIdList,
+  selectHoldingsDashboardIds,
   selectTraditionalAccounts,
   (holdingsById, holdingsIdList, traditionalAccountIds): number => {
     let traditionalTotal = 0;
@@ -78,7 +82,7 @@ export const selectTotalTraditional = createSelector(
 
 export const selectTotalRoth = createSelector(
   selectHoldingsById,
-  selectHoldingsIdList,
+  selectHoldingsDashboardIds,
   selectRothAccounts,
   (holdingsById, holdingsIdList, rothAccountIds): number => {
     let rothTotal = 0;
@@ -95,7 +99,7 @@ export const selectTotalRoth = createSelector(
 
 export const selectTotalTaxable = createSelector(
   selectHoldingsById,
-  selectHoldingsIdList,
+  selectHoldingsDashboardIds,
   selectTaxableAccounts,
   (holdingsById, holdingsIdList, taxableAccountIds): number => {
     let taxableTotal = 0;
@@ -124,3 +128,63 @@ export const selectTaxShelterPercentages = createSelector(
     return taxShelterMap;
   }
 );
+
+export const selectHoldingsBySnapshotId = (snapshotId: number) => {
+  const matchingHoldingIdSelector = createSelector(
+    selectHoldingsById,
+    selectHoldingsAllIds,
+    selectAccountsBySnapshotId(snapshotId),
+    (holdingsById, holdingsList, accountIds) => {
+      const accountHoldings: ReducedHoldingsByAccount = {};
+      let snapshot: ReducedHoldingsAccount[] = [];
+
+      accountIds.forEach((account) => {
+        const holdingIds = holdingsList.filter((holdingId) => {
+          return holdingsById[holdingId].accountId === parseInt(account.id);
+        });
+
+        if (accountHoldings[account.location]) {
+          accountHoldings[account.location].accountType[
+            account.type.toLowerCase()
+          ] = holdingIds.map((holdingId) => {
+            return {
+              title: holdingsById[holdingId].title,
+              ticker: holdingsById[holdingId].ticker,
+              category: holdingsById[holdingId].category,
+              total: holdingsById[holdingId].total,
+              expenseRatio: holdingsById[holdingId].expenseRatio,
+            };
+          });
+        } else {
+          accountHoldings[account.location] = {
+            accountName: account.location,
+            accountType: {
+              traditional: [],
+              roth: [],
+              taxable: [],
+            },
+          };
+          accountHoldings[account.location].accountType[
+            account.type.toLowerCase()
+          ] = holdingIds.map((holdingId) => {
+            return {
+              title: holdingsById[holdingId].title,
+              ticker: holdingsById[holdingId].ticker,
+              category: holdingsById[holdingId].category,
+              total: holdingsById[holdingId].total,
+              expenseRatio: holdingsById[holdingId].expenseRatio,
+            };
+          });
+        }
+      });
+
+      for (const key of Object.keys(accountHoldings)) {
+        snapshot.push(accountHoldings[key]);
+      }
+
+      return snapshot;
+    }
+  );
+
+  return matchingHoldingIdSelector;
+};

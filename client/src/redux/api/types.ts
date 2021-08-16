@@ -64,8 +64,15 @@ export type IncomingSnapshotsFetchRaw = {
   data: IncomingSnapshotsRaw[];
 };
 
+export type IncomingPaginateSnapshotsFetchRaw = {
+  data: (IncomingSnapshotsRaw & { Accounts: IncomingAccountRaw[] })[];
+};
+
 export type IncomingSnapshotsFetchStandardized = FetchedData<
-  IncomingSnapshotFetchRaw | IncomingSnapshotsFetchRaw | null,
+  | IncomingSnapshotFetchRaw
+  | IncomingSnapshotsFetchRaw
+  | IncomingPaginateSnapshotsFetchRaw
+  | null,
   GenericError | null
 >;
 
@@ -87,6 +94,7 @@ export type IncomingSnapshotsRaw = {
   benchmark: string;
   notes: string;
   total: number;
+  weightedExpenseRatio: number;
   userId: number;
   specifiedDate: Date;
   createdAt: Date;

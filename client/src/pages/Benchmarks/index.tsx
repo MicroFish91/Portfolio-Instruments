@@ -19,8 +19,8 @@ const Benchmarks: React.FC<BenchmarkProps> = () => {
       {benchmarkIndex === "general" && (
         <div className="card">
           <div className="row">
-            <div className="col-md-12 col-lg-12  pl-0 ">
-              <div className="card-body p-6 about-con pabout">
+            <div className="col-md-12 col-lg-12">
+              <div className="card card-body p-6 about-con pabout">
                 <h2 className="mb-4 font-weight-semibold">
                   <u>General Information</u>
                 </h2>

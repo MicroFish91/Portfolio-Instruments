@@ -1,7 +1,8 @@
-import { toClient } from "./toClient";
+import { toClientDashboard, toClientPaginate } from "./toClient";
 import { toServer } from "./toServer";
 
 export const snapshotsConverter = {
-  toClient,
+  toClientDashboard,
+  toClientPaginate,
   toServer,
 };

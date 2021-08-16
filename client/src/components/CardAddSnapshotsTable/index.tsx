@@ -34,8 +34,12 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
     values: SnapshotForm,
     actions: FormikHelpers<SnapshotForm>
   ) => {
-    submitSnapshotData(values);
-    actions.resetForm();
+    if (snapshot.length !== 0) {
+      submitSnapshotData(values);
+      actions.resetForm();
+    } else {
+      alert("Please enter a holding before attempting to save a snapshot.");
+    }
   };
 
   const resetSnapshot = () => {

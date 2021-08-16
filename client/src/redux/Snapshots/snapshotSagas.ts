@@ -1,33 +1,55 @@
 import * as Effects from "redux-saga/effects";
-import { clearAccounts, setAccounts } from "../Accounts/accountSagas";
+import {
+  clearAccounts,
+  setDashboardAccounts,
+  setPaginateAccounts,
+} from "../Accounts/accountSagas";
 import { snapshotsConverter } from "../api/conversions";
 import {
   getLatestSnapshotEndpoint,
-  getRecentSnapshotsEndpoint,
+  getLineChartSnapshotsEndpoint,
+  getPaginateSnapshotsEndpoint,
   postSnapshotEndpoint,
+  removeSnapshotEndpoint,
 } from "../api/endpoints/snapshotEndpoints";
 import { OutgoingSnapshot, OutgoingSnapshotRaw } from "../api/types";
-import { clearHoldings, setHoldings } from "../Holdings/holdingSaga";
+import {
+  clearHoldings,
+  setDashboardHoldings,
+  setPaginateHoldings,
+} from "../Holdings/holdingSaga";
 import { clearUserAction } from "../User/userSlice";
 import {
   clearSnapshotsAction,
-  initSnapshotsAction,
+  initDashboardSnapshotsAction,
+  initPaginateSnapshotsAction,
   postSnapshotAction,
+  removeSnapshotAction,
+  setDashboardSnapshotsSuccessAction,
+  setPaginateSnapshotsSuccessAction,
   setSnapshotsFailAction,
-  setSnapshotsSuccessAction,
 } from "./snapshotSlice";
+import { removeSnapshotPayload } from "./types";
 
 const call: any = Effects.call;
 const takeLatest: any = Effects.takeLatest;
 
 // Watchers
-function* onInitSnapshots() {
-  yield takeLatest(initSnapshotsAction.type, getLatestSnapshot);
-  yield takeLatest(initSnapshotsAction.type, getRecentSnapshots);
+function* onInitDashboardSnapshots() {
+  yield takeLatest(initDashboardSnapshotsAction.type, getLatestSnapshot);
+  yield takeLatest(initDashboardSnapshotsAction.type, getLineChartSnapshots);
+}
+
+function* onInitPaginateSnapshots() {
+  yield takeLatest(initPaginateSnapshotsAction.type, getPaginateSnapshots);
 }
 
 function* onPostSnapshot() {
   yield takeLatest(postSnapshotAction.type, postSnapshot);
+}
+
+function* onRemoveSnapshot() {
+  yield takeLatest(removeSnapshotAction.type, removeSnapshot);
 }
 
 function* onLogoutUser() {
@@ -35,11 +57,13 @@ function* onLogoutUser() {
 }
 
 // Workers
-function* getLatestSnapshot() {
-  const { data, error } = yield getLatestSnapshotEndpoint();
+function* getPaginateSnapshots() {
+  const { data, error } = yield getPaginateSnapshotsEndpoint();
   if (data) {
-    yield call(setAccounts, data);
-    yield call(setHoldings, data);
+    const convertedData = snapshotsConverter.toClientPaginate(data);
+    yield Effects.put(setPaginateSnapshotsSuccessAction(convertedData));
+    yield Effects.call(setPaginateAccounts, data);
+    yield Effects.call(setPaginateHoldings, data);
   } else if (error) {
     yield Effects.put(setSnapshotsFailAction(error));
     yield Effects.call(clearAccounts);
@@ -48,11 +72,24 @@ function* getLatestSnapshot() {
   return;
 }
 
-function* getRecentSnapshots() {
-  const { data, error } = yield getRecentSnapshotsEndpoint();
+function* getLatestSnapshot() {
+  const { data, error } = yield getLatestSnapshotEndpoint();
   if (data) {
-    const convertedData = snapshotsConverter.toClient(data);
-    yield Effects.put(setSnapshotsSuccessAction(convertedData));
+    yield call(setDashboardAccounts, data);
+    yield call(setDashboardHoldings, data);
+  } else if (error) {
+    yield Effects.put(setSnapshotsFailAction(error));
+    yield Effects.call(clearAccounts);
+    yield Effects.call(clearHoldings);
+  }
+  return;
+}
+
+function* getLineChartSnapshots() {
+  const { data, error } = yield getLineChartSnapshotsEndpoint();
+  if (data) {
+    const convertedData = snapshotsConverter.toClientDashboard(data);
+    yield Effects.put(setDashboardSnapshotsSuccessAction(convertedData));
   } else if (error) {
     yield Effects.put(setSnapshotsFailAction(error));
     yield Effects.call(clearAccounts);
@@ -70,7 +107,21 @@ function* postSnapshot(clientAction: {
   const { data, error } = yield postSnapshotEndpoint(formattedSnapshot);
   if (data) {
     yield Effects.put(clearSnapshotsAction());
-    yield Effects.put(initSnapshotsAction());
+    yield Effects.put(initDashboardSnapshotsAction());
+  } else {
+    yield Effects.put(setSnapshotsFailAction(error));
+  }
+}
+
+function* removeSnapshot(clientAction: {
+  type: string;
+  payload: removeSnapshotPayload;
+}) {
+  const { data, error } = yield removeSnapshotEndpoint(clientAction.payload);
+  if (data) {
+    yield Effects.put(clearSnapshotsAction());
+    yield Effects.put(initDashboardSnapshotsAction());
+    yield Effects.put(initPaginateSnapshotsAction());
   } else {
     yield Effects.put(setSnapshotsFailAction(error));
   }
@@ -83,7 +134,9 @@ function* logoutUser() {
 // Export
 export default function* userSagas() {
   yield Effects.all([
-    call(onInitSnapshots),
+    call(onInitDashboardSnapshots),
+    call(onInitPaginateSnapshots),
+    call(onRemoveSnapshot),
     call(onPostSnapshot),
     call(onLogoutUser),
   ]);
