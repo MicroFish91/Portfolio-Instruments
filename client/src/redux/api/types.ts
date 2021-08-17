@@ -153,6 +153,7 @@ export type IncomingHoldingRaw = {
   title: string;
   ticker: string;
   category: string;
+  variablePortfolio: boolean;
   total: string;
   expenseRatio: string;
   accountId: number;
@@ -167,5 +168,6 @@ export type OutgoingHolding = {
   category: string;
   total: number;
   expenseRatio: number;
+  variablePortfolio: boolean;
   accountId?: number;
 };

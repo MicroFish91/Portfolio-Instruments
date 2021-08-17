@@ -29,14 +29,19 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
   snapshot,
 }) => {
   const dollarFormatter = usdFormatter();
+  let accountTotal = 0;
 
   const submitSnapshot = (
     values: SnapshotForm,
     actions: FormikHelpers<SnapshotForm>
   ) => {
     if (snapshot.length !== 0) {
-      submitSnapshotData(values);
-      actions.resetForm();
+      if (accountTotal > 0) {
+        submitSnapshotData(values);
+        actions.resetForm();
+      } else {
+        alert("Unable to submit a snapshot less than or equal to zero.");
+      }
     } else {
       alert("Please enter a holding before attempting to save a snapshot.");
     }
@@ -51,7 +56,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
 
     snapshot.forEach((account) => {
       const keys = ["traditional", "roth", "taxable"];
-      let accountTotal: number = 0;
+      accountTotal = 0;
       let firstRow = true;
 
       keys.forEach((accountTypeKey) => {
@@ -59,6 +64,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
         account.accountType[accountTypeKey].forEach((holding, holdingIndex) => {
           accountTypeTotal += holding.holdingAmount;
           accountTotal += holding.holdingAmount;
+          console.log(holding.holdingVP);
           if (firstRow && holdingIndex === 0) {
             firstRow = false;
             table.push(
@@ -75,6 +81,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
                   {holding.assetType[0].toUpperCase() +
                     holding.assetType.slice(1)}
                 </td>
+                {holding.holdingVP ? <td>&#10003;</td> : <td>-</td>}
                 <td>
                   {"$" + dollarFormatter.format(holding.holdingAmount).slice(1)}
                 </td>
@@ -110,6 +117,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
                   {holding.assetType[0].toUpperCase() +
                     holding.assetType.slice(1)}
                 </td>
+                {holding.holdingVP ? <td>&#10003;</td> : <td>-</td>}
                 <td>
                   {"$" + dollarFormatter.format(holding.holdingAmount).slice(1)}
                 </td>
@@ -143,6 +151,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
                   {holding.assetType[0].toUpperCase() +
                     holding.assetType.slice(1)}
                 </td>
+                {holding.holdingVP ? <td>&#10003;</td> : <td>-</td>}
                 <td>
                   {"$" + dollarFormatter.format(holding.holdingAmount).slice(1)}
                 </td>
@@ -175,6 +184,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
               <td>-</td>
               <td>-</td>
               <td>-</td>
+              <td>-</td>
               <td>
                 <b>
                   **
@@ -190,6 +200,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
       });
       table.push(
         <tr key={uuidv4()}>
+          <td>-</td>
           <td>-</td>
           <td>-</td>
           <td>-</td>
@@ -261,6 +272,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
                       <th className="wd-10p">Account Type</th>
                       <th className="wd-10p">Holding Ticker</th>
                       <th className="wd-10p">Holding Type</th>
+                      <th className="wd-10p">Variable Portfolio</th>
                       <th className="wd-10p">Amount</th>
                       <th className="wd-10p">Delete</th>
                     </tr>

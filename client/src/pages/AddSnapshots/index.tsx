@@ -2,13 +2,16 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardAddSnapshotsForm from "../../components/CardAddSnapshotsForm";
 import CardAddSnapshotsTable from "../../components/CardAddSnapshotsTable";
+import SnapshotsFallback from "../../components/ErrorFallbacks/SnapshotsFallback";
 import { selectBenchmarkTitle } from "../../redux/Benchmarks/benchmarkSelector";
+import { selectSnapshotErrors } from "../../redux/Snapshots/snapshotSelector";
 import { postSnapshotAction } from "../../redux/Snapshots/snapshotSlice";
 import { HoldingForm, SnapshotForm } from "../../validation/types";
 import { Account, Holding, Snapshot } from "./types";
 
 const AddSnapshots = () => {
   const [snapshot, setSnapshot] = useState<Snapshot>([]);
+  const error = useSelector(selectSnapshotErrors);
   const benchmark = useSelector(selectBenchmarkTitle);
   const dispatch = useDispatch();
 
@@ -21,6 +24,7 @@ const AddSnapshots = () => {
         parseFloat(holding.holdingExpenseRatio).toFixed(2)
       ),
       holdingAmount: parseFloat(parseFloat(holding.holdingAmount).toFixed(2)),
+      holdingVP: holding.holdingVP,
       assetType: holding.assetType,
     };
     let accountNameExists = false;
@@ -126,27 +130,38 @@ const AddSnapshots = () => {
   return (
     <div className="row">
       <div className="col-md-12 col-lg-12">
-        <div className="card card-body p-6 about-con pabout">
-          <h2 className="mb-4 font-weight-semibold">
-            <u>General Information</u>
-          </h2>
-          <p className="leading-normal">
-            Add any assets that you own using the "Holdings" form below. As you
-            add holdings, the snapshots table below will populate. When you are
-            done adding assets, finish by hitting the save snapshot button to
-            store your data.
-          </p>
-        </div>{" "}
-        <br></br>
+        {!error.message && (
+          <>
+            <div className="card card-body p-6 about-con pabout">
+              <h2 className="mb-4 font-weight-semibold">
+                <u>General Information</u>
+              </h2>
+              <p className="leading-normal">
+                Add any assets that you own using the "Holdings" form below. As
+                you add holdings, the snapshots table below will populate. When
+                you are done adding assets, finish by hitting the save snapshot
+                button to store your data.
+              </p>
+            </div>{" "}
+            <br></br>
+          </>
+        )}
       </div>
+
       <div className="col-md-12 col-lg-12">
-        <CardAddSnapshotsForm addHolding={addHolding} />
-        <CardAddSnapshotsTable
-          deleteHolding={deleteHolding}
-          resetSnapshotData={resetSnapshotData}
-          submitSnapshotData={submitSnapshotData}
-          snapshot={snapshot}
-        />
+        {!error.message && (
+          <>
+            <CardAddSnapshotsForm addHolding={addHolding} />
+            <CardAddSnapshotsTable
+              deleteHolding={deleteHolding}
+              resetSnapshotData={resetSnapshotData}
+              submitSnapshotData={submitSnapshotData}
+              snapshot={snapshot}
+            />
+          </>
+        )}
+
+        {error.message && <SnapshotsFallback />}
       </div>
     </div>
   );

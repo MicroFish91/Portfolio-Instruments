@@ -19,6 +19,7 @@ interface HoldingSeed {
   category: string;
   total: number;
   expenseRatio: number;
+  variablePortfolio: boolean;
   accountId: number;
   createdAt: Date;
   updatedAt: Date;
@@ -85,6 +86,7 @@ export function generateHoldings() {
         total: generateTotal(holdingsPerUser, holdingsIndex),
         expenseRatio: Math.floor(Math.random() * 30) / 100,
         accountId,
+        variablePortfolio: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       });

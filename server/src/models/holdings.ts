@@ -8,6 +8,7 @@ export interface HoldingAttributes {
   category: string;
   total: number;
   expenseRatio: number;
+  variablePortfolio: boolean;
   accountId: number;
 }
 
@@ -23,6 +24,7 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
     public category!: string;
     public total!: number;
     public expenseRatio!: number;
+    public variablePortfolio!: boolean;
     public accountId!: number;
 
     static associate(models: any) {
@@ -54,6 +56,10 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
       },
       expenseRatio: {
         type: DataTypes.DECIMAL,
+        allowNull: false,
+      },
+      variablePortfolio: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
       accountId: {

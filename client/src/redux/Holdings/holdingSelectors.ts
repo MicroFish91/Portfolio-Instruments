@@ -151,6 +151,7 @@ export const selectHoldingsBySnapshotId = (snapshotId: number) => {
               title: holdingsById[holdingId].title,
               ticker: holdingsById[holdingId].ticker,
               category: holdingsById[holdingId].category,
+              variablePortfolio: holdingsById[holdingId].variablePortfolio,
               total: holdingsById[holdingId].total,
               expenseRatio: holdingsById[holdingId].expenseRatio,
             };
@@ -171,6 +172,7 @@ export const selectHoldingsBySnapshotId = (snapshotId: number) => {
               title: holdingsById[holdingId].title,
               ticker: holdingsById[holdingId].ticker,
               category: holdingsById[holdingId].category,
+              variablePortfolio: holdingsById[holdingId].variablePortfolio,
               total: holdingsById[holdingId].total,
               expenseRatio: holdingsById[holdingId].expenseRatio,
             };

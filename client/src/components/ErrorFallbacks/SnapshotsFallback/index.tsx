@@ -1,5 +1,9 @@
+import { useSelector } from "react-redux";
+import { selectSnapshotErrors } from "../../../redux/Snapshots/snapshotSelector";
+
 const SnapshotsFallback = () => {
-  return <h1>An unexpected error has occurred.</h1>;
+  const error = useSelector(selectSnapshotErrors);
+  return <h1>Error: {error.message}</h1>;
 };
 
 export default SnapshotsFallback;
