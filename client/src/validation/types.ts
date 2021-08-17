@@ -18,6 +18,7 @@ export interface HoldingForm {
   holdingAmount: string;
   holdingExpenseRatio: string;
   accountType: "Traditional" | "Roth" | "Taxable";
+  holdingVP: boolean;
   assetType: string;
 }
 

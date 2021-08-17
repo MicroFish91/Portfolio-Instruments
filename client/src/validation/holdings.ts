@@ -26,6 +26,7 @@ export const holdingFormSchema = yup.object().shape({
     .string()
     .required("Holding expense ratio is required.")
     .matches(/^(0(\.\d+)?|1(\.0+)?)$/, "Must be a decimal between 0 and 1."),
+  holdingVP: yup.boolean(),
   accountType: yup.string(),
   assetType: yup.string(),
 });

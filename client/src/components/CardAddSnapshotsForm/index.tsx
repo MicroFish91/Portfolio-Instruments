@@ -1,8 +1,9 @@
-import { Form, Formik, FormikState } from "formik";
+import { Form, Formik } from "formik";
 import React from "react";
 import { holdingFormSchema } from "../../validation/holdings";
 import { HoldingForm } from "../../validation/types";
 import Button from "../forms/Button";
+import Checkbox from "../forms/Checkbox";
 import InputField from "../forms/InputField";
 import SelectField from "../forms/SelectField";
 import { selectAccountTypeMap, selectAssetTypeMap } from "./constants";
@@ -11,17 +12,12 @@ interface CardAddSnapshotsFormProps {
   addHolding: (holding: HoldingForm) => void;
 }
 
-type FieldValue = (nextState?: Partial<FormikState<HoldingForm>>) => void;
-
 const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
   addHolding,
 }) => {
   const submitHolding = (values: HoldingForm, actions: any): void => {
     addHolding(values);
-    actions.setFieldValue("holdingTitle", "") as FieldValue;
-    actions.setFieldValue("holdingTicker", "") as FieldValue;
-    actions.setFieldValue("holdingAmount", 0) as FieldValue;
-    actions.setFieldValue("holdingExpenseRatio", 0) as FieldValue;
+    actions.resetForm();
   };
 
   return (
@@ -33,6 +29,7 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
           holdingTicker: "",
           holdingExpenseRatio: "0",
           holdingAmount: "0",
+          holdingVP: false,
           accountType: "Taxable",
           assetType: "cash",
         } as HoldingForm
@@ -40,7 +37,7 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
       validationSchema={holdingFormSchema}
       onSubmit={(values, actions) => submitHolding(values, actions)}
     >
-      {() => (
+      {({ values }) => (
         <Form className="card">
           <div className="card-header">
             <h3 className="card-title">Holdings</h3>
@@ -102,6 +99,12 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
                   selectMap={selectAssetTypeMap}
                   name="assetType"
                   type="text"
+                />
+
+                <Checkbox
+                  label="Variable Portfolio"
+                  name="holdingVP"
+                  value={values.holdingVP}
                 />
               </div>
             </div>

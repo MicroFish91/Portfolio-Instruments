@@ -20,5 +20,6 @@ export type IncomingHolding = {
   category: string;
   total: number;
   expenseRatio: number;
+  variablePortfolio: boolean;
   accountId?: number;
 };
