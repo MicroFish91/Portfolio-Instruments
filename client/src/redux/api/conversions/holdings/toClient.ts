@@ -23,6 +23,7 @@ export const toClientDashboard = (
         category: holding.category,
         total: parseFloat(holding.total),
         expenseRatio: parseFloat(holding.expenseRatio),
+        variablePortfolio: holding.variablePortfolio,
         accountId: holding.accountId,
       };
       reducedHoldings.dashboardIds.push(holding.id.toString());
@@ -47,6 +48,7 @@ export const toClientPaginate = (
           title: holding.title,
           ticker: holding.ticker,
           category: holding.category,
+          variablePortfolio: holding.variablePortfolio,
           total: parseFloat(holding.total),
           expenseRatio: parseFloat(holding.expenseRatio),
           accountId: holding.accountId,

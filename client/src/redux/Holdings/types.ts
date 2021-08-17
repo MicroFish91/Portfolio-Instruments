@@ -20,6 +20,7 @@ export type ReducedHoldings = {
   category: string;
   total: number;
   expenseRatio: number;
+  variablePortfolio: boolean;
   accountId: number;
 };
 
@@ -41,6 +42,7 @@ export type ReducedHoldingByAccount = {
   title: string;
   ticker: string;
   category: string;
+  variablePortfolio: boolean;
   total: number;
   expenseRatio: number;
 };

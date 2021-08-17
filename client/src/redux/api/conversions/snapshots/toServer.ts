@@ -35,6 +35,7 @@ export const toServer = (clientAction: {
             category: holding.assetType,
             expenseRatio: holding.holdingExpenseRatio,
             total: holding.holdingAmount,
+            variablePortfolio: holding.holdingVP,
           };
           formattedAccount.holdings.push(formattedHolding);
         });

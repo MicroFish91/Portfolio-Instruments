@@ -56,6 +56,7 @@ const HoldingsOverviewTable: React.FC<HoldingsOverviewTableProps> = ({
                 <td>
                   {parseFloat(holding.expenseRatio.toString()).toFixed(2)}
                 </td>
+                {holding.variablePortfolio ? <td>&#10003;</td> : <td>-</td>}
                 <td>{"$" + dollarFormatter.format(holding.total).slice(1)}</td>
               </tr>
             );
@@ -77,6 +78,7 @@ const HoldingsOverviewTable: React.FC<HoldingsOverviewTableProps> = ({
                 <td>
                   {parseFloat(holding.expenseRatio.toString()).toFixed(2)}
                 </td>
+                {holding.variablePortfolio ? <td>&#10003;</td> : <td>-</td>}
                 <td>{"$" + dollarFormatter.format(holding.total).slice(1)}</td>
               </tr>
             );
@@ -96,6 +98,7 @@ const HoldingsOverviewTable: React.FC<HoldingsOverviewTableProps> = ({
                 <td>
                   {parseFloat(holding.expenseRatio.toString()).toFixed(2)}
                 </td>
+                {holding.variablePortfolio ? <td>&#10003;</td> : <td>-</td>}
                 <td>{"$" + dollarFormatter.format(holding.total).slice(1)}</td>
               </tr>
             );
@@ -105,6 +108,7 @@ const HoldingsOverviewTable: React.FC<HoldingsOverviewTableProps> = ({
         if (account.accountType[accountTypeKey].length) {
           table.push(
             <tr key={uuidv4()}>
+              <td>-</td>
               <td>-</td>
               <td>-</td>
               <td>-</td>
@@ -130,6 +134,7 @@ const HoldingsOverviewTable: React.FC<HoldingsOverviewTableProps> = ({
           <td>-</td>
           <td>-</td>
           <td>-</td>
+          <td>-</td>
           <td>
             <b>
               {" "}
@@ -148,6 +153,7 @@ const HoldingsOverviewTable: React.FC<HoldingsOverviewTableProps> = ({
 
     table.push(
       <tr key={uuidv4()}>
+        <td>-</td>
         <td>-</td>
         <td>-</td>
         <td>-</td>
@@ -179,6 +185,7 @@ const HoldingsOverviewTable: React.FC<HoldingsOverviewTableProps> = ({
               <th className="wd-10p">Holding Ticker</th>
               <th className="wd-10p">Holding Type</th>
               <th className="wd-10p">Holding ER</th>
+              <th className="wd-10p">Variable Portfolio</th>
               <th className="wd-10p">Amount</th>
             </tr>
           </thead>

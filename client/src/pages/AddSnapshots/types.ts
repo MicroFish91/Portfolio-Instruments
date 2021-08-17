@@ -23,5 +23,6 @@ export type Holding = {
   holdingTicker: string;
   holdingExpenseRatio: number;
   holdingAmount: number;
+  holdingVP: boolean;
   assetType: string;
 };

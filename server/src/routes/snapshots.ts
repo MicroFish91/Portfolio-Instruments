@@ -263,6 +263,7 @@ router.post("/", requireJwt, async (req, res) => {
           category: holdingData[holdingIndex].category,
           total: holdingData[holdingIndex].total,
           expenseRatio: holdingData[holdingIndex].expenseRatio,
+          variablePortfolio: holdingData[holdingIndex].variablePortfolio,
           accountId: accountIds[accountIds.length - 1],
         };
 
