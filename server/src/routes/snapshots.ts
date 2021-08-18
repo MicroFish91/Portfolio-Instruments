@@ -275,7 +275,7 @@ router.post("/", requireJwt, async (req, res) => {
       }
     }
 
-    res.json({ message: "Success." });
+    return res.json({ message: "Success." });
   } catch (error) {
     // Remove incomplete/extraneous data from the database
     try {
@@ -296,14 +296,14 @@ router.post("/", requireJwt, async (req, res) => {
       }
 
       if (error instanceof TypeError) {
-        res.status(400).json({ message: error.message });
+        return res.status(400).json({ message: error.message });
       } else {
-        res.status(500).json({
+        return res.status(500).json({
           message: "Internal server error - could not process request.",
         });
       }
     } catch (fatalError) {
-      res.status(500).json({
+      return res.status(500).json({
         message:
           "Fatal Server Error: Potentially Corrupt Data - Please contact a system administrator to fix the issue.",
       });
