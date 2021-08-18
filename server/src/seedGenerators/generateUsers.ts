@@ -12,6 +12,9 @@ interface UserSeed {
   firstName: string;
   lastName: string;
   benchmark: string;
+  confirmed: boolean;
+  rebalanceThreshold: number;
+  vpThreshold: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -36,6 +39,9 @@ export function generateUsers() {
       firstName: `User${index + 1}`,
       lastName: `Tester`,
       benchmark: benchmark,
+      confirmed: true,
+      rebalanceThreshold: 10,
+      vpThreshold: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     } as UserSeed);

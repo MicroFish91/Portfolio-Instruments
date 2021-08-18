@@ -3,14 +3,17 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import { confirmationEmailEndpoint } from "../../redux/api/endpoints/userEndpoints";
 import {
   selectCustomUserErrorMessage,
+  selectUserEmail,
+  selectUserErrorStatus,
   selectUserLoading,
   selectUserToken,
 } from "../../redux/User/userSelectors";
 import {
-  clearLoadingAction,
   clearUserAction,
+  clearUserLoadingAction,
   userLoginAction,
 } from "../../redux/User/userSlice";
 import { loginFormSchema } from "../../validation";
@@ -19,8 +22,10 @@ import InputField from "../forms/InputField";
 
 const Login = () => {
   const errorMessage = useSelector(selectCustomUserErrorMessage);
+  const errorStatus = useSelector(selectUserErrorStatus);
   const isLoading = useSelector(selectUserLoading);
   const userToken = useSelector(selectUserToken);
+  const userEmail = useSelector(selectUserEmail);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -33,7 +38,7 @@ const Login = () => {
   useEffect(() => {
     if (isLoading) {
       const timer = setTimeout(() => {
-        dispatch(clearLoadingAction());
+        dispatch(clearUserLoadingAction());
         clearTimeout(timer);
       }, 10000);
     }
@@ -42,6 +47,11 @@ const Login = () => {
   const navigateRegister = () => {
     dispatch(clearUserAction());
     history.push("/register");
+  };
+
+  const resendVerificationEmail = () => {
+    confirmationEmailEndpoint(userEmail);
+    alert("Confirmation email sent.");
   };
 
   const submitLogin = (values: LoginForm) => {
@@ -111,6 +121,13 @@ const Login = () => {
                               Create Account{" "}
                             </a>
                           </div>
+                          {errorStatus === "403" && (
+                            <div className="text-center text-muted mt-3">
+                              <a href="#" onClick={resendVerificationEmail}>
+                                Resend Verification Email{" "}
+                              </a>
+                            </div>
+                          )}
                         </div>
                       </Form>
                     )}

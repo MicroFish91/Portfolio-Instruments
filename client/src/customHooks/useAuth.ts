@@ -1,17 +1,20 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { selectUserToken } from "../redux/User/userSelectors";
+import { selectIsUserAuthorized } from "../redux/User/userSelectors";
+import { clearUserAction } from "../redux/User/userSlice";
 
 export const useAuth = () => {
-  const userToken = useSelector(selectUserToken);
+  const isAuthorized = useSelector(selectIsUserAuthorized);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    if (!userToken) {
+    if (!isAuthorized) {
       history.push("/login");
+      dispatch(clearUserAction());
     }
-  }, [userToken]);
+  }, [isAuthorized]);
 
-  return userToken;
+  return isAuthorized;
 };

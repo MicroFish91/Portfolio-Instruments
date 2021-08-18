@@ -13,6 +13,15 @@
   animation-fill-mode: forwards;
 }
 
+.message-success {
+  margin-left: 0.2em;
+  color: green;
+  font-size: 1.1rem;
+  -webkit-animation: fadeOut 8s;
+  animation: fadeOut 8s;
+  animation-fill-mode: forwards;
+}
+
 @-webkit-keyframes fadeOut {
   0% {
     opacity: 1;
