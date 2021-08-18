@@ -5,7 +5,7 @@ import { ClipLoader } from "react-spinners";
 import {
   selectUserErrorField,
   selectUserErrorMessage,
-  selectUserLoading,
+  selectUserLoadingField,
 } from "../../redux/User/userSelectors";
 import {
   clearUserErrorAction,
@@ -18,13 +18,13 @@ import InputField from "../forms/InputField";
 
 const PasswordForm = () => {
   const [changedPassword, setChangedPassword] = useState(false);
-  const isLoading = useSelector(selectUserLoading);
+  const loadingField = useSelector(selectUserLoadingField);
   const userErrorField = useSelector(selectUserErrorField);
   const userErrorMessage = useSelector(selectUserErrorMessage);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (userErrorField) {
+    if (userErrorField === "changePassword") {
       const timer = setTimeout(() => {
         dispatch(clearUserErrorAction());
         setChangedPassword(false);
@@ -33,7 +33,7 @@ const PasswordForm = () => {
       return () => clearTimeout(timer);
     }
     return;
-  }, [isLoading]);
+  }, [userErrorField]);
 
   const submitChangePassword = (values: ChangePasswordForm, actions: any) => {
     dispatch(userchangePasswordAction(values));
@@ -58,7 +58,7 @@ const PasswordForm = () => {
           <div className="card-header">
             <h3 className="card-title">Change Password</h3>
           </div>
-          {!isLoading && (
+          {loadingField !== "changePassword" && (
             <div className="card-body">
               <div className="row">
                 <div className="col-md-2 col-lg-2">
@@ -93,7 +93,7 @@ const PasswordForm = () => {
 
               {/* On Success */}
               {changedPassword &&
-                !isLoading &&
+                loadingField !== "changePassword" &&
                 userErrorField !== "changePassword" && (
                   <h3 className="message-success">
                     Password change successful!
@@ -102,7 +102,7 @@ const PasswordForm = () => {
 
               {/* On Fail */}
               {changedPassword &&
-                !isLoading &&
+                loadingField !== "changePassword" &&
                 userErrorField === "changePassword" && (
                   <h3 className="form-error-major">
                     Error: {userErrorMessage}
@@ -111,7 +111,7 @@ const PasswordForm = () => {
             </div>
           )}
 
-          {isLoading && (
+          {loadingField === "changePassword" && (
             <div style={{ display: "flex", justifyContent: "center" }}>
               <ClipLoader size={180} color="purple" />
             </div>

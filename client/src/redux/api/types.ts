@@ -20,6 +20,12 @@ export type IncomingChangePasswordFetchRaw = {
   };
 };
 
+export type IncomingChangeNotificationsFetchRaw = {
+  data: {
+    message: string;
+  };
+};
+
 export type IncomingUserLoginFetchRaw = {
   data: { token: string; currentUser: CurrentUser };
 };
@@ -30,6 +36,7 @@ export type IncomingUserRegistrationFetchRaw = {
 
 export type IncomingUserFetchStandardized = FetchedData<
   | IncomingChangePasswordFetchRaw
+  | IncomingChangeNotificationsFetchRaw
   | { jwtToken: string; currentUser: CurrentUser }
   | null,
   GenericError | null

@@ -2,6 +2,7 @@ import axios from "axios";
 import { LoginForm, RegistrationForm } from "../../../validation/types";
 import { getToken } from "../../User/userUtils";
 import {
+  IncomingChangeNotificationsFetchRaw,
   IncomingChangePasswordFetchRaw,
   IncomingUserFetchStandardized,
   IncomingUserLoginFetchRaw,
@@ -83,6 +84,35 @@ export async function changePasswordEndpoint(
     const userResponse: IncomingChangePasswordFetchRaw = await axios.post(
       USER_ENDPOINT.CHANGE_PASSWORD,
       { currentPassword, newPassword },
+      {
+        headers: {
+          authorization: getToken(),
+        },
+      }
+    );
+    return {
+      data: userResponse,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: {
+        status: error.response.status,
+        message: error.response.data.message,
+      },
+    };
+  }
+}
+
+export async function changeNotificationsEndpoint(
+  rebalanceThreshold: number,
+  vpThreshold: number
+): Promise<IncomingUserFetchStandardized> {
+  try {
+    const userResponse: IncomingChangeNotificationsFetchRaw = await axios.post(
+      USER_ENDPOINT.CHANGE_NOTIFICATIONS,
+      { rebalanceThreshold, vpThreshold },
       {
         headers: {
           authorization: getToken(),

@@ -22,6 +22,8 @@ export const selectUserErrorStatus = (state: RootState) =>
 export const selectUserErrorMessage = (state: RootState) =>
   state.user.error.message;
 export const selectUserLoading = (state: RootState) => state.user.isLoading;
+export const selectUserLoadingField = (state: RootState) =>
+  state.user.isLoadingField;
 
 export const selectUserFullName = createSelector(
   selectUserFirstName,

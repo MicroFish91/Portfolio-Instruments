@@ -6,7 +6,10 @@ import { secrets, SERVER_BASE_URL } from "../config";
 import db from "../models";
 import { UserAttributes as User } from "../models/users";
 import { validateUser } from "../models/validation";
-import { validatePassword } from "../models/validation/users";
+import {
+  validateNotifications,
+  validatePassword,
+} from "../models/validation/users";
 import { sendEmail } from "../utils";
 
 const router = express.Router();
@@ -71,6 +74,30 @@ router.post("/changePassword", requireJwt, async (req, res) => {
         .status(404)
         .json({ message: "Account with the provided email was not found." });
     }
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error - could not process request." });
+  }
+});
+
+// Change User Notification Settings
+router.post("/changeNotifications", requireJwt, async (req, res) => {
+  const { id } = req.user as User;
+  const { rebalanceThreshold, vpThreshold } = req.body as {
+    rebalanceThreshold: number;
+    vpThreshold: number;
+  };
+
+  const { error } = validateNotifications(rebalanceThreshold, vpThreshold);
+  if (error) return res.status(400).json({ message: error.message });
+
+  try {
+    await db.Users.update(
+      { rebalanceThreshold, vpThreshold },
+      { where: { id } }
+    );
+    return res.json({ message: "Success." });
   } catch (err) {
     return res
       .status(500)

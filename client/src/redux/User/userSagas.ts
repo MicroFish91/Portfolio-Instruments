@@ -1,16 +1,21 @@
 import * as Effects from "redux-saga/effects";
 import {
+  ChangeNotificationForm,
   ChangePasswordForm,
   LoginForm,
   RegistrationForm,
 } from "../../validation/types";
 import {
+  changeNotificationsEndpoint,
   changePasswordEndpoint,
   userLoginEndpoint,
   userRegistrationEndpoint,
 } from "../api/endpoints/userEndpoints";
 import {
   clearUserLoadingAction,
+  userChangeNotificationsAction,
+  userChangeNotificationsFailAction,
+  userChangeNotificationSuccessAction,
   userchangePasswordAction,
   userChangePasswordFailAction,
   userLoginAction,
@@ -33,11 +38,36 @@ function* onRegisterUser() {
   yield takeLatest(userRegisterAction.type, registerUser);
 }
 
+function* onChangeNotifications() {
+  yield takeLatest(userChangeNotificationsAction.type, changeNotifications);
+}
+
 function* onChangePassword() {
   yield takeLatest(userchangePasswordAction.type, changePassword);
 }
 
 // Workers
+function* changeNotifications({
+  payload,
+}: {
+  payload: ChangeNotificationForm;
+}) {
+  const { data, error } = yield changeNotificationsEndpoint(
+    payload.rebalanceThreshold,
+    payload.vpThreshold
+  );
+  if (data) {
+    yield Effects.put(
+      userChangeNotificationSuccessAction({
+        rebalanceThreshold: payload.rebalanceThreshold,
+        vpThreshold: payload.vpThreshold,
+      })
+    );
+  } else if (error) {
+    yield Effects.put(userChangeNotificationsFailAction(error));
+  }
+}
+
 function* changePassword({ payload }: { payload: ChangePasswordForm }) {
   const { data, error } = yield changePasswordEndpoint(
     payload.currentPassword,
@@ -75,6 +105,7 @@ function* registerUser({ payload }: { payload: RegistrationForm }) {
 // Export
 export default function* userSagas() {
   yield Effects.all([
+    call(onChangeNotifications),
     call(onChangePassword),
     call(onLoginUser),
     call(onRegisterUser),

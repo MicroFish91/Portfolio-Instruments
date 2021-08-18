@@ -40,5 +40,17 @@ export const validatePassword = (password: string) => {
     }),
   });
 
-  return schema.validate(password);
+  return schema.validate({ password });
+};
+
+export const validateNotifications = (
+  rebalanceThreshold: number,
+  vpThreshold: number
+) => {
+  const schema = Joi.object({
+    rebalanceThreshold: Joi.number().integer().min(0).max(50).required(),
+    vpThreshold: Joi.number().integer().min(0).max(90).required(),
+  });
+
+  return schema.validate({ rebalanceThreshold, vpThreshold });
 };

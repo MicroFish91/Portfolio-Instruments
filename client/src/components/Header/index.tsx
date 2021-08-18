@@ -25,9 +25,10 @@ const Header: React.FC = () => {
           <div className="d-flex">
             <a className="header-brand">
               <img
-                alt="ren logo"
+                alt="Portfolio Instruments Logo"
                 className="header-brand-img"
-                src="./logo2.png"
+                src="/assets/images/PI_Logo.png"
+                width="800"
               ></img>
             </a>
             <a

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
+  ChangeNotificationForm,
   ChangePasswordForm,
   LoginForm,
   RegistrationForm,
@@ -22,13 +23,9 @@ const INITIAL_STATE = {
     message: "",
   },
   isLoading: false,
+  isLoadingField: "",
 };
 
-/*
- * No Saga: clearUser
- * SAGA Watchers: login, register
- * SAGA Workers: loginFail, loginSuccess, registerFail, registerSuccess
- */
 const userSlice = createSlice({
   name: "user",
   initialState: INITIAL_STATE,
@@ -40,9 +37,11 @@ const userSlice = createSlice({
         message: "",
       };
       state.isLoading = false;
+      state.isLoadingField = "";
     },
     clearLoading: (state) => {
       state.isLoading = false;
+      state.isLoadingField = "";
     },
     clearUser: (state) => {
       state.currentUser = {
@@ -59,10 +58,12 @@ const userSlice = createSlice({
         message: "",
       };
       state.isLoading = false;
+      state.isLoadingField = "";
       removeToken();
     },
     changePassword: (state, _action: PayloadAction<ChangePasswordForm>) => {
       state.isLoading = true;
+      state.isLoadingField = "changePassword";
     },
     changePasswordFail: (state, { payload }: PayloadAction<UserError>) => {
       state.error = {
@@ -71,9 +72,43 @@ const userSlice = createSlice({
         message: payload?.message ? payload.message : "",
       };
       state.isLoading = false;
+      state.isLoadingField = "";
+    },
+    changeNotifications: (
+      state,
+      _action: PayloadAction<ChangeNotificationForm>
+    ) => {
+      state.isLoading = true;
+      state.isLoadingField = "changeNotifications";
+    },
+    changeNotificationsSuccess: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{ rebalanceThreshold: number; vpThreshold: number }>
+    ) => {
+      state.currentUser.rebalanceThreshold = payload.rebalanceThreshold;
+      state.currentUser.vpThreshold = payload.vpThreshold;
+      state.error = {
+        field: "",
+        status: "",
+        message: "",
+      };
+      state.isLoading = false;
+      state.isLoadingField = "";
+    },
+    changeNotificationsFail: (state, { payload }: PayloadAction<UserError>) => {
+      state.error = {
+        field: "changeNotifications",
+        status: payload?.status ? payload.status.toString() : "",
+        message: payload?.message ? payload.message : "",
+      };
+      state.isLoading = false;
+      state.isLoadingField = "";
     },
     login: (state, _action: PayloadAction<LoginForm>) => {
       state.isLoading = true;
+      state.isLoadingField = "login";
     },
     loginSuccess: (
       state,
@@ -87,6 +122,7 @@ const userSlice = createSlice({
         message: "",
       };
       state.isLoading = false;
+      state.isLoadingField = "";
       storeToken(payload.jwtToken);
     },
     loginFail: (state, { payload }: PayloadAction<UserError>) => {
@@ -104,10 +140,12 @@ const userSlice = createSlice({
         message: payload?.message ? payload.message : "",
       };
       state.isLoading = false;
+      state.isLoadingField = "";
       removeToken();
     },
     register: (state, _action: PayloadAction<RegistrationForm>) => {
       state.isLoading = true;
+      state.isLoadingField = "register";
     },
     registerSuccess: (state, { payload }: PayloadAction<{ email: string }>) => {
       state.currentUser = {
@@ -124,6 +162,7 @@ const userSlice = createSlice({
         message: "",
       };
       state.isLoading = false;
+      state.isLoadingField = "";
     },
     registerFail: (state, { payload }: PayloadAction<UserError>) => {
       state.currentUser = {
@@ -140,6 +179,7 @@ const userSlice = createSlice({
         message: payload?.message ? payload.message : "",
       };
       state.isLoading = false;
+      state.isLoadingField = "";
       removeToken();
     },
   },
@@ -151,6 +191,9 @@ export const {
   clearUser: clearUserAction,
   changePassword: userchangePasswordAction,
   changePasswordFail: userChangePasswordFailAction,
+  changeNotifications: userChangeNotificationsAction,
+  changeNotificationsSuccess: userChangeNotificationSuccessAction,
+  changeNotificationsFail: userChangeNotificationsFailAction,
   login: userLoginAction,
   loginSuccess: userLoginSuccessAction,
   loginFail: userLoginFailAction,
