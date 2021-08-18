@@ -12,6 +12,10 @@ import {
   selectBenchmarkTitle,
 } from "../../redux/Benchmarks/benchmarkSelector";
 import { initGetBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
+import {
+  selectMacroBreakdown,
+  selectVpAssets,
+} from "../../redux/Holdings/holdingSelectors";
 import { selectHasSnapshots } from "../../redux/Snapshots/snapshotSelector";
 import { initDashboardSnapshotsAction } from "../../redux/Snapshots/snapshotSlice";
 
@@ -20,6 +24,8 @@ const Dashboard = () => {
   const assetTitles = useSelector(selectAssetTitles);
   const assetRatios = useSelector(selectAssetRatios);
   const benchmarkBreakdown = useSelector(selectBenchmarkBreakdown);
+  const [vpAssetTitles, vpAssetRatios] = useSelector(selectVpAssets);
+  const macroBreakdown = useSelector(selectMacroBreakdown);
   const hasSnapshots = useSelector(selectHasSnapshots);
   const dispatch = useDispatch();
 
@@ -45,16 +51,26 @@ const Dashboard = () => {
           </div>
           <div className="row">
             <CardPieChart
-              benchmarkTitle={benchmarkTitle}
-              cardTitle={`Current Portfolio: `}
+              cardTitle={`Current Portfolio - Macro Breakdown: `}
+              titles={["Main", "Variable"]}
+              ratios={macroBreakdown}
+            />
+            <CardPieChart
+              cardTitle={`Variable Portfolio - Asset Breakdown: `}
+              titles={vpAssetTitles}
+              ratios={vpAssetRatios}
+            />
+          </div>
+          <div className="row">
+            <CardPieChart
+              cardTitle={`Current Portfolio (Main) - Benchmark Breakdown: `}
               titles={(() => {
-                const newAssetTitles = [...assetTitles, "Other"];
+                const newAssetTitles = [...assetTitles, "other (non-VP)"];
                 return newAssetTitles;
               })()}
               ratios={benchmarkBreakdown}
             />
             <CardPieChart
-              benchmarkTitle={benchmarkTitle}
               cardTitle={`Current Benchmark: ${benchmarkTitle}`}
               titles={assetTitles}
               ratios={assetRatios}

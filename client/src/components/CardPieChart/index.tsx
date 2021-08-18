@@ -3,7 +3,6 @@ import { Pie } from "react-chartjs-2";
 
 interface CardPieChartProps {
   cardTitle: string;
-  benchmarkTitle?: string;
   titles: string[] | undefined;
   ratios: number[] | undefined;
 }
