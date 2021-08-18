@@ -6,6 +6,7 @@ import { secrets, SERVER_BASE_URL } from "../config";
 import db from "../models";
 import { UserAttributes as User } from "../models/users";
 import { validateUser } from "../models/validation";
+import { validatePassword } from "../models/validation/users";
 import { sendEmail } from "../utils";
 
 const router = express.Router();
@@ -51,6 +52,9 @@ router.post("/changePassword", requireJwt, async (req, res) => {
     if (user) {
       const isMatch = await bcrypt.compare(currentPassword, user.password);
       if (isMatch) {
+        const { error } = validatePassword(newPassword);
+        if (error) return res.status(400).json({ message: error.message });
+
         const encryptedPassword = await bcrypt.hashSync(newPassword, 8);
         await db.Users.update(
           { password: encryptedPassword },
