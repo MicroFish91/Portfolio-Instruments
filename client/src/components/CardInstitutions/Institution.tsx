@@ -1,3 +1,4 @@
+import capitalize from "capitalize";
 import React from "react";
 
 interface InstitutionProps {
@@ -10,7 +11,7 @@ const Institution: React.FC<InstitutionProps> = ({ title, percentage }) => {
     <div className="progress-content">
       <div className="row">
         <div className="col-lg-4 mt-2">
-          <div className="progress-text">{title}</div>
+          <div className="progress-text">{capitalize.words(title)}</div>
         </div>
         <div className="col-lg-8">
           <div className="current-progressbar">
