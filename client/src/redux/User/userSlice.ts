@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { LoginForm, RegistrationForm } from "../../validation/types";
+import {
+  ChangePasswordForm,
+  LoginForm,
+  RegistrationForm,
+} from "../../validation/types";
 import { CurrentUser, UserError } from "./types";
 import { removeToken, storeToken } from "./userUtils";
 
@@ -8,9 +12,12 @@ const INITIAL_STATE = {
     email: "",
     firstName: "",
     lastName: "",
+    rebalanceThreshold: 10,
+    vpThreshold: 0,
   },
   jwtToken: "",
   error: {
+    field: "",
     status: "",
     message: "",
   },
@@ -26,6 +33,14 @@ const userSlice = createSlice({
   name: "user",
   initialState: INITIAL_STATE,
   reducers: {
+    clearError: (state) => {
+      state.error = {
+        field: "",
+        status: "",
+        message: "",
+      };
+      state.isLoading = false;
+    },
     clearLoading: (state) => {
       state.isLoading = false;
     },
@@ -34,14 +49,28 @@ const userSlice = createSlice({
         email: "",
         firstName: "",
         lastName: "",
+        rebalanceThreshold: 10,
+        vpThreshold: 0,
       };
       state.jwtToken = "";
       state.error = {
+        field: "",
         status: "",
         message: "",
       };
       state.isLoading = false;
       removeToken();
+    },
+    changePassword: (state, _action: PayloadAction<ChangePasswordForm>) => {
+      state.isLoading = true;
+    },
+    changePasswordFail: (state, { payload }: PayloadAction<UserError>) => {
+      state.error = {
+        field: "changePassword",
+        status: payload?.status ? payload.status.toString() : "",
+        message: payload?.message ? payload.message : "",
+      };
+      state.isLoading = false;
     },
     login: (state, _action: PayloadAction<LoginForm>) => {
       state.isLoading = true;
@@ -53,6 +82,7 @@ const userSlice = createSlice({
       state.currentUser = payload.currentUser;
       state.jwtToken = payload.jwtToken;
       state.error = {
+        field: "",
         status: "",
         message: "",
       };
@@ -61,12 +91,15 @@ const userSlice = createSlice({
     },
     loginFail: (state, { payload }: PayloadAction<UserError>) => {
       state.currentUser = {
-        email: "",
+        email: payload.email,
         firstName: "",
         lastName: "",
+        rebalanceThreshold: 10,
+        vpThreshold: 0,
       };
       state.jwtToken = "";
       state.error = {
+        field: "login",
         status: payload?.status ? payload.status.toString() : "",
         message: payload?.message ? payload.message : "",
       };
@@ -76,27 +109,33 @@ const userSlice = createSlice({
     register: (state, _action: PayloadAction<RegistrationForm>) => {
       state.isLoading = true;
     },
-    registerSuccess: (
-      state,
-      { payload }: PayloadAction<{ currentUser: CurrentUser; jwtToken: string }>
-    ) => {
-      state.currentUser = payload.currentUser;
-      state.jwtToken = payload.jwtToken;
+    registerSuccess: (state, { payload }: PayloadAction<{ email: string }>) => {
+      state.currentUser = {
+        email: payload.email,
+        firstName: "",
+        lastName: "",
+        rebalanceThreshold: 10,
+        vpThreshold: 0,
+      };
+      state.jwtToken = "";
       state.error = {
+        field: "",
         status: "",
         message: "",
       };
       state.isLoading = false;
-      storeToken(payload.jwtToken);
     },
     registerFail: (state, { payload }: PayloadAction<UserError>) => {
       state.currentUser = {
-        email: "",
+        email: payload.email,
         firstName: "",
         lastName: "",
+        rebalanceThreshold: 10,
+        vpThreshold: 0,
       };
       state.jwtToken = "";
       state.error = {
+        field: "register",
         status: payload?.status ? payload.status.toString() : "",
         message: payload?.message ? payload.message : "",
       };
@@ -107,8 +146,11 @@ const userSlice = createSlice({
 });
 
 export const {
-  clearLoading: clearLoadingAction,
+  clearError: clearUserErrorAction,
+  clearLoading: clearUserLoadingAction,
   clearUser: clearUserAction,
+  changePassword: userchangePasswordAction,
+  changePasswordFail: userChangePasswordFailAction,
   login: userLoginAction,
   loginSuccess: userLoginSuccessAction,
   loginFail: userLoginFailAction,

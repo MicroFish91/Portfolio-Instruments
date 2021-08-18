@@ -21,7 +21,14 @@ export const database: Database = {
     username: process.env.DB_USERNAME || "postgres",
     password: process.env.DB_PASSWORD || null,
     database: process.env.DB_TITLE || "Portfolio_Instruments",
-    host: "127.0.0.1",
+    host: process.env.DB_HOST || "127.0.0.1",
+    dialect: "postgres",
+  },
+  production: {
+    username: process.env.DB_USERNAME || "postgres",
+    password: process.env.DB_PASSWORD || null,
+    database: process.env.DB_TITLE || "Portfolio_Instruments",
+    host: process.env.DB_HOST || "127.0.0.1",
     dialect: "postgres",
   },
 };

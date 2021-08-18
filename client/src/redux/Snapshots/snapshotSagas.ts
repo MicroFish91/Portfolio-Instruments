@@ -74,7 +74,7 @@ function* getPaginateSnapshots() {
 
 function* getLatestSnapshot() {
   const { data, error } = yield getLatestSnapshotEndpoint();
-  if (data) {
+  if (data.data) {
     yield call(setDashboardAccounts, data);
     yield call(setDashboardHoldings, data);
   } else if (error) {

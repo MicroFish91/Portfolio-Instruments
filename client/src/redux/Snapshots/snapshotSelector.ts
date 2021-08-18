@@ -14,6 +14,10 @@ export const selectSnapshotsDashboardIds = (state: RootState) =>
 export const selectSnapshotsAllIds = (state: RootState) =>
   state.snapshots.allIds;
 export const selectSnapshotErrors = (state: RootState) => state.snapshots.error;
+export const selectSnapshotErrorStatus = (state: RootState) =>
+  state.snapshots.error.status;
+export const selectSnapshotErrorMessage = (state: RootState) =>
+  state.snapshots.error.message;
 export const selectSnapshotLoading = (state: RootState) =>
   state.snapshots.isLoading;
 
@@ -106,5 +110,16 @@ export const selectAllSnapshots = createSelector(
     });
 
     return newList;
+  }
+);
+
+export const selectHasSnapshots = createSelector(
+  selectSnapshotsDashboardIds,
+  (snapshotIds) => {
+    if (snapshotIds.length) {
+      return true;
+    } else {
+      return false;
+    }
   }
 );

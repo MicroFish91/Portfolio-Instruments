@@ -2,12 +2,15 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import BenchmarkFallback from "./components/ErrorFallbacks/BenchmarkFallback";
 import DashboardFallback from "./components/ErrorFallbacks/DashboardFallback";
+import ProfileFallback from "./components/ErrorFallbacks/ProfileFallback";
 import SnapshotsFallback from "./components/ErrorFallbacks/SnapshotsFallback";
 import ContentWrapper from "./hoc/contentWrapper";
 import AddSnapshots from "./pages/AddSnapshots";
 import Benchmarks from "./pages/Benchmarks";
 import Dashboard from "./pages/Dashboard";
+import EmailConfirmation from "./pages/EmailConfirmation";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import ViewAssets from "./pages/ViewAssets";
 
@@ -17,6 +20,19 @@ const App = () => {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/confirmation" component={EmailConfirmation} />
+        <Route
+          path="/profile"
+          render={() => (
+            <ContentWrapper
+              fallback={ProfileFallback}
+              majorTitle={"User Settings"}
+              minorTitle={"Profile"}
+            >
+              <Profile />
+            </ContentWrapper>
+          )}
+        />
         <Route
           path="/dashboard"
           render={() => (

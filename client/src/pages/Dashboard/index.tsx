@@ -12,6 +12,7 @@ import {
   selectBenchmarkTitle,
 } from "../../redux/Benchmarks/benchmarkSelector";
 import { initGetBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
+import { selectHasSnapshots } from "../../redux/Snapshots/snapshotSelector";
 import { initDashboardSnapshotsAction } from "../../redux/Snapshots/snapshotSlice";
 
 const Dashboard = () => {
@@ -19,6 +20,7 @@ const Dashboard = () => {
   const assetTitles = useSelector(selectAssetTitles);
   const assetRatios = useSelector(selectAssetRatios);
   const benchmarkBreakdown = useSelector(selectBenchmarkBreakdown);
+  const hasSnapshots = useSelector(selectHasSnapshots);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,34 +30,38 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="row row-cards">
-        <CardTotals accountType={"Traditional"} color={"purple"} />
-        <CardTotals accountType={"Roth"} color={"green"} />
-        <CardTotals accountType={"Taxable"} color={"yellow"} />
-        <CardTotals accountType={"Net Worth"} color={"blue"} />
-      </div>
-      <Linechart />
-      <div className="row">
-        <CardInstitutions />
-        <CardTaxShelter />
-      </div>
-      <div className="row">
-        <CardPieChart
-          benchmarkTitle={benchmarkTitle}
-          cardTitle={`Current Portfolio: `}
-          titles={(() => {
-            const newAssetTitles = [...assetTitles, "Other"];
-            return newAssetTitles;
-          })()}
-          ratios={benchmarkBreakdown}
-        />
-        <CardPieChart
-          benchmarkTitle={benchmarkTitle}
-          cardTitle={`Current Benchmark: ${benchmarkTitle}`}
-          titles={assetTitles}
-          ratios={assetRatios}
-        />
-      </div>
+      {hasSnapshots && benchmarkTitle && (
+        <>
+          <div className="row row-cards">
+            <CardTotals accountType={"Traditional"} color={"purple"} />
+            <CardTotals accountType={"Roth"} color={"green"} />
+            <CardTotals accountType={"Taxable"} color={"yellow"} />
+            <CardTotals accountType={"Net Worth"} color={"blue"} />
+          </div>
+          <Linechart />
+          <div className="row">
+            <CardInstitutions />
+            <CardTaxShelter />
+          </div>
+          <div className="row">
+            <CardPieChart
+              benchmarkTitle={benchmarkTitle}
+              cardTitle={`Current Portfolio: `}
+              titles={(() => {
+                const newAssetTitles = [...assetTitles, "Other"];
+                return newAssetTitles;
+              })()}
+              ratios={benchmarkBreakdown}
+            />
+            <CardPieChart
+              benchmarkTitle={benchmarkTitle}
+              cardTitle={`Current Benchmark: ${benchmarkTitle}`}
+              titles={assetTitles}
+              ratios={assetRatios}
+            />
+          </div>{" "}
+        </>
+      )}
     </>
   );
 };
