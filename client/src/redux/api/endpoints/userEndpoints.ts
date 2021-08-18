@@ -1,6 +1,9 @@
 import axios from "axios";
 import { LoginForm, RegistrationForm } from "../../../validation/types";
+import { getToken } from "../../User/userUtils";
 import {
+  IncomingChangeNotificationsFetchRaw,
+  IncomingChangePasswordFetchRaw,
   IncomingUserFetchStandardized,
   IncomingUserLoginFetchRaw,
   IncomingUserRegistrationFetchRaw,
@@ -47,9 +50,77 @@ export async function userRegistrationEndpoint(
           email: userData.email,
           firstName: userData.firstName,
           lastName: userData.lastName,
+          rebalanceThreshold: 10,
+          vpThreshold: 0,
         },
         jwtToken: tokenResponse.data.token,
       },
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: {
+        status: error.response.status,
+        message: error.response.data.message,
+      },
+    };
+  }
+}
+
+export async function confirmationEmailEndpoint(email: string): Promise<void> {
+  try {
+    await axios.post(USER_ENDPOINT.EMAIL_CONFIRMATION, { email });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function changePasswordEndpoint(
+  currentPassword: string,
+  newPassword: string
+): Promise<IncomingUserFetchStandardized> {
+  try {
+    const userResponse: IncomingChangePasswordFetchRaw = await axios.post(
+      USER_ENDPOINT.CHANGE_PASSWORD,
+      { currentPassword, newPassword },
+      {
+        headers: {
+          authorization: getToken(),
+        },
+      }
+    );
+    return {
+      data: userResponse,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: {
+        status: error.response.status,
+        message: error.response.data.message,
+      },
+    };
+  }
+}
+
+export async function changeNotificationsEndpoint(
+  rebalanceThreshold: number,
+  vpThreshold: number
+): Promise<IncomingUserFetchStandardized> {
+  try {
+    const userResponse: IncomingChangeNotificationsFetchRaw = await axios.post(
+      USER_ENDPOINT.CHANGE_NOTIFICATIONS,
+      { rebalanceThreshold, vpThreshold },
+      {
+        headers: {
+          authorization: getToken(),
+        },
+      }
+    );
+    return {
+      data: userResponse,
       error: null,
     };
   } catch (error) {

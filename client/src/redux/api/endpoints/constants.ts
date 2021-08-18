@@ -2,6 +2,9 @@
 export const USER_ENDPOINT = {
   LOGIN: "/login",
   REGISTER: "/register",
+  EMAIL_CONFIRMATION: "/confirmation",
+  CHANGE_NOTIFICATIONS: "/changeNotifications",
+  CHANGE_PASSWORD: "/changePassword",
 };
 
 export const SNAPSHOT_ENDPOINT = {

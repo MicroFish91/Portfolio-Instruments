@@ -6,6 +6,7 @@ interface TextFieldProps {
   name: string;
   type: string;
   placeholder: string;
+  value?: string | number;
 }
 
 const TextField: React.FC<TextFieldProps> = ({

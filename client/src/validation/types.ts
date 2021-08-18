@@ -11,6 +11,17 @@ export interface RegistrationForm {
   lastName: string;
 }
 
+export interface ChangePasswordForm {
+  currentPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+export interface ChangeNotificationForm {
+  rebalanceThreshold: number;
+  vpThreshold: number;
+}
+
 export interface HoldingForm {
   holdingTitle: string;
   holdingTicker: string;

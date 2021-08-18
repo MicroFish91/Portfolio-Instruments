@@ -14,6 +14,18 @@ export type GenericError = {
 
 // ! User
 // * Incoming
+export type IncomingChangePasswordFetchRaw = {
+  data: {
+    message: string;
+  };
+};
+
+export type IncomingChangeNotificationsFetchRaw = {
+  data: {
+    message: string;
+  };
+};
+
 export type IncomingUserLoginFetchRaw = {
   data: { token: string; currentUser: CurrentUser };
 };
@@ -23,7 +35,10 @@ export type IncomingUserRegistrationFetchRaw = {
 };
 
 export type IncomingUserFetchStandardized = FetchedData<
-  { jwtToken: string; currentUser: CurrentUser } | null,
+  | IncomingChangePasswordFetchRaw
+  | IncomingChangeNotificationsFetchRaw
+  | { jwtToken: string; currentUser: CurrentUser }
+  | null,
   GenericError | null
 >;
 

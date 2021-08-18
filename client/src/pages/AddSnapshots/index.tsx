@@ -142,6 +142,19 @@ const AddSnapshots = () => {
                 you are done adding assets, finish by hitting the save snapshot
                 button to store your data.
               </p>
+              <p className="leading-normal">
+                Additional Notes (1): Clicking the "Variable Portfolio"
+                checkmark tells us that this holding is not part of your normal
+                portfolio. We will still track the holding, but will not factor
+                this in when analyzing your final portfolio's rebalance
+                requirements when compared against your benchmark portfolio.
+              </p>
+              <p className="leading-normal">
+                Additional Notes (2): For account holdings that don't carry
+                tickers, we suggest that you make up a placeholder. For example,
+                if I have a cash position in my USAA checking account, I could
+                use the fake ticker "USAACHK".
+              </p>
             </div>{" "}
             <br></br>
           </>

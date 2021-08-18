@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import {
+  selectUserEmail,
   selectUserErrorMessage,
   selectUserLoading,
-  selectUserToken,
 } from "../../redux/User/userSelectors";
 import {
-  clearLoadingAction,
   clearUserAction,
+  clearUserLoadingAction,
   userRegisterAction,
 } from "../../redux/User/userSlice";
 import { registrationFormSchema } from "../../validation";
@@ -20,20 +20,20 @@ import InputField from "../forms/InputField";
 const Register = () => {
   const errorMessage = useSelector(selectUserErrorMessage);
   const isLoading = useSelector(selectUserLoading);
-  const userToken = useSelector(selectUserToken);
+  const userEmail = useSelector(selectUserEmail);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    if (userToken) {
-      history.push("/dashboard");
+    if (userEmail) {
+      history.push("/confirmation");
     }
-  }, [userToken]);
+  }, [userEmail]);
 
   useEffect(() => {
     if (isLoading) {
       const timer = setTimeout(() => {
-        dispatch(clearLoadingAction());
+        dispatch(clearUserLoadingAction());
         clearTimeout(timer);
       }, 10000);
     }
