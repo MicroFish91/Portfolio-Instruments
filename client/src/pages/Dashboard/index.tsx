@@ -8,7 +8,7 @@ import Linechart from "../../components/Linechart";
 import {
   selectAssetRatios,
   selectAssetTitles,
-  selectBenchmarkBreakdown,
+  selectBenchmarkBreakdownPercentage,
   selectBenchmarkTitle,
 } from "../../redux/Benchmarks/benchmarkSelector";
 import { initGetBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
@@ -23,7 +23,7 @@ const Dashboard = () => {
   const benchmarkTitle = useSelector(selectBenchmarkTitle);
   const assetTitles = useSelector(selectAssetTitles);
   const assetRatios = useSelector(selectAssetRatios);
-  const benchmarkBreakdown = useSelector(selectBenchmarkBreakdown);
+  const benchmarkBreakdown = useSelector(selectBenchmarkBreakdownPercentage);
   const [vpAssetTitles, vpAssetRatios] = useSelector(selectVpAssets);
   const macroBreakdown = useSelector(selectMacroBreakdown);
   const hasSnapshots = useSelector(selectHasSnapshots);
