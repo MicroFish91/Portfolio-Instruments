@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import express from "express";
+import generator from "generate-password";
 import jwt from "jsonwebtoken";
 import { createToken, requireJwt, requireLogin } from "../auth";
 import { secrets, SERVER_BASE_URL } from "../config";
@@ -28,7 +29,7 @@ router.get("/confirmation/:emailToken", async (req, res) => {
   }
 });
 
-// Resernd Confirmation Email
+// Resend Confirmation Email
 router.post("/confirmation", async (req, _res) => {
   try {
     const user = await db.Users.findOne({ where: { email: req.body.email } });
@@ -40,6 +41,36 @@ router.post("/confirmation", async (req, _res) => {
     );
   } catch (err) {
     console.log(err);
+  }
+});
+
+// Resend Confirmation Email
+router.post("/resetPassword", async (req, res) => {
+  try {
+    const user = await db.Users.findOne({ where: { email: req.body.email } });
+
+    const newPassword = generator.generate({
+      length: 15,
+      numbers: true,
+    });
+    const encryptedPassword = await bcrypt.hashSync(newPassword, 8);
+
+    await db.Users.update(
+      { password: encryptedPassword },
+      { where: { id: user.id } }
+    );
+
+    await sendEmail(
+      user.email,
+      "Portfolio Instruments - Reset Password",
+      `Your new password is: ${newPassword}`
+    );
+
+    return res.json({ message: "Success" });
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error - could not process request." });
   }
 });
 

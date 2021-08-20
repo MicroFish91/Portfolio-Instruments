@@ -4,10 +4,12 @@ import {
   ChangePasswordForm,
   LoginForm,
   RegistrationForm,
+  ResetPasswordForm,
 } from "../../validation/types";
 import {
   changeNotificationsEndpoint,
   changePasswordEndpoint,
+  resetPasswordEndpoint,
   userLoginEndpoint,
   userRegistrationEndpoint,
 } from "../api/endpoints/userEndpoints";
@@ -24,6 +26,9 @@ import {
   userRegisterAction,
   userRegisterFailAction,
   userRegisterSuccessAction,
+  userResetPasswordAction,
+  userResetPasswordFailAction,
+  userResetPasswordSuccessAction,
 } from "./userSlice";
 
 const call: any = Effects.call;
@@ -44,6 +49,10 @@ function* onChangeNotifications() {
 
 function* onChangePassword() {
   yield takeLatest(userchangePasswordAction.type, changePassword);
+}
+
+function* onResetPassword() {
+  yield takeLatest(userResetPasswordAction.type, resetPassword);
 }
 
 // Workers
@@ -102,11 +111,21 @@ function* registerUser({ payload }: { payload: RegistrationForm }) {
   return;
 }
 
+function* resetPassword({ payload }: { payload: ResetPasswordForm }) {
+  const { data, error } = yield resetPasswordEndpoint(payload.email);
+  if (data) {
+    yield Effects.put(userResetPasswordSuccessAction());
+  } else if (error) {
+    yield Effects.put(userResetPasswordFailAction(error));
+  }
+}
+
 // Export
 export default function* userSagas() {
   yield Effects.all([
     call(onChangeNotifications),
     call(onChangePassword),
+    call(onResetPassword),
     call(onLoginUser),
     call(onRegisterUser),
   ]);

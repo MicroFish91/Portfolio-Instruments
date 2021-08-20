@@ -133,3 +133,26 @@ export async function changeNotificationsEndpoint(
     };
   }
 }
+
+export async function resetPasswordEndpoint(
+  email: string
+): Promise<IncomingUserFetchStandardized> {
+  try {
+    const userResponse: IncomingChangeNotificationsFetchRaw = await axios.post(
+      USER_ENDPOINT.RESET_PASSWORD,
+      { email }
+    );
+    return {
+      data: userResponse,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: {
+        status: error.response.status,
+        message: error.response.data.message,
+      },
+    };
+  }
+}

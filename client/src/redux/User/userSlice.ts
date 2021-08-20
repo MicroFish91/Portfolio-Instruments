@@ -182,6 +182,23 @@ const userSlice = createSlice({
       state.isLoadingField = "";
       removeToken();
     },
+    resetPassword: (state, _action: PayloadAction<{ email: string }>) => {
+      state.isLoading = true;
+      state.isLoadingField = "resetPassword";
+    },
+    resetPasswordSuccess: (state) => {
+      state.isLoading = false;
+      state.isLoadingField = "";
+    },
+    resetPasswordFail: (state, { payload }: PayloadAction<UserError>) => {
+      state.error = {
+        field: "resetPassword",
+        status: payload?.status ? payload.status.toString() : "",
+        message: payload?.message ? payload.message : "",
+      };
+      state.isLoading = false;
+      state.isLoadingField = "";
+    },
   },
 });
 
@@ -200,6 +217,9 @@ export const {
   register: userRegisterAction,
   registerSuccess: userRegisterSuccessAction,
   registerFail: userRegisterFailAction,
+  resetPassword: userResetPasswordAction,
+  resetPasswordSuccess: userResetPasswordSuccessAction,
+  resetPasswordFail: userResetPasswordFailAction,
 } = userSlice.actions;
 
 export default userSlice.reducer;
