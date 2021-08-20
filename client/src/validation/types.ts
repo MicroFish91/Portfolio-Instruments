@@ -17,6 +17,10 @@ export interface ChangePasswordForm {
   confirmNewPassword: string;
 }
 
+export interface ResetPasswordForm {
+  email: string;
+}
+
 export interface ChangeNotificationForm {
   rebalanceThreshold: number;
   vpThreshold: number;

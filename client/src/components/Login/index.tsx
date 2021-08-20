@@ -44,6 +44,11 @@ const Login = () => {
     }
   }, [isLoading]);
 
+  const navigateForgotPassword = () => {
+    dispatch(clearUserAction());
+    history.push("/resetPassword");
+  };
+
   const navigateRegister = () => {
     dispatch(clearUserAction());
     history.push("/register");
@@ -119,6 +124,10 @@ const Login = () => {
                             Don't have account yet?{" "}
                             <a href="#" onClick={navigateRegister}>
                               Create Account{" "}
+                            </a>
+                            Forgot your password?{" "}
+                            <a href="#" onClick={navigateForgotPassword}>
+                              Reset Password{" "}
                             </a>
                           </div>
                           {errorStatus === "403" && (

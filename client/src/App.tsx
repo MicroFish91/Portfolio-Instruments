@@ -10,10 +10,12 @@ import AddSnapshots from "./pages/AddSnapshots";
 import Benchmarks from "./pages/Benchmarks";
 import Dashboard from "./pages/Dashboard";
 import EmailConfirmation from "./pages/EmailConfirmation";
+import ForgotPassword from "./pages/ForgotPassword";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import RebalanceWizard from "./pages/RebalanceWizard";
 import Register from "./pages/Register";
+import ResetConfirmation from "./pages/ResetConfirmation";
 import ViewAssets from "./pages/ViewAssets";
 
 const App = () => {
@@ -23,6 +25,8 @@ const App = () => {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/confirmation" component={EmailConfirmation} />
+        <Route exact path="/resetPassword" component={ForgotPassword} />
+        <Route exact path="/resetConfirmation" component={ResetConfirmation} />
         <Route
           path="/profile"
           render={() => (
