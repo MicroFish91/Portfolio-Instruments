@@ -5,6 +5,7 @@ export const USER_ENDPOINT = {
   EMAIL_CONFIRMATION: "/confirmation",
   CHANGE_NOTIFICATIONS: "/changeNotifications",
   CHANGE_PASSWORD: "/changePassword",
+  RESET_PASSWORD: "/resetPassword",
 };
 
 export const SNAPSHOT_ENDPOINT = {
