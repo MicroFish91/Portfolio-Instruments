@@ -6,7 +6,7 @@ import {
   selectUserErrorField,
   selectUserErrorMessage,
   selectUserLoadingField,
-} from "../../redux/User/userSelectors";
+} from "../../redux/User/Selectors";
 import {
   clearUserErrorAction,
   userchangePasswordAction,

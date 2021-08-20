@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import CardAddSnapshotsForm from "../../components/CardAddSnapshotsForm";
 import CardAddSnapshotsTable from "../../components/CardAddSnapshotsTable";
 import SnapshotsFallback from "../../components/ErrorFallbacks/SnapshotsFallback";
-import { selectBenchmarkTitle } from "../../redux/Benchmarks/benchmarkSelector";
-import { selectSnapshotErrors } from "../../redux/Snapshots/snapshotSelector";
+import {
+  selectBenchmarkTitle,
+  selectHasBenchmark,
+} from "../../redux/Benchmarks/Selectors";
+import { selectSnapshotErrors } from "../../redux/Snapshots/Selectors";
 import { postSnapshotAction } from "../../redux/Snapshots/snapshotSlice";
 import { HoldingForm, SnapshotForm } from "../../validation/types";
 import { Account, Holding, Snapshot } from "./types";
@@ -13,6 +16,7 @@ const AddSnapshots = () => {
   const [snapshot, setSnapshot] = useState<Snapshot>([]);
   const error = useSelector(selectSnapshotErrors);
   const benchmark = useSelector(selectBenchmarkTitle);
+  const hasBenchmark = useSelector(selectHasBenchmark);
   const dispatch = useDispatch();
 
   const addHolding = (holding: HoldingForm) => {
@@ -130,7 +134,7 @@ const AddSnapshots = () => {
   return (
     <div className="row">
       <div className="col-md-12 col-lg-12">
-        {!error.message && (
+        {!error.message && hasBenchmark && (
           <>
             <div className="card card-body p-6 about-con pabout">
               <h2 className="mb-4 font-weight-semibold">
@@ -162,7 +166,7 @@ const AddSnapshots = () => {
       </div>
 
       <div className="col-md-12 col-lg-12">
-        {!error.message && (
+        {!error.message && hasBenchmark && (
           <>
             <CardAddSnapshotsForm addHolding={addHolding} />
             <CardAddSnapshotsTable

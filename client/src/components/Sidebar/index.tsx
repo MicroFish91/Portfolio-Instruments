@@ -5,7 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import {
   selectUserEmail,
   selectUserFullName,
-} from "../../redux/User/userSelectors";
+} from "../../redux/User/Selectors";
 import { clearUserAction } from "../../redux/User/userSlice";
 
 interface SidebarProps {}
@@ -131,7 +131,10 @@ const Sidebar: React.FC<SidebarProps> = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard/rebalanceWizard" className="slide-item">
+                <Link
+                  to="/portfolio-wizard/rebalance-wizard"
+                  className="slide-item"
+                >
                   Rebalance Wizard
                 </Link>
               </li>

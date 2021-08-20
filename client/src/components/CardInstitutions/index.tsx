@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectPercentageByInstitutions } from "../../redux/Holdings/holdingSelectors";
+import { selectPercentageByInstitutions } from "../../redux/Holdings/Selectors";
 import Institution from "./Institution";
 
 interface CardInstitutionsProps {}

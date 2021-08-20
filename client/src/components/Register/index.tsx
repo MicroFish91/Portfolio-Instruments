@@ -7,7 +7,7 @@ import {
   selectUserEmail,
   selectUserErrorMessage,
   selectUserLoading,
-} from "../../redux/User/userSelectors";
+} from "../../redux/User/Selectors";
 import {
   clearUserAction,
   clearUserLoadingAction,
