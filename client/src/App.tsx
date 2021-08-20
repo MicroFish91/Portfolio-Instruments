@@ -11,6 +11,7 @@ import Benchmarks from "./pages/Benchmarks";
 import Dashboard from "./pages/Dashboard";
 import EmailConfirmation from "./pages/EmailConfirmation";
 import ForgotPassword from "./pages/ForgotPassword";
+import GettingStarted from "./pages/GettingStarted";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import RebalanceWizard from "./pages/RebalanceWizard";
@@ -36,6 +37,18 @@ const App = () => {
               minorTitle={"Profile"}
             >
               <Profile />
+            </ContentWrapper>
+          )}
+        />
+        <Route
+          path="/gettingStarted"
+          render={() => (
+            <ContentWrapper
+              fallback={ProfileFallback}
+              majorTitle={"Getting Started"}
+              minorTitle={"Profile"}
+            >
+              <GettingStarted />
             </ContentWrapper>
           )}
         />

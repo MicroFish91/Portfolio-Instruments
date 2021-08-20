@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import CardInstitutions from "../../components/CardInstitutions";
 import CardPieChart from "../../components/CardPieChart";
 import CardTaxShelter from "../../components/CardTaxShelter";
@@ -11,6 +12,7 @@ import {
   selectAssetTitles,
   selectBenchmarkBreakdownPercentage,
   selectBenchmarkTitle,
+  selectHasBenchmark,
 } from "../../redux/Benchmarks/Selectors";
 import {
   selectMacroBreakdownPercentage,
@@ -27,12 +29,20 @@ const Dashboard = () => {
   const [vpAssetTitles, vpAssetRatios] = useSelector(selectVpAssets);
   const macroBreakdown = useSelector(selectMacroBreakdownPercentage);
   const hasSnapshots = useSelector(selectHasSnapshots);
+  const hasBenchmark = useSelector(selectHasBenchmark);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(initDashboardSnapshotsAction());
     dispatch(initGetBenchmarkAction());
   }, []);
+
+  useEffect(() => {
+    if (!hasSnapshots || !hasBenchmark) {
+      history.push("/gettingStarted");
+    }
+  }, [hasSnapshots, hasBenchmark]);
 
   return (
     <>

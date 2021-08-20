@@ -85,7 +85,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
                 Profile
               </Link>
               <div className="dropdown-divider"></div>
-              <Link to="/benchmarks/general" className="dropdown-item">
+              <Link to="/gettingStarted" className="dropdown-item">
                 Getting Started
               </Link>
               <a className="dropdown-item" href="#" onClick={handleLogout}>

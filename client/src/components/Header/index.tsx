@@ -1,14 +1,18 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { selectAssetRebalanceFormat } from "../../redux/Benchmarks/Selectors";
+import {
+  selectAssetRebalanceFormat,
+  selectVpRebalanceFormat,
+} from "../../redux/Benchmarks/Selectors";
 import { selectHasSnapshots } from "../../redux/Snapshots/Selectors";
 import { selectUserFullName } from "../../redux/User/Selectors";
 import { clearUserAction } from "../../redux/User/userSlice";
 
 const Header: React.FC = () => {
   const userFullName = useSelector(selectUserFullName);
-  const [_, rebalanceRequired] = useSelector(selectAssetRebalanceFormat);
+  const [, rebalanceRequired] = useSelector(selectAssetRebalanceFormat);
+  const [, vpRebalanceRequired] = useSelector(selectVpRebalanceFormat);
   const hasSnapshots = useSelector(selectHasSnapshots);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -22,7 +26,7 @@ const Header: React.FC = () => {
     const notificationStatus = [];
     const notificationMessages = [];
 
-    if (rebalanceRequired && hasSnapshots) {
+    if ((rebalanceRequired || vpRebalanceRequired) && hasSnapshots) {
       notificationStatus.push(
         <div className="notifyimg">
           <i className="fas fa-thumbs-down"></i>
@@ -38,7 +42,7 @@ const Header: React.FC = () => {
       );
     }
 
-    if (!rebalanceRequired && hasSnapshots) {
+    if (!rebalanceRequired && !vpRebalanceRequired && hasSnapshots) {
       notificationStatus.push(
         <div className="notifyimg">
           <i className="fas fa-thumbs-up"></i>
@@ -134,7 +138,7 @@ const Header: React.FC = () => {
                     Profile
                   </Link>
                   <div className="dropdown-divider"></div>
-                  <Link to="/benchmarks/general" className="dropdown-item">
+                  <Link to="/gettingStarted" className="dropdown-item">
                     Getting Started
                   </Link>
                   <a className="dropdown-item" href="#" onClick={handleLogout}>
