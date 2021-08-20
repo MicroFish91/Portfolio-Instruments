@@ -12,7 +12,7 @@ export const consolidateSnapshotsMonthlyById: ConsolidateSnapshotsMonthlyById =
   (snapshotsById, snapshotsList, monthsBeforeNow = 0) => {
     const startDate = new Date();
     const valuesByMonth = new Array(24).fill(0);
-    let carryOverId: string | undefined;
+    let carryOverId: string | number = 0;
 
     startDate.setMonth(startDate.getMonth() - monthsBeforeNow);
 

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import CardAddSnapshotsForm from "../../components/CardAddSnapshotsForm";
 import CardAddSnapshotsTable from "../../components/CardAddSnapshotsTable";
 import SnapshotsFallback from "../../components/ErrorFallbacks/SnapshotsFallback";
@@ -18,6 +19,13 @@ const AddSnapshots = () => {
   const benchmark = useSelector(selectBenchmarkTitle);
   const hasBenchmark = useSelector(selectHasBenchmark);
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!hasBenchmark) {
+      history.push("/gettingStarted");
+    }
+  }, [hasBenchmark]);
 
   const addHolding = (holding: HoldingForm) => {
     const newSnapshot: Snapshot = [...snapshot];
