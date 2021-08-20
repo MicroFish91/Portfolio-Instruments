@@ -2,8 +2,8 @@ import React from "react";
 import { Pie } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 import { PORTFOLIO_BENCHMARKS } from "../../constants";
-import { selectBenchmarkTitle } from "../../redux/Benchmarks/benchmarkSelector";
 import { initPostBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
+import { selectBenchmarkTitle } from "../../redux/Benchmarks/Selectors";
 
 interface BenchmarkProps {
   benchmarkIndex: number;

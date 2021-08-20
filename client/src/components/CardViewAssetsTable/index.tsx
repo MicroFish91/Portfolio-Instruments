@@ -4,15 +4,15 @@ import { ClipLoader } from "react-spinners";
 import {
   selectAccountsAllIds,
   selectAccountsById,
-} from "../../redux/Accounts/accountSelectors";
+} from "../../redux/Accounts/Selectors";
 import {
   selectHoldingsAllIds,
   selectHoldingsById,
-} from "../../redux/Holdings/holdingSelectors";
+} from "../../redux/Holdings/Selectors";
 import {
   selectAllSnapshots,
   selectSnapshotLoading,
-} from "../../redux/Snapshots/snapshotSelector";
+} from "../../redux/Snapshots/Selectors";
 import {
   initPaginateSnapshotsAction,
   removeSnapshotAction,

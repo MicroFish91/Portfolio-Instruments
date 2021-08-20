@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectTaxShelterPercentages } from "../../redux/Holdings/holdingSelectors";
+import { selectTaxShelterPercentages } from "../../redux/Holdings/Selectors";
 import Shelter from "./Shelter";
 
 interface CardTaxShelterProps {}

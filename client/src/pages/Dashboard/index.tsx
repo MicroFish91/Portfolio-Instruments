@@ -5,27 +5,27 @@ import CardPieChart from "../../components/CardPieChart";
 import CardTaxShelter from "../../components/CardTaxShelter";
 import CardTotals from "../../components/CardTotals";
 import Linechart from "../../components/Linechart";
+import { initGetBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
 import {
   selectAssetRatios,
   selectAssetTitles,
-  selectBenchmarkBreakdown,
+  selectBenchmarkBreakdownPercentage,
   selectBenchmarkTitle,
-} from "../../redux/Benchmarks/benchmarkSelector";
-import { initGetBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
+} from "../../redux/Benchmarks/Selectors";
 import {
-  selectMacroBreakdown,
+  selectMacroBreakdownPercentage,
   selectVpAssets,
-} from "../../redux/Holdings/holdingSelectors";
-import { selectHasSnapshots } from "../../redux/Snapshots/snapshotSelector";
+} from "../../redux/Holdings/Selectors";
+import { selectHasSnapshots } from "../../redux/Snapshots/Selectors";
 import { initDashboardSnapshotsAction } from "../../redux/Snapshots/snapshotSlice";
 
 const Dashboard = () => {
   const benchmarkTitle = useSelector(selectBenchmarkTitle);
   const assetTitles = useSelector(selectAssetTitles);
   const assetRatios = useSelector(selectAssetRatios);
-  const benchmarkBreakdown = useSelector(selectBenchmarkBreakdown);
+  const benchmarkBreakdown = useSelector(selectBenchmarkBreakdownPercentage);
   const [vpAssetTitles, vpAssetRatios] = useSelector(selectVpAssets);
-  const macroBreakdown = useSelector(selectMacroBreakdown);
+  const macroBreakdown = useSelector(selectMacroBreakdownPercentage);
   const hasSnapshots = useSelector(selectHasSnapshots);
   const dispatch = useDispatch();
 

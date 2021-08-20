@@ -3,6 +3,7 @@ import "./App.css";
 import BenchmarkFallback from "./components/ErrorFallbacks/BenchmarkFallback";
 import DashboardFallback from "./components/ErrorFallbacks/DashboardFallback";
 import ProfileFallback from "./components/ErrorFallbacks/ProfileFallback";
+import RebalanceWizardFallback from "./components/ErrorFallbacks/RebalanceWizardFallback";
 import SnapshotsFallback from "./components/ErrorFallbacks/SnapshotsFallback";
 import ContentWrapper from "./hoc/contentWrapper";
 import AddSnapshots from "./pages/AddSnapshots";
@@ -11,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import EmailConfirmation from "./pages/EmailConfirmation";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import RebalanceWizard from "./pages/RebalanceWizard";
 import Register from "./pages/Register";
 import ViewAssets from "./pages/ViewAssets";
 
@@ -46,18 +48,6 @@ const App = () => {
           )}
         />
         <Route
-          path="/benchmarks/:benchmarkIndex"
-          render={() => (
-            <ContentWrapper
-              fallback={BenchmarkFallback}
-              majorTitle={"Benchmark Portfolios"}
-              minorTitle={"General"}
-            >
-              <Benchmarks />
-            </ContentWrapper>
-          )}
-        />
-        <Route
           path="/portfolio-wizard/add-snapshots"
           render={() => (
             <ContentWrapper
@@ -78,6 +68,30 @@ const App = () => {
               minorTitle={"Portfolio Wizard"}
             >
               <ViewAssets />
+            </ContentWrapper>
+          )}
+        />
+        <Route
+          path="/portfolio-wizard/rebalance-wizard"
+          render={() => (
+            <ContentWrapper
+              fallback={RebalanceWizardFallback}
+              majorTitle={"Rebalance Wizard"}
+              minorTitle={"Portfolio Wizard"}
+            >
+              <RebalanceWizard />
+            </ContentWrapper>
+          )}
+        />
+        <Route
+          path="/benchmarks/:benchmarkIndex"
+          render={() => (
+            <ContentWrapper
+              fallback={BenchmarkFallback}
+              majorTitle={"Benchmark Portfolios"}
+              minorTitle={"General"}
+            >
+              <Benchmarks />
             </ContentWrapper>
           )}
         />

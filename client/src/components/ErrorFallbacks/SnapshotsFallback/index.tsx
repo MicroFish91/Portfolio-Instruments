@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectSnapshotErrors } from "../../../redux/Snapshots/snapshotSelector";
+import { selectSnapshotErrors } from "../../../redux/Snapshots/Selectors";
 
 const SnapshotsFallback = () => {
   const error = useSelector(selectSnapshotErrors);

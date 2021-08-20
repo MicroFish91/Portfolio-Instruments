@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { selectCustomUserErrorMessage } from "../../redux/User/userSelectors";
+import { selectCustomUserErrorMessage } from "../../redux/User/Selectors";
 
 const EmailConfirmation = () => {
   const errorMessage = useSelector(selectCustomUserErrorMessage);
