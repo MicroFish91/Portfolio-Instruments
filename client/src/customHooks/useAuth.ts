@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { selectIsUserAuthorized } from "../redux/User/userSelectors";
+import { selectIsUserAuthorized } from "../redux/User/Selectors";
 import { clearUserAction } from "../redux/User/userSlice";
 
 export const useAuth = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { selectHoldingsBySnapshotId } from "../../../redux/Holdings/holdingSelectors";
+import { selectHoldingsBySnapshotId } from "../../../redux/Holdings/Selectors";
 import { usdFormatter } from "../../../utils";
 
 interface HoldingsOverviewTableProps {

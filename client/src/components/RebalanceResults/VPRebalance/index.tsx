@@ -1,9 +1,37 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { selectUserVpThreshold } from "../../../redux/User/userSelectors";
+import { v4 as uuidv4 } from "uuid";
+import { selectVpRebalanceFormat } from "../../../redux/Benchmarks/Selectors";
+import { selectUserVpThreshold } from "../../../redux/User/Selectors";
 
 const VPRebalance = () => {
   const vpThreshold = useSelector(selectUserVpThreshold);
+  const [vpRebalanceFormat, rebalanceRequired] = useSelector(
+    selectVpRebalanceFormat
+  );
+
+  const renderRows = () => {
+    return vpRebalanceFormat.macroTitles.map((macroTitle, index) => {
+      return (
+        <tr key={uuidv4()}>
+          <th className="wd-25p">{macroTitle}</th>
+          <th className="wd-25p">{`${
+            vpRebalanceFormat.currentAllocation.formattedTotal[index]
+          } (${vpRebalanceFormat.currentAllocation.percent[index].toFixed(
+            2
+          )}%)`}</th>
+          <th className="wd-25p">{`${
+            vpRebalanceFormat.adjusted.formattedTotal[index]
+          } (${vpRebalanceFormat.adjusted.percent[index].toFixed(2)}%)`}</th>
+          <th className="wd-25p">{`${
+            vpRebalanceFormat.goalAllocation.formattedTotal[index]
+          } (${vpRebalanceFormat.goalAllocation.percent[index].toFixed(
+            2
+          )}%)`}</th>
+        </tr>
+      );
+    });
+  };
 
   return (
     <>
@@ -33,7 +61,11 @@ const VPRebalance = () => {
                   <u>{vpThreshold}</u>
                 </b>
                 % variable portfolio rebalance band,{" "}
-                <u>your portfolio needs to be rebalanced.</u>
+                {rebalanceRequired ? (
+                  <u>your portfolio needs to be rebalanced.</u>
+                ) : (
+                  <u>your portfolio does not need to be rebalanced.</u>
+                )}
               </p>
               <p>
                 <b>
@@ -70,7 +102,7 @@ const VPRebalance = () => {
                   </tr>
                 </thead>
 
-                <tbody></tbody>
+                <tbody>{renderRows()}</tbody>
               </table>
             </div>
           </div>

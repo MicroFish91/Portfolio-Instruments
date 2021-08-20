@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 import {
   selectAssetRebalanceFormat,
   selectBenchmarkTitle,
-} from "../../../redux/Benchmarks/benchmarkSelector";
-import { selectUserRebalanceThreshold } from "../../../redux/User/userSelectors";
+} from "../../../redux/Benchmarks/Selectors";
+import { selectUserRebalanceThreshold } from "../../../redux/User/Selectors";
 
 const AssetRebalance = () => {
   const rebalanceThreshold = useSelector(selectUserRebalanceThreshold);

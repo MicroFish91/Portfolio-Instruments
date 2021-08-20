@@ -1,17 +1,74 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { selectUserFullName } from "../../redux/User/userSelectors";
+import { selectAssetRebalanceFormat } from "../../redux/Benchmarks/Selectors";
+import { selectHasSnapshots } from "../../redux/Snapshots/Selectors";
+import { selectUserFullName } from "../../redux/User/Selectors";
 import { clearUserAction } from "../../redux/User/userSlice";
 
 const Header: React.FC = () => {
   const userFullName = useSelector(selectUserFullName);
+  const [_, rebalanceRequired] = useSelector(selectAssetRebalanceFormat);
+  const hasSnapshots = useSelector(selectHasSnapshots);
   const dispatch = useDispatch();
   const history = useHistory();
 
   const handleLogout = () => {
     dispatch(clearUserAction());
     history.push("/login");
+  };
+
+  const renderNotifications = () => {
+    const notificationStatus = [];
+    const notificationMessages = [];
+
+    if (rebalanceRequired && hasSnapshots) {
+      notificationStatus.push(
+        <div className="notifyimg">
+          <i className="fas fa-thumbs-down"></i>
+        </div>
+      );
+      notificationMessages.push(
+        <div>
+          <strong>Portfolio Status: Needs Rebalancing</strong>
+          <div className="small text-muted">
+            Please consult the "Rebalance Wizard" for more info.
+          </div>
+        </div>
+      );
+    }
+
+    if (!rebalanceRequired && hasSnapshots) {
+      notificationStatus.push(
+        <div className="notifyimg">
+          <i className="fas fa-thumbs-up"></i>
+        </div>
+      );
+      notificationMessages.push(
+        <div>
+          <strong>Portfolio Status: Excellent</strong>
+          <div className="small text-muted">No change required.</div>
+        </div>
+      );
+    }
+
+    if (!hasSnapshots) {
+      notificationStatus.push(
+        <div className="notifyimg">
+          <i className="fas fa-thumbs-down"></i>
+        </div>
+      );
+      notificationMessages.push(
+        <div>
+          <strong>Portfolio Status: Unknown</strong>
+          <div className="small text-muted">
+            Please begin by clicking on "Getting Started".
+          </div>
+        </div>
+      );
+    }
+
+    return [...notificationStatus, notificationMessages];
   };
 
   return (
@@ -27,9 +84,14 @@ const Header: React.FC = () => {
               <img
                 alt="Portfolio Instruments Logo"
                 className="header-brand-img"
-                src="/assets/images/PI_Logo.png"
-                width="800"
-              ></img>
+                src="/assets/images/Favicon.png"
+                style={{
+                  height: "auto",
+                  width: "2.2em",
+                  margin: 0,
+                  padding: 0,
+                }}
+              />
             </a>
             <a
               aria-label="Hide Sidebar"
@@ -46,22 +108,7 @@ const Header: React.FC = () => {
                 <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                   {/* <!-- First Notification --> */}
                   <a className="dropdown-item d-flex pb-3" href="">
-                    <div className="notifyimg">
-                      <i className="fas fa-thumbs-up"></i>
-                    </div>
-                    <div>
-                      <strong>Portfolio Status: Excellent</strong>
-                      <div className="small text-muted">3 hours ago</div>
-                    </div>
-                  </a>
-
-                  {/* <!-- View All Notifications --> */}
-                  <div className="dropdown-divider"></div>
-                  <a
-                    className="dropdown-item text-center text-muted-dark"
-                    href=""
-                  >
-                    View all Notifications
+                    {renderNotifications()}
                   </a>
                 </div>
               </div>

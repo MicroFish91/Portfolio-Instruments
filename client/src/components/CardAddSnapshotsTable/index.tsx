@@ -53,6 +53,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
 
   const renderSnapshots = () => {
     const table: JSX.Element[] = [];
+    let netTotal = 0;
 
     snapshot.forEach((account) => {
       const keys = ["traditional", "roth", "taxable"];
@@ -216,7 +217,21 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
           <td>{"$" + dollarFormatter.format(accountTotal).slice(1)}</td>
         </tr>
       );
+      netTotal += accountTotal;
     });
+
+    table.push(
+      <tr key={uuidv4()}>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>
+          <b> ***** Net Worth: *****</b>
+        </td>
+        <td>{"$" + dollarFormatter.format(netTotal).slice(1)}</td>
+      </tr>
+    );
 
     return table;
   };

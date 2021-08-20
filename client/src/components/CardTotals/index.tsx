@@ -4,7 +4,7 @@ import {
   selectTotalRoth,
   selectTotalTaxable,
   selectTotalTraditional,
-} from "../../redux/Holdings/holdingSelectors";
+} from "../../redux/Holdings/Selectors";
 import { usdFormatter } from "../../utils/index";
 
 interface CardTotalsProps {

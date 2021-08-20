@@ -7,7 +7,7 @@ import {
   selectXAxisLabels,
   selectYearRangeOne,
   selectYearRangeTwo,
-} from "../../redux/Snapshots/snapshotSelector";
+} from "../../redux/Snapshots/Selectors";
 
 interface LinechartProps {}
 

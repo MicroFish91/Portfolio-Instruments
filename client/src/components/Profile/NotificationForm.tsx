@@ -8,7 +8,7 @@ import {
   selectUserLoadingField,
   selectUserRebalanceThreshold,
   selectUserVpThreshold,
-} from "../../redux/User/userSelectors";
+} from "../../redux/User/Selectors";
 import {
   clearUserErrorAction,
   userChangeNotificationsAction,
@@ -40,10 +40,17 @@ const NotificationForm = () => {
   }, [userErrorField]);
 
   const submitChangeNotification = (
-    values: ChangeNotificationForm,
+    values: {
+      rebalanceThreshold: string | number;
+      vpThreshold: string | number;
+    },
     actions: any
   ) => {
-    dispatch(userChangeNotificationsAction(values));
+    const finalValues = {
+      rebalanceThreshold: parseInt(values.rebalanceThreshold as string),
+      vpThreshold: parseInt(values.vpThreshold as string),
+    };
+    dispatch(userChangeNotificationsAction(finalValues));
     actions.resetForm();
     setChangedNotifications(true);
   };
@@ -70,7 +77,7 @@ const NotificationForm = () => {
               <div className="row">
                 <div className="col-md-2 col-lg-2">
                   <InputField
-                    label="Rebalance Threshold (%)"
+                    label="Asset Rebalance Threshold (%)"
                     name="rebalanceThreshold"
                     placeholder="Enter an integer value"
                     type="text"
