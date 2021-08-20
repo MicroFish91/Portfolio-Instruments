@@ -163,9 +163,11 @@ const AddSnapshots = () => {
               </p>
               <p className="leading-normal">
                 Additional Notes (2): For account holdings that don't carry
-                tickers, we suggest that you make up a placeholder. For example,
-                if I have a cash position in my USAA checking account, I could
-                use the fake ticker "USAACHK".
+                tickers, we suggest that you make up/standardize a placeholder.
+                For example, if I have a cash position in my USAA checking
+                account, I could use the fake ticker "USAACHK" or standardize
+                bank cash positions with something more generic like "BANKCHK"
+                which could be used across multiple bank accounts.
               </p>
             </div>{" "}
             <br></br>

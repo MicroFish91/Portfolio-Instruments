@@ -73,9 +73,6 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
                   placeholder="Ex. 0.25"
                   type="text"
                 />
-
-                <Button title="Submit Holding" />
-                <Button title="Reset Holding" type="reset" />
               </div>
 
               {/* Right Column */}
@@ -106,6 +103,10 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
                   name="holdingVP"
                   value={values.holdingVP}
                 />
+              </div>
+              <div className="ml-3">
+                <Button title="Submit Holding" />
+                <Button title="Reset Holding" type="reset" />
               </div>
             </div>
           </div>

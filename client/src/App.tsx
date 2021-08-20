@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import EmailConfirmation from "./pages/EmailConfirmation";
 import ForgotPassword from "./pages/ForgotPassword";
 import GettingStarted from "./pages/GettingStarted";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import RebalanceWizard from "./pages/RebalanceWizard";
@@ -23,6 +24,7 @@ const App = () => {
   return (
     <div>
       <Switch>
+        <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/confirmation" component={EmailConfirmation} />

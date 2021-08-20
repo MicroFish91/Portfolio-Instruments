@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CardInstitutions from "../../components/CardInstitutions";
 import CardPieChart from "../../components/CardPieChart";
 import CardTaxShelter from "../../components/CardTaxShelter";
@@ -13,6 +13,7 @@ import {
   selectBenchmarkBreakdownPercentage,
   selectBenchmarkTitle,
   selectHasBenchmark,
+  selectIsDashboardLoading,
 } from "../../redux/Benchmarks/Selectors";
 import {
   selectMacroBreakdownPercentage,
@@ -30,23 +31,27 @@ const Dashboard = () => {
   const macroBreakdown = useSelector(selectMacroBreakdownPercentage);
   const hasSnapshots = useSelector(selectHasSnapshots);
   const hasBenchmark = useSelector(selectHasBenchmark);
+  const isDashboardLoading = useSelector(selectIsDashboardLoading);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   useEffect(() => {
     dispatch(initDashboardSnapshotsAction());
     dispatch(initGetBenchmarkAction());
   }, []);
 
-  useEffect(() => {
-    if (!hasSnapshots || !hasBenchmark) {
-      history.push("/gettingStarted");
-    }
-  }, [hasSnapshots, hasBenchmark]);
-
   return (
     <>
-      {hasSnapshots && benchmarkTitle && (
+      {!isDashboardLoading && (!hasSnapshots || !hasBenchmark) && (
+        <div>
+          <b>
+            <u>Notice:</u>
+          </b>{" "}
+          It looks like your account has not been properly initialized. Please{" "}
+          <Link to="/gettingStarted">click here</Link> for next steps.
+        </div>
+      )}
+
+      {hasSnapshots && hasBenchmark && (
         <>
           <div className="row row-cards">
             <CardTotals accountType={"Traditional"} color={"purple"} />

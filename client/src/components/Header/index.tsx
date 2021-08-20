@@ -19,7 +19,7 @@ const Header: React.FC = () => {
 
   const handleLogout = () => {
     dispatch(clearUserAction());
-    history.push("/login");
+    history.push("/");
   };
 
   const renderNotifications = () => {

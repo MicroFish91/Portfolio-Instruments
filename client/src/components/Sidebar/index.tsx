@@ -18,7 +18,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
   const handleLogout = () => {
     dispatch(clearUserAction());
-    history.push("/login");
+    history.push("/");
   };
 
   useEffect(() => {
