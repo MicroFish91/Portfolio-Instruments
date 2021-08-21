@@ -15,6 +15,7 @@ interface UserSeed {
   confirmed: boolean;
   rebalanceThreshold: number;
   vpThreshold: number;
+  lastLoggedIn: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -42,6 +43,7 @@ export function generateUsers() {
       confirmed: true,
       rebalanceThreshold: 10,
       vpThreshold: 0,
+      lastLoggedIn: new Date(),
       createdAt: new Date(),
       updatedAt: new Date(),
     } as UserSeed);

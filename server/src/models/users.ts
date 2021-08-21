@@ -11,6 +11,7 @@ export interface UserAttributes {
   confirmed: boolean;
   rebalanceThreshold: number;
   vpThreshold: number;
+  lastLoggedIn: Date | null;
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
@@ -27,8 +28,9 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
     public lastName!: string;
     public benchmark?: string | null;
     public confirmed!: boolean;
-    public rebalanceThreshold: number;
-    public vpThreshold: number;
+    public rebalanceThreshold!: number;
+    public vpThreshold!: number;
+    public lastLoggedIn: Date | null;
 
     static associate(models: any) {
       Users.hasMany(models.Snapshots, { foreignKey: "userId" });
@@ -78,6 +80,10 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
         type: DataTypes.INTEGER,
         defaultValue: 0,
         allowNull: false,
+      },
+      lastLoggedIn: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {
