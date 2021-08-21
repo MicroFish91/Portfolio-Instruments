@@ -32,6 +32,9 @@ module.exports = {
       vpThreshold: {
         type: Sequelize.INTEGER,
       },
+      lastLoggedIn: {
+        type: Sequelize.DATE,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

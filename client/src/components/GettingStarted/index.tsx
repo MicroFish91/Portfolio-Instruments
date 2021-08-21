@@ -39,7 +39,7 @@ const GettingStarted = () => {
                 {" "}
                 <b>
                   <u>Background:</u>
-                </b>
+                </b>{" "}
                 This website provides the complete tooling to track and
                 rebalance your passive investment strategy. The terms and
                 philosophies used here are loosely based off{" "}
