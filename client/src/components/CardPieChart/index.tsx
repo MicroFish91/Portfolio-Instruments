@@ -1,5 +1,6 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
+import { DEFAULT_COLOR_PALETTE } from "./constants";
 
 interface CardPieChartProps {
   cardTitle: string;
@@ -20,14 +21,7 @@ const DEFAULT_PIE_DATA = {
   },
 };
 
-const DEFAULT_PIE_COLORS = [
-  "#9FE2BF",
-  "#40E0D0",
-  "#6495ED",
-  "#CCCCFF",
-  "#FFBF00",
-  "#FF7F50",
-];
+const DEFAULT_PIE_COLORS = DEFAULT_COLOR_PALETTE;
 
 const CardPieChart: React.FC<CardPieChartProps> = ({
   cardTitle,

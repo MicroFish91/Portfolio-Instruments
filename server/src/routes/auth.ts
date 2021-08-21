@@ -146,18 +146,26 @@ router.post("/login", requireLogin, async (req, res) => {
     vpThreshold,
   } = req.user as User;
   if (confirmed) {
-    res.json({
-      token: createToken(req.user as User, secrets.JWT_SECRET, "1d"),
-      currentUser: {
-        email,
-        firstName,
-        lastName,
-        rebalanceThreshold,
-        vpThreshold,
-      },
-    });
+    try {
+      await db.Users.update({ lastLoggedIn: new Date() }, { where: { email } });
+
+      return res.json({
+        token: createToken(req.user as User, secrets.JWT_SECRET, "1d"),
+        currentUser: {
+          email,
+          firstName,
+          lastName,
+          rebalanceThreshold,
+          vpThreshold,
+        },
+      });
+    } catch (err) {
+      return res.status(500).json({
+        message: "Internal server error - could not process request.",
+      });
+    }
   } else {
-    res
+    return res
       .status(403)
       .json({ message: "Email confirmation link has not been verified." });
   }
