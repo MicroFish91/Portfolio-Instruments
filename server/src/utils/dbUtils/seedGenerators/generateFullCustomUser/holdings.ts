@@ -11,7 +11,8 @@ export const generateCustomHoldings = (accountIds: number[]): HoldingSeed[] => {
       ].map((holding) => {
         return {
           ...holding,
-          total: holding.total + holding.total * accountIndex * 0.2,
+          total:
+            holding.total * 0.8 + holding.total * 0.8 * accountIndex * 0.08,
           accountId,
         };
       })
