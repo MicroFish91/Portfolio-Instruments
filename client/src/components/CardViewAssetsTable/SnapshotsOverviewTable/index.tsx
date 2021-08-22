@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import { selectLatestSnapshotId } from "../../../redux/Snapshots/Selectors";
 import { ReducedSnapshot } from "../../../redux/Snapshots/types";
 import { formatDate, usdFormatter } from "../../../utils";
 import "./SnapshotsOverviewTable.css";
@@ -19,6 +21,7 @@ const SnapshotsOverviewTable: React.FC<SnapshotsOverviewTableProps> = ({
 }) => {
   const [page, setPage] = useState(1);
   const dollarFormatter = usdFormatter();
+  const latestSnapshotId = useSelector(selectLatestSnapshotId);
   const SNAPSHOTS_PER_PAGE = 10;
 
   const maxPages = snapshots.length / SNAPSHOTS_PER_PAGE + 1;
@@ -53,7 +56,9 @@ const SnapshotsOverviewTable: React.FC<SnapshotsOverviewTableProps> = ({
               toggleHoldingsView(e, parseInt(snapshots[pageIndex].id))
             }
           >
-            {snapshots[pageIndex].title}
+            {latestSnapshotId !== parseInt(snapshots[pageIndex].id)
+              ? snapshots[pageIndex].title
+              : snapshots[pageIndex].title + " (Latest)"}
           </td>
           <td>{snapshots[pageIndex].benchmark}</td>
           <td>{snapshots[pageIndex].notes}</td>
