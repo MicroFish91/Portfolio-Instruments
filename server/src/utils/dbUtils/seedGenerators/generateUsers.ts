@@ -1,26 +1,6 @@
 import bcrypt from "bcryptjs";
-import { PORTFOLIO_BENCHMARKS } from "../constants";
-
-interface UserSeedGenerator {
-  up: UserSeed[];
-  down: UserEmail[];
-}
-
-interface UserSeed {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  benchmark: string;
-  confirmed: boolean;
-  rebalanceThreshold: number;
-  vpThreshold: number;
-  lastLoggedIn: Date;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-type UserEmail = string;
+import { PORTFOLIO_BENCHMARKS } from "../../../constants";
+import { UserSeed, UserSeedGenerator } from "./types";
 
 /*
  * Generates a fake user seed for each of the benchmarks available with

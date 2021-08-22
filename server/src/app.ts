@@ -7,7 +7,7 @@ import passport from "passport";
 import { passportAuthInit } from "./auth";
 // import db from "./models";
 import { combineRouter } from "./routes";
-// import seedMigrator from "./seeders";
+// import { seedMigrator } from "./utils";
 
 const app = express();
 app.use(helmet());

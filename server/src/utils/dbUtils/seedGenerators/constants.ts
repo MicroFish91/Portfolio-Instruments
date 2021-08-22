@@ -1,4 +1,4 @@
-import { PORTFOLIO_BENCHMARKS } from "./index";
+import { PORTFOLIO_BENCHMARKS } from "../../../constants/index";
 
 export const NUM_OF_USERS = PORTFOLIO_BENCHMARKS.length;
 export const SNAPSHOTS_PER_USER = 5;

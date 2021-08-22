@@ -1,24 +1,10 @@
-import { ACCOUNT_TYPES } from "../constants/index";
+import { ACCOUNT_TYPES } from "../../../constants";
 import {
   ACCOUNTS_PER_SNAPSHOT,
   NUM_OF_USERS,
   SNAPSHOTS_PER_USER,
-} from "../constants/seeder";
-
-interface AccountSeedGenerator {
-  up: AccountSeed[];
-  down: DeleteLocation[];
-}
-
-interface AccountSeed {
-  location: string;
-  type: string;
-  snapshotId: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-type DeleteLocation = string;
+} from "./constants";
+import { AccountSeed, AccountSeedGenerator } from "./types";
 
 /*
  * Generates (n = NUM_OF_USERS * SNAPSHOTS_PER_USER * ACCOUNTS_PER_SNAPSHOT) snapshot seeds for each seed user
