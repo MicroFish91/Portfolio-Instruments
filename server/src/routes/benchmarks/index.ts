@@ -1,7 +1,7 @@
 import express from "express";
-import { requireJwt } from "../auth";
-import db from "../models";
-import { UserAttributes as User } from "../models/users";
+import { requireJwt } from "../../auth";
+import db from "../../models";
+import { UserAttributes as User } from "../../models/users";
 
 const router = express.Router();
 
