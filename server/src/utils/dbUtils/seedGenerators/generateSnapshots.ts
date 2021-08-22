@@ -1,29 +1,18 @@
-import { PORTFOLIO_BENCHMARKS } from "../constants";
-import { SNAPSHOTS_PER_USER } from "../constants/seeder";
+import { PORTFOLIO_BENCHMARKS } from "../../../constants";
+import { SNAPSHOTS_PER_USER } from "./constants";
+import {
+  DeleteNote,
+  SnapshotSeed,
+  SnapshotSeedGenerator,
+  SpecifiedDates,
+} from "./types";
 
-interface SnapshotSeedGenerator {
-  up: SnapshotSeed[];
-  down: DeleteNote;
-}
-
-interface SnapshotSeed {
-  title: string;
-  benchmark: string;
-  notes: DeleteNote;
-  specifiedDate: Date;
-  userId: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-type DeleteNote = string;
-type SpecifiedDates = Date[];
-
-function generateSpecifiedDates() {
+export function generateSpecifiedDates() {
   const dates: Date[] = [];
 
   for (let index = SNAPSHOTS_PER_USER - 1; index >= 0; index--) {
     const date: Date = new Date();
+    date.setDate(date.getDate() - 1);
     const dateInterval = Math.floor(48 / SNAPSHOTS_PER_USER); // # of snapshots per 4 years period
     date.setMonth(date.getMonth() - dateInterval * index);
     dates.push(date);

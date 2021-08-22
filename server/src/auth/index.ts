@@ -1,8 +1,8 @@
 import jwtStrategy from "./jwtStrategy";
 import localStrategy from "./localStrategy";
 
-export { createToken } from "./createToken";
-export { requireJwt, requireLogin } from "./middleware";
+export * from "./createToken";
+export * from "./middleware";
 
 export const passportAuthInit = () => {
   localStrategy();

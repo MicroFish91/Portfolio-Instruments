@@ -7,10 +7,12 @@ import passport from "passport";
 import { passportAuthInit } from "./auth";
 // import db from "./models";
 import { combineRouter } from "./routes";
-// import seedMigrator from "./seeders";
+import { initCronJobs } from "./startup/cronJobs";
+import { initSeedData } from "./startup/seedData";
+// import { resetMainDemoUser } from "./utils/dbUtils/routineMaintenance";
+// import { seedMigrator } from "./utils";
 
 const app = express();
-app.use(helmet());
 
 // Morgan
 if (app.get("env") === "development") {
@@ -18,6 +20,7 @@ if (app.get("env") === "development") {
   debug("Morgan enabled...");
 }
 
+// Cors
 app.use(
   cors({
     origin: "*",
@@ -25,20 +28,28 @@ app.use(
   })
 );
 
+// Startup
+app.use(helmet());
+app.use(passport.initialize());
+passportAuthInit();
+initCronJobs();
+initSeedData();
+// resetMainDemoUser();
+
 //Body Parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Initialize Passport Auth
-app.use(passport.initialize());
-passportAuthInit();
-
 // Routes
 combineRouter(app);
-
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+/*
+ * **************  MISC REF *********************
+ */
+
 // db.sequelize.sync().then(() => {
 //   app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 // });
