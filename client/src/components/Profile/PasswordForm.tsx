@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import {
+  selectUserEmail,
   selectUserErrorField,
   selectUserErrorMessage,
   selectUserLoadingField,
@@ -21,6 +22,7 @@ const PasswordForm = () => {
   const loadingField = useSelector(selectUserLoadingField);
   const userErrorField = useSelector(selectUserErrorField);
   const userErrorMessage = useSelector(selectUserErrorMessage);
+  const currentUserEmail = useSelector(selectUserEmail);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,9 +38,13 @@ const PasswordForm = () => {
   }, [userErrorField]);
 
   const submitChangePassword = (values: ChangePasswordForm, actions: any) => {
-    dispatch(userchangePasswordAction(values));
-    actions.resetForm();
-    setChangedPassword(true);
+    if (currentUserEmail !== "hello_world@gmail.com") {
+      dispatch(userchangePasswordAction(values));
+      actions.resetForm();
+      setChangedPassword(true);
+    } else {
+      alert("This feature is blocked for demo accounts.");
+    }
   };
 
   return (

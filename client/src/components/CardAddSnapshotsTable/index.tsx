@@ -1,7 +1,9 @@
 import { Form, Formik, FormikHelpers } from "formik";
 import React from "react";
+import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { Snapshot } from "../../pages/AddSnapshots/types";
+import { selectUserEmail } from "../../redux/User/Selectors";
 import { usdFormatter } from "../../utils";
 import { snapshotFormSchema } from "../../validation/snapshots";
 import { SnapshotForm } from "../../validation/types";
@@ -28,6 +30,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
   submitSnapshotData,
   snapshot,
 }) => {
+  const currentUserEmail = useSelector(selectUserEmail);
   const dollarFormatter = usdFormatter();
   let accountTotal = 0;
 
@@ -35,15 +38,19 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
     values: SnapshotForm,
     actions: FormikHelpers<SnapshotForm>
   ) => {
-    if (snapshot.length !== 0) {
-      if (accountTotal > 0) {
-        submitSnapshotData(values);
-        actions.resetForm();
+    if (currentUserEmail !== "hello_world@gmail.com") {
+      if (snapshot.length !== 0) {
+        if (accountTotal > 0) {
+          submitSnapshotData(values);
+          actions.resetForm();
+        } else {
+          alert("Unable to submit a snapshot less than or equal to zero.");
+        }
       } else {
-        alert("Unable to submit a snapshot less than or equal to zero.");
+        alert("Please enter a holding before attempting to save a snapshot.");
       }
     } else {
-      alert("Please enter a holding before attempting to save a snapshot.");
+      alert("This feature is disabled for demo accounts.");
     }
   };
 
@@ -83,9 +90,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
                     holding.assetType.slice(1)}
                 </td>
                 {holding.holdingVP ? <td>&#10003;</td> : <td>-</td>}
-                <td>
-                  {"$" + dollarFormatter.format(holding.holdingAmount).slice(1)}
-                </td>
+                <td>{dollarFormatter.format(holding.holdingAmount)}</td>
                 <td>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <a className="icon"></a>
@@ -119,9 +124,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
                     holding.assetType.slice(1)}
                 </td>
                 {holding.holdingVP ? <td>&#10003;</td> : <td>-</td>}
-                <td>
-                  {"$" + dollarFormatter.format(holding.holdingAmount).slice(1)}
-                </td>
+                <td>{dollarFormatter.format(holding.holdingAmount)}</td>
                 <td>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <a className="icon"></a>
@@ -153,9 +156,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
                     holding.assetType.slice(1)}
                 </td>
                 {holding.holdingVP ? <td>&#10003;</td> : <td>-</td>}
-                <td>
-                  {"$" + dollarFormatter.format(holding.holdingAmount).slice(1)}
-                </td>
+                <td>{dollarFormatter.format(holding.holdingAmount)}</td>
                 <td>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <a className="icon"></a>
@@ -194,7 +195,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
                   Total: **
                 </b>
               </td>
-              <td>{"$" + dollarFormatter.format(accountTypeTotal).slice(1)}</td>
+              <td>{dollarFormatter.format(accountTypeTotal)}</td>
             </tr>
           );
         }
@@ -214,24 +215,26 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
               Total: ***
             </b>
           </td>
-          <td>{"$" + dollarFormatter.format(accountTotal).slice(1)}</td>
+          <td>{dollarFormatter.format(accountTotal)}</td>
         </tr>
       );
       netTotal += accountTotal;
     });
 
-    table.push(
-      <tr key={uuidv4()}>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>
-          <b> ***** Net Worth: *****</b>
-        </td>
-        <td>{"$" + dollarFormatter.format(netTotal).slice(1)}</td>
-      </tr>
-    );
+    if (table.length !== 0) {
+      table.push(
+        <tr key={uuidv4()}>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>
+            <b> ***** Net Worth: *****</b>
+          </td>
+          <td>{dollarFormatter.format(netTotal)}</td>
+        </tr>
+      );
+    }
 
     return table;
   };
