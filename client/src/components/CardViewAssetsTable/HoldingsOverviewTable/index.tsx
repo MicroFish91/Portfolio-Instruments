@@ -57,7 +57,7 @@ const HoldingsOverviewTable: React.FC<HoldingsOverviewTableProps> = ({
                   {parseFloat(holding.expenseRatio.toString()).toFixed(2)}
                 </td>
                 {holding.variablePortfolio ? <td>&#10003;</td> : <td>-</td>}
-                <td>{"$" + dollarFormatter.format(holding.total).slice(1)}</td>
+                <td>{dollarFormatter.format(holding.total)}</td>
               </tr>
             );
           } else if (holdingIndex === 0) {
@@ -79,7 +79,7 @@ const HoldingsOverviewTable: React.FC<HoldingsOverviewTableProps> = ({
                   {parseFloat(holding.expenseRatio.toString()).toFixed(2)}
                 </td>
                 {holding.variablePortfolio ? <td>&#10003;</td> : <td>-</td>}
-                <td>{"$" + dollarFormatter.format(holding.total).slice(1)}</td>
+                <td>{dollarFormatter.format(holding.total)}</td>
               </tr>
             );
           } else {
@@ -99,7 +99,7 @@ const HoldingsOverviewTable: React.FC<HoldingsOverviewTableProps> = ({
                   {parseFloat(holding.expenseRatio.toString()).toFixed(2)}
                 </td>
                 {holding.variablePortfolio ? <td>&#10003;</td> : <td>-</td>}
-                <td>{"$" + dollarFormatter.format(holding.total).slice(1)}</td>
+                <td>{dollarFormatter.format(holding.total)}</td>
               </tr>
             );
           }
@@ -122,7 +122,7 @@ const HoldingsOverviewTable: React.FC<HoldingsOverviewTableProps> = ({
                   Total: **
                 </b>
               </td>
-              <td>{"$" + dollarFormatter.format(accountTypeTotal).slice(1)}</td>
+              <td>{dollarFormatter.format(accountTypeTotal)}</td>
             </tr>
           );
         }
@@ -144,7 +144,7 @@ const HoldingsOverviewTable: React.FC<HoldingsOverviewTableProps> = ({
               Total: ***
             </b>
           </td>
-          <td>{"$" + dollarFormatter.format(accountTotal).slice(1)}</td>
+          <td>{dollarFormatter.format(accountTotal)}</td>
         </tr>
       );
 
@@ -162,7 +162,7 @@ const HoldingsOverviewTable: React.FC<HoldingsOverviewTableProps> = ({
         <td>
           <b> ***** Net Worth: *****</b>
         </td>
-        <td>{"$" + dollarFormatter.format(netTotal).slice(1)}</td>
+        <td>{dollarFormatter.format(netTotal)}</td>
       </tr>
     );
 

@@ -5,15 +5,19 @@ import {
   selectAssetRebalanceFormat,
   selectVpRebalanceFormat,
 } from "../../redux/Benchmarks/Selectors";
+import { selectLiquidCash } from "../../redux/Holdings/Selectors";
 import { selectHasSnapshots } from "../../redux/Snapshots/Selectors";
 import { selectUserFullName } from "../../redux/User/Selectors";
 import { clearUserAction } from "../../redux/User/userSlice";
+import { usdFormatter } from "../../utils";
 
 const Header: React.FC = () => {
+  const dollarFormatter = usdFormatter();
   const userFullName = useSelector(selectUserFullName);
   const [, rebalanceRequired] = useSelector(selectAssetRebalanceFormat);
   const [, vpRebalanceRequired] = useSelector(selectVpRebalanceFormat);
   const hasSnapshots = useSelector(selectHasSnapshots);
+  const liquidCash = useSelector(selectLiquidCash);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -37,7 +41,21 @@ const Header: React.FC = () => {
           <strong>Portfolio Status: Needs Rebalancing</strong>
           <div className="small text-muted">
             Please consult the "Rebalance Wizard" for more info.
-          </div>
+          </div>{" "}
+          <br></br>
+          {liquidCash === 0 && (
+            <strong>
+              Liquid Cash:{" "}
+              {
+                <Link to="/portfolio-wizard/view-assets">
+                  <u>Compute</u>
+                </Link>
+              }
+            </strong>
+          )}
+          {liquidCash !== 0 && (
+            <strong>Liquid Cash: {dollarFormatter.format(liquidCash)}</strong>
+          )}
         </div>
       );
     }
@@ -51,7 +69,20 @@ const Header: React.FC = () => {
       notificationMessages.push(
         <div>
           <strong>Portfolio Status: Excellent</strong>
-          <div className="small text-muted">No change required.</div>
+          <div className="small text-muted">No change required.</div> <br></br>
+          {liquidCash === 0 && (
+            <strong>
+              Liquid Cash:{" "}
+              {
+                <Link to="/portfolio-wizard/view-assets">
+                  <u>Compute</u>
+                </Link>
+              }
+            </strong>
+          )}
+          {liquidCash !== 0 && (
+            <strong>Liquid Cash: {dollarFormatter.format(liquidCash)}</strong>
+          )}
         </div>
       );
     }
@@ -67,7 +98,21 @@ const Header: React.FC = () => {
           <strong>Portfolio Status: Unknown</strong>
           <div className="small text-muted">
             Please begin by clicking on "Getting Started".
-          </div>
+          </div>{" "}
+          <br></br>
+          {liquidCash === 0 && (
+            <strong>
+              Liquid Cash:{" "}
+              {
+                <Link to="/portfolio-wizard/view-assets">
+                  <u>Compute</u>
+                </Link>
+              }
+            </strong>
+          )}
+          {liquidCash !== 0 && (
+            <strong>Liquid Cash: {dollarFormatter.format(liquidCash)}</strong>
+          )}
         </div>
       );
     }
@@ -101,7 +146,7 @@ const Header: React.FC = () => {
               aria-label="Hide Sidebar"
               className="app-sidebar__toggle"
               data-toggle="sidebar"
-              href=""
+              href="#"
             ></a>
             <div className="d-flex order-lg-2 ml-auto">
               <div className="dropdown d-none d-md-flex">
@@ -111,7 +156,7 @@ const Header: React.FC = () => {
                 </a>
                 <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                   {/* <!-- First Notification --> */}
-                  <a className="dropdown-item d-flex pb-3" href="">
+                  <a className="dropdown-item d-flex pb-3" href="#">
                     {renderNotifications()}
                   </a>
                 </div>
@@ -121,7 +166,7 @@ const Header: React.FC = () => {
                 <a
                   className="nav-link pr-0 leading-none d-flex"
                   data-toggle="dropdown"
-                  href=""
+                  href="#"
                 >
                   <img
                     className="avatar avatar-md brround"

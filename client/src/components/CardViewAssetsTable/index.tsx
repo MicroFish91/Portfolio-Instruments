@@ -17,6 +17,7 @@ import {
   initPaginateSnapshotsAction,
   removeSnapshotAction,
 } from "../../redux/Snapshots/snapshotSlice";
+import { selectUserEmail } from "../../redux/User/Selectors";
 import HoldingsOverviewTable from "./HoldingsOverviewTable";
 import SnapshotsOverviewTable from "./SnapshotsOverviewTable";
 
@@ -25,6 +26,7 @@ interface CardViewAssetsTableProps {}
 const CardViewAssetsTable: React.FC<CardViewAssetsTableProps> = () => {
   const [toggleSnapshotView, setToggleSnapshotView] = useState(true);
   const [snapshotId, setSnapshotId] = useState(0);
+  const currentUserEmail = useSelector(selectUserEmail);
   const snapshots = useSelector(selectAllSnapshots);
   const accountsById = useSelector(selectAccountsById);
   const accountsList = useSelector(selectAccountsAllIds);
@@ -60,16 +62,20 @@ const CardViewAssetsTable: React.FC<CardViewAssetsTableProps> = () => {
   };
 
   const deleteSnapshot = (id: number) => {
-    const accountIds = getAccountIds(id);
-    const holdingIds = getHoldingIds(accountIds);
+    if (currentUserEmail !== "hello_world@gmail.com") {
+      const accountIds = getAccountIds(id);
+      const holdingIds = getHoldingIds(accountIds);
 
-    dispatch(
-      removeSnapshotAction({
-        snapshotId: id,
-        accountIds,
-        holdingIds,
-      })
-    );
+      dispatch(
+        removeSnapshotAction({
+          snapshotId: id,
+          accountIds,
+          holdingIds,
+        })
+      );
+    } else {
+      alert("This feature is blocked for demo accounts.");
+    }
   };
 
   return (

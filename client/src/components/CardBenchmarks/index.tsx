@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PORTFOLIO_BENCHMARKS } from "../../constants";
 import { initPostBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
 import { selectBenchmarkTitle } from "../../redux/Benchmarks/Selectors";
+import { selectUserEmail } from "../../redux/User/Selectors";
 
 interface BenchmarkProps {
   benchmarkIndex: number;
@@ -11,6 +12,7 @@ interface BenchmarkProps {
 
 const Benchmark: React.FC<BenchmarkProps> = ({ benchmarkIndex }) => {
   const benchmarkTitle = useSelector(selectBenchmarkTitle);
+  const currentUserEmail = useSelector(selectUserEmail);
   const dispatch = useDispatch();
 
   const data = {
@@ -26,10 +28,17 @@ const Benchmark: React.FC<BenchmarkProps> = ({ benchmarkIndex }) => {
 
   const onSetBenchmark = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
-    if (benchmarkTitle !== PORTFOLIO_BENCHMARKS.assetNames[benchmarkIndex]) {
-      dispatch(
-        initPostBenchmarkAction(PORTFOLIO_BENCHMARKS.assetNames[benchmarkIndex])
-      );
+
+    if (currentUserEmail !== "hello_world@gmail.com") {
+      if (benchmarkTitle !== PORTFOLIO_BENCHMARKS.assetNames[benchmarkIndex]) {
+        dispatch(
+          initPostBenchmarkAction(
+            PORTFOLIO_BENCHMARKS.assetNames[benchmarkIndex]
+          )
+        );
+      }
+    } else {
+      alert("This feature is disabled for demo accounts.");
     }
   };
 
