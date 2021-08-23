@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import {
+  selectUserEmail,
   selectUserErrorField,
   selectUserErrorMessage,
   selectUserLoadingField,
@@ -25,6 +26,7 @@ const NotificationForm = () => {
   const loadingField = useSelector(selectUserLoadingField);
   const userRebalanceThreshold = useSelector(selectUserRebalanceThreshold);
   const userVpThreshold = useSelector(selectUserVpThreshold);
+  const currentUserEmail = useSelector(selectUserEmail);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -46,13 +48,17 @@ const NotificationForm = () => {
     },
     actions: any
   ) => {
-    const finalValues = {
-      rebalanceThreshold: parseInt(values.rebalanceThreshold as string),
-      vpThreshold: parseInt(values.vpThreshold as string),
-    };
-    dispatch(userChangeNotificationsAction(finalValues));
-    actions.resetForm();
-    setChangedNotifications(true);
+    if (currentUserEmail !== "hello_world@gmail.com") {
+      const finalValues = {
+        rebalanceThreshold: parseInt(values.rebalanceThreshold as string),
+        vpThreshold: parseInt(values.vpThreshold as string),
+      };
+      dispatch(userChangeNotificationsAction(finalValues));
+      actions.resetForm();
+      setChangedNotifications(true);
+    } else {
+      alert("This feature is disabled for demo accounts.");
+    }
   };
 
   return (
