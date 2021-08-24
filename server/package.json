@@ -5,12 +5,10 @@
   "main": "app.ts",
   "scripts": {
     "watch": "tsc -w",
-    "dev": "nodemon dist/app.js",
-    "dev2": "nodemon --exec ts-node src/app.ts",
-    "dev3": "tsnd --respawn src/app.ts",
-    "start": "node dist/app.js",
-    "start2": "ts-node src/app.ts",
-    "debug": "node --inspect=9229 dist/app.js"
+    "dev": "tsnd --respawn src/app.ts",
+    "start": "pm2-runtime start ecosystem.config.js --env production",
+    "debug": "node --inspect=9229 dist/app.js",
+    "postinstall": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +31,7 @@
     "passport-local": "^1.0.0",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.4",
+    "pm2": "^5.1.1",
     "randomstring": "^1.2.1",
     "sequelize": "^6.6.5",
     "winston": "^3.3.3",
@@ -59,5 +58,10 @@
     "ts-node": "^10.1.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.3.5"
+  },
+  "engines": {
+    "node": "14.17.5",
+    "npm": "6.14.14",
+    "yarn": "1.22.5"
   }
 }

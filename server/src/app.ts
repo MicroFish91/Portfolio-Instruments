@@ -6,12 +6,11 @@ import morgan from "morgan";
 import passport from "passport";
 import { passportAuthInit } from "./auth";
 import { errorMiddleware } from "./middleware";
+// import db from "./models";
 import { combineRouter } from "./routes";
 import { initCronJobs } from "./startup/cronJobs";
 import { initProcessErrorHandler } from "./startup/processErrorHandler";
 import { initSeedData } from "./startup/seedData";
-// import { resetMainDemoUser } from "./utils/dbUtils/routineMaintenance";
-// import { seedMigrator } from "./utils";
 
 const app = express();
 
@@ -22,7 +21,6 @@ initCronJobs();
 initSeedData();
 passportAuthInit();
 app.use(passport.initialize());
-// resetMainDemoUser();
 
 // Morgan
 if (app.get("env") === "development") {
