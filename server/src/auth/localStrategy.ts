@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
+import logger from "../logger";
 import db from "../models";
 
 export default function () {
@@ -25,6 +26,7 @@ export default function () {
             return done(null, false);
           }
         } catch (err) {
+          logger.error(err, "localStrategy");
           return done(err);
         }
       }

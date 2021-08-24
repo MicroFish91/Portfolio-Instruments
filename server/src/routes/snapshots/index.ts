@@ -1,5 +1,5 @@
 import express from "express";
-import { requireJwt } from "../../auth";
+import { asyncMiddleware, requireJwt } from "../../middleware";
 import { deleteOne } from "./deleteOne";
 import { getAll } from "./getAll";
 import { getLatest } from "./getLatest";
@@ -8,10 +8,10 @@ import { postOne } from "./postOne";
 
 const router = express.Router();
 
-router.get("/latest", requireJwt, getLatest);
-router.get("/range/:years", requireJwt, getRange);
-router.get("/all", requireJwt, getAll);
+router.get("/latest", requireJwt, asyncMiddleware(getLatest));
+router.get("/range/:years", requireJwt, asyncMiddleware(getRange));
+router.get("/all", requireJwt, asyncMiddleware(getAll));
 router.post("/", requireJwt, postOne);
-router.delete("/", requireJwt, deleteOne);
+router.delete("/", requireJwt, asyncMiddleware(deleteOne));
 
 export default router;

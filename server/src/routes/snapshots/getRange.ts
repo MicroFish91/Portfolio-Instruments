@@ -19,9 +19,8 @@ export const getRange = async (req: Request, res: Response) => {
 
   startDate.setMonth(new Date().getMonth() - parseInt(years) * 12);
 
-  try {
-    const snapshots = await db.sequelize.query(
-      `select
+  const snapshots = await db.sequelize.query(
+    `select
         "Snapshots"."id",
         "Snapshots"."title",
         "Snapshots"."benchmark",
@@ -59,16 +58,11 @@ export const getRange = async (req: Request, res: Response) => {
         "Snapshots"."specifiedDate"
       order by
         "Snapshots"."specifiedDate" desc`,
-      {
-        replacements: { id, date: startDate.toISOString() },
-        type: QueryTypes.SELECT,
-      }
-    );
+    {
+      replacements: { id, date: startDate.toISOString() },
+      type: QueryTypes.SELECT,
+    }
+  );
 
-    res.json(snapshots);
-  } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Internal server error - could not process request." });
-  }
+  res.json(snapshots);
 };

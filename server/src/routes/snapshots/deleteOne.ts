@@ -8,15 +8,9 @@ export const deleteOne = async (req: Request, res: Response) => {
     holdingIds: string[];
   };
 
-  try {
-    await db.Holdings.destroy({ where: { id: holdingIds } });
-    await db.Accounts.destroy({ where: { id: accountIds } });
-    await db.Snapshots.destroy({ where: { id: snapshotId } });
+  await db.Holdings.destroy({ where: { id: holdingIds } });
+  await db.Accounts.destroy({ where: { id: accountIds } });
+  await db.Snapshots.destroy({ where: { id: snapshotId } });
 
-    res.json({ message: "Success." });
-  } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Internal server error - could not process request." });
-  }
+  res.json({ message: "Success." });
 };

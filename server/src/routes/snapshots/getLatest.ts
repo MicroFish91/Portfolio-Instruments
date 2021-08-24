@@ -19,55 +19,50 @@ import { GetLatestAccumulator, SnapshotData } from "./types";
  */
 export const getLatest = async (req: Request, res: Response) => {
   const { id } = req.user as User;
-  try {
-    // First find the latest specifiedDate
-    const snapshot = await db.Snapshots.findOne({
-      where: { userId: id },
-      order: [["specifiedDate", "DESC"]],
-      limit: 1,
-    });
 
-    if (!snapshot) {
-      res.json(snapshot);
-    }
+  // First find the latest specifiedDate
+  const snapshot = await db.Snapshots.findOne({
+    where: { userId: id },
+    order: [["specifiedDate", "DESC"]],
+    limit: 1,
+  });
 
-    // Since multiple snapshots can have the same date, we need to find them all and compare the createdAt field next
-    const potentialSnapshots = await db.Snapshots.findAll({
-      where: {
-        [Op.and]: [{ userId: id }, { specifiedDate: snapshot.specifiedDate }],
-      },
-    });
-
-    const latestSnapshotPointer = potentialSnapshots.reduce(
-      (acc: GetLatestAccumulator, snapshot: SnapshotData) => {
-        if (!acc) {
-          acc = { id: snapshot.id, createdAt: snapshot.createdAt };
-          return acc;
-        }
-
-        if (acc.createdAt < snapshot.createdAt) {
-          acc = { id: snapshot.id, createdAt: snapshot.createdAt };
-        }
-
-        return acc;
-      },
-      undefined
-    );
-
-    const latestSnapshot = await db.Snapshots.findOne({
-      where: { id: latestSnapshotPointer.id },
-      include: {
-        model: db.Accounts,
-        include: {
-          model: db.Holdings,
-        },
-      },
-    });
-
-    res.json(latestSnapshot);
-  } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Internal server error - could not process request." });
+  if (!snapshot) {
+    return res.json(snapshot);
   }
+
+  // Since multiple snapshots can have the same date, we need to find them all and compare the createdAt field next
+  const potentialSnapshots = await db.Snapshots.findAll({
+    where: {
+      [Op.and]: [{ userId: id }, { specifiedDate: snapshot.specifiedDate }],
+    },
+  });
+
+  const latestSnapshotPointer = potentialSnapshots.reduce(
+    (acc: GetLatestAccumulator, snapshot: SnapshotData) => {
+      if (!acc) {
+        acc = { id: snapshot.id, createdAt: snapshot.createdAt };
+        return acc;
+      }
+
+      if (acc.createdAt < snapshot.createdAt) {
+        acc = { id: snapshot.id, createdAt: snapshot.createdAt };
+      }
+
+      return acc;
+    },
+    undefined
+  );
+
+  const latestSnapshot = await db.Snapshots.findOne({
+    where: { id: latestSnapshotPointer.id },
+    include: {
+      model: db.Accounts,
+      include: {
+        model: db.Holdings,
+      },
+    },
+  });
+
+  return res.json(latestSnapshot);
 };
