@@ -6,6 +6,8 @@ import {
   VerifiedCallback,
 } from "passport-jwt";
 import { secrets } from "../config";
+import logger from "../logger";
+import { formatLogError } from "../logger/formatLogError";
 import db from "../models";
 
 const jwtOptions = {
@@ -27,6 +29,7 @@ export default function () {
             done(null, false);
           }
         } catch (err) {
+          logger.error(formatLogError(err, "jwtStrategy"));
           return done(err);
         }
       }

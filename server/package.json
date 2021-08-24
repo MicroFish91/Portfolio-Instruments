@@ -34,7 +34,9 @@
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.4",
     "randomstring": "^1.2.1",
-    "sequelize": "^6.6.5"
+    "sequelize": "^6.6.5",
+    "winston": "^3.3.3",
+    "winston-transport-sequelize": "^4.0.7"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

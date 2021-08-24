@@ -8,22 +8,21 @@ export const getAll = async (req: Request, res: Response) => {
   const { id } = req.user as User;
   const mergedSnapshots = [];
 
-  try {
-    // Has nested account/holding breakdowns
-    const snapshotBreakdown = await db.Snapshots.findAll({
-      where: { userId: id },
+  // Has nested account/holding breakdowns
+  const snapshotBreakdown = await db.Snapshots.findAll({
+    where: { userId: id },
+    include: {
+      model: db.Accounts,
       include: {
-        model: db.Accounts,
-        include: {
-          model: db.Holdings,
-        },
+        model: db.Holdings,
       },
-      order: [["specifiedDate", "DESC"]],
-    });
+    },
+    order: [["specifiedDate", "DESC"]],
+  });
 
-    // Has summed totals and weightedExpenseRatios
-    const snapshotDetails = await db.sequelize.query(
-      `select
+  // Has summed totals and weightedExpenseRatios
+  const snapshotDetails = await db.sequelize.query(
+    `select
         "Snapshots"."id",
         "Snapshots"."title",
         "Snapshots"."benchmark",
@@ -60,37 +59,31 @@ export const getAll = async (req: Request, res: Response) => {
         "Snapshots"."specifiedDate"
       order by
         "Snapshots"."specifiedDate" desc`,
-      {
-        replacements: { id },
-        type: QueryTypes.SELECT,
-      }
-    );
-
-    // Merge formatting of snapshotBreakdown and snapshotDetails
-    for (
-      let snapshotIndex = 0;
-      snapshotIndex < snapshotDetails.length;
-      snapshotIndex++
-    ) {
-      const breakdownIndex = snapshotBreakdown.findIndex((snapshot: any) => {
-        return snapshot.dataValues.id === snapshotDetails[snapshotIndex].id;
-      });
-
-      const snapshot = {
-        ...snapshotBreakdown[breakdownIndex].dataValues,
-        total: snapshotDetails[snapshotIndex].total,
-        weightedExpenseRatio:
-          snapshotDetails[snapshotIndex].weightedExpenseRatio,
-      };
-
-      mergedSnapshots.push(snapshot);
+    {
+      replacements: { id },
+      type: QueryTypes.SELECT,
     }
+  );
 
-    // Display only the data based on the page number provided
-    res.json(mergedSnapshots);
-  } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Internal server error - could not process request." });
+  // Merge formatting of snapshotBreakdown and snapshotDetails
+  for (
+    let snapshotIndex = 0;
+    snapshotIndex < snapshotDetails.length;
+    snapshotIndex++
+  ) {
+    const breakdownIndex = snapshotBreakdown.findIndex((snapshot: any) => {
+      return snapshot.dataValues.id === snapshotDetails[snapshotIndex].id;
+    });
+
+    const snapshot = {
+      ...snapshotBreakdown[breakdownIndex].dataValues,
+      total: snapshotDetails[snapshotIndex].total,
+      weightedExpenseRatio: snapshotDetails[snapshotIndex].weightedExpenseRatio,
+    };
+
+    mergedSnapshots.push(snapshot);
   }
+
+  // Display only the data based on the page number provided
+  res.json(mergedSnapshots);
 };

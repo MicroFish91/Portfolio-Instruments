@@ -1,32 +1,11 @@
 import express from "express";
-import { requireJwt } from "../../auth";
-import db from "../../models";
-import { UserAttributes as User } from "../../models/users";
+import { asyncMiddleware, requireJwt } from "../../middleware";
+import { getBenchmark } from "./getBenchmark";
+import { postBenchmark } from "./postBenchmark";
 
 const router = express.Router();
 
-router.get("/", requireJwt, async (req, res) => {
-  try {
-    const { id } = req.user as User;
-    const user = await db.Users.findOne({ where: { id } });
-    return res.json({ benchmark: user.benchmark });
-  } catch (err) {
-    return res
-      .status(500)
-      .json({ message: "Internal server error - could not process request." });
-  }
-});
-
-router.post("/", requireJwt, async (req, res) => {
-  try {
-    const { id } = req.user as User;
-    await db.Users.update({ benchmark: req.body.benchmark }, { where: { id } });
-    return res.json({ message: "Benchmark posted." });
-  } catch (err) {
-    return res.status(500).json({
-      message: "Internal server error - could not process request.",
-    });
-  }
-});
+router.get("/", requireJwt, asyncMiddleware(getBenchmark));
+router.post("/", requireJwt, asyncMiddleware(postBenchmark));
 
 export default router;

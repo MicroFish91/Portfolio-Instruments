@@ -1,4 +1,9 @@
 import { Request, Response } from "express";
+import logger from "../../logger";
+import {
+  formatLogError,
+  formatValidationError,
+} from "../../logger/formatLogError";
 import db from "../../models";
 import { UserAttributes as User } from "../../models/users";
 import {
@@ -99,13 +104,26 @@ export const postOne = async (req: Request, res: Response) => {
       }
 
       if (error instanceof TypeError) {
+        logger.warn(formatValidationError(error.message, "postOne: '/'", id));
         return res.status(400).json({ message: error.message });
       } else {
+        logger.error(
+          formatLogError(
+            new Error("Internal server error - could not process request."),
+            "postOne: '/'"
+          )
+        );
         return res.status(500).json({
           message: "Internal server error - could not process request.",
         });
       }
     } catch (fatalError) {
+      logger.error(
+        formatLogError(
+          new Error("Fatal Server Error: Potentially Corrupt Data"),
+          "postOne: '/'"
+        )
+      );
       return res.status(500).json({
         message:
           "Fatal Server Error: Potentially Corrupt Data - Please contact a system administrator to fix the issue.",
