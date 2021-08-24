@@ -1,1 +1,1 @@
-web: npm install && npm run postinstall && npm start
+web: npm install && npm run tsc && npm start

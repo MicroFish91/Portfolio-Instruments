@@ -7,8 +7,7 @@
     "watch": "tsc -w",
     "dev": "tsnd --respawn src/app.ts",
     "start": "pm2-runtime start ecosystem.config.js --env production",
-    "debug": "node --inspect=9229 dist/app.js",
-    "postinstall": "tsc"
+    "debug": "node --inspect=9229 dist/app.js"
   },
   "keywords": [],
   "author": "",
