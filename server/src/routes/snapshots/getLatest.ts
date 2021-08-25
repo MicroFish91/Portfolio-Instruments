@@ -20,23 +20,21 @@ import { GetLatestAccumulator, SnapshotData } from "./types";
 export const getLatest = async (req: Request, res: Response) => {
   const { id } = req.user as User;
 
-  console.log(id);
-
   // First find the latest specifiedDate
-  const snapshot = await db.Snapshots.findOne({
+  const snapshot = await db.Snapshots.findAll({
     where: { userId: id },
     order: [["specifiedDate", "DESC"]],
     limit: 1,
   });
 
-  if (!snapshot) {
+  if (snapshot.length === 0) {
     return res.json(snapshot);
   }
 
   // Since multiple snapshots can have the same date, we need to find them all and compare the createdAt field next
   const potentialSnapshots = await db.Snapshots.findAll({
     where: {
-      [Op.and]: [{ userId: id }, { specifiedDate: snapshot.specifiedDate }],
+      [Op.and]: [{ userId: id }, { specifiedDate: snapshot[0].specifiedDate }],
     },
   });
 
