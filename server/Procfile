@@ -1,1 +1,1 @@
-web: npm install && npm run tsc && npm start
+web: yarn && yarn tsc && yarn start

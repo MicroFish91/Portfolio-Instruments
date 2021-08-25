@@ -1,3 +1,5 @@
+// import db from "./models";
+import compression from "compression";
 import cors from "cors";
 import debug from "debug";
 import express from "express";
@@ -6,7 +8,6 @@ import morgan from "morgan";
 import passport from "passport";
 import { passportAuthInit } from "./auth";
 import { errorMiddleware } from "./middleware";
-// import db from "./models";
 import { combineRouter } from "./routes";
 import { initCronJobs } from "./startup/cronJobs";
 import { initProcessErrorHandler } from "./startup/processErrorHandler";
@@ -16,6 +17,7 @@ const app = express();
 
 // Startup
 app.use(helmet());
+app.use(compression());
 initProcessErrorHandler();
 initCronJobs();
 initSeedData();
