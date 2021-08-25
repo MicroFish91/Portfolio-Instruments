@@ -20,6 +20,8 @@ import { GetLatestAccumulator, SnapshotData } from "./types";
 export const getLatest = async (req: Request, res: Response) => {
   const { id } = req.user as User;
 
+  console.log(id);
+
   // First find the latest specifiedDate
   const snapshot = await db.Snapshots.findOne({
     where: { userId: id },

@@ -10,7 +10,7 @@ import { passportAuthInit } from "./auth";
 import { errorMiddleware } from "./middleware";
 import { combineRouter } from "./routes";
 import { initCronJobs } from "./startup/cronJobs";
-import { initProcessErrorHandler } from "./startup/processErrorHandler";
+// import { initProcessErrorHandler } from "./startup/processErrorHandler";
 import { initSeedData } from "./startup/seedData";
 
 const app = express();
@@ -18,7 +18,7 @@ const app = express();
 // Startup
 app.use(helmet());
 app.use(compression());
-initProcessErrorHandler();
+// initProcessErrorHandler();
 initCronJobs();
 initSeedData();
 passportAuthInit();

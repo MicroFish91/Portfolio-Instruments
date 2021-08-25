@@ -7,7 +7,6 @@ interface InstitutionProps {
 }
 
 const Institution: React.FC<InstitutionProps> = ({ title, percentage }) => {
-  console.log("percentage: ", percentage);
   return (
     <div className="progress-content">
       <div className="row">

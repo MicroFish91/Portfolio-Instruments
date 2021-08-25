@@ -4,6 +4,7 @@ import { setMainDemoUser } from "../utils/dbUtils/routineMaintenance";
 
 export const initSeedData = async () => {
   try {
+    console.log("******* CHECKING FOR USER SEED DATA ... *******");
     await setMainDemoUser();
   } catch (err) {
     logger.error(formatLogError(err, "StartupSeedData"));

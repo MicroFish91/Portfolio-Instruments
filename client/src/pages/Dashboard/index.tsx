@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import CardInstitutions from "../../components/CardInstitutions";
 import CardPieChart from "../../components/CardPieChart";
 import CardTaxShelter from "../../components/CardTaxShelter";
@@ -92,6 +93,12 @@ const Dashboard = () => {
             />
           </div>{" "}
         </>
+      )}
+
+      {isDashboardLoading && (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <ClipLoader size={180} color="purple" />
+        </div>
       )}
     </>
   );
