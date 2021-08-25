@@ -16,9 +16,13 @@ const ForgotPassword = () => {
   };
 
   const resetPassword = (values: ResetPasswordForm, actions: any) => {
-    dispatch(userResetPasswordAction(values));
-    actions.resetForm();
-    history.push("/resetConfirmation");
+    if (values.email !== "hello_world@gmail.com") {
+      dispatch(userResetPasswordAction(values));
+      actions.resetForm();
+      history.push("/resetConfirmation");
+    } else {
+      alert("This feature is disabled for demo accounts.");
+    }
   };
 
   return (

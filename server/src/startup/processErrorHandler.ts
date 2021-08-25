@@ -1,7 +1,19 @@
+import { secrets } from "../config";
 import logger from "../logger";
 import db from "../models";
 
 export const initProcessErrorHandler = () => {
+  if (
+    (secrets.JWT_SECRET === "myJwtSecret" ||
+      secrets.EMAIL_SECRET === "myEmailSecret") &&
+    process.env.NODE_ENV !== "development"
+  ) {
+    logger.error({
+      message: "Secrets need to be set before application can be deployed.",
+    });
+    process.exit(1);
+  }
+
   process.on("uncaughtException", async (_ex) => {
     try {
       await db.Logs.create({

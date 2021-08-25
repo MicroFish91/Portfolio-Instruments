@@ -1,3 +1,5 @@
+// import db from "./models";
+import compression from "compression";
 import cors from "cors";
 import debug from "debug";
 import express from "express";
@@ -10,19 +12,17 @@ import { combineRouter } from "./routes";
 import { initCronJobs } from "./startup/cronJobs";
 import { initProcessErrorHandler } from "./startup/processErrorHandler";
 import { initSeedData } from "./startup/seedData";
-// import { resetMainDemoUser } from "./utils/dbUtils/routineMaintenance";
-// import { seedMigrator } from "./utils";
 
 const app = express();
 
 // Startup
 app.use(helmet());
+app.use(compression());
 initProcessErrorHandler();
 initCronJobs();
 initSeedData();
 passportAuthInit();
 app.use(passport.initialize());
-// resetMainDemoUser();
 
 // Morgan
 if (app.get("env") === "development") {
