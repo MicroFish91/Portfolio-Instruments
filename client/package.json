@@ -62,5 +62,5 @@
     "npm": "~6.14.14",
     "yarn": "~1.22.5"
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "https://tranquil-woodland-93348.herokuapp.com/"
 }
