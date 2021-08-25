@@ -39,9 +39,3 @@ export const shouldCustomUserUpdate = (): Promise<boolean> => {
     }
   });
 };
-
-async function run() {
-  console.log(await shouldCustomUserUpdate());
-}
-
-run();

@@ -5,8 +5,8 @@ import logsRouter from "./logs";
 import snapshotsRouter from "./snapshots";
 
 export const combineRouter = (app: Express): void => {
-  app.use(authRouter);
-  app.use("/benchmarks", benchmarksRouter);
-  app.use("/snapshots", snapshotsRouter);
-  app.use("/logs", logsRouter);
+  app.use("/api", authRouter);
+  app.use("/api/benchmarks", benchmarksRouter);
+  app.use("/api/snapshots", snapshotsRouter);
+  app.use("/api/logs", logsRouter);
 };
