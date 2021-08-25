@@ -1,3 +1,10 @@
+## Netlify Deploy Notes
+
+- set proxy to server
+- npm run build
+- netlify deploy
+- point to ./build
+
 ## Heroku Deploy Notes
 
 - Branch to local deploy repo
