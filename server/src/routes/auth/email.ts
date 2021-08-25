@@ -33,7 +33,7 @@ export const resendConfirmEmail = async (req: Request, _res: Response) => {
     await sendEmail(
       user.email,
       "Portfolio Instruments - Verify Email",
-      `Please click on the following link to verify: <a href="${SERVER_BASE_URL}/confirmation/${emailToken}">Verify Email</a>`
+      `Please click on the following link to verify: <a href="${SERVER_BASE_URL}/api/confirmation/${emailToken}">Verify Email</a>`
     );
   } catch (err) {
     logger.warn(formatLogError(err, "/confirmation"));
