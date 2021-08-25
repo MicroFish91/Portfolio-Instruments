@@ -9,6 +9,6 @@ export const errorMiddleware = (
   res: Response,
   _next: NextFunction
 ) => {
-  logger.error({ message: formatLogError(err, "Error Middleware") });
+  logger.error(formatLogError(err, "Error Middleware"));
   return res.status(500).json({ message: "Internal server error." });
 };
