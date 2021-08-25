@@ -1,22 +1,22 @@
 // API Endpoints
 export const USER_ENDPOINT = {
-  LOGIN: "/login",
-  REGISTER: "/register",
-  EMAIL_CONFIRMATION: "/confirmation",
-  CHANGE_NOTIFICATIONS: "/changeNotifications",
-  CHANGE_PASSWORD: "/changePassword",
-  RESET_PASSWORD: "/resetPassword",
+  LOGIN: "/api/login",
+  REGISTER: "/api/register",
+  EMAIL_CONFIRMATION: "/api/confirmation",
+  CHANGE_NOTIFICATIONS: "/api/changeNotifications",
+  CHANGE_PASSWORD: "/api/changePassword",
+  RESET_PASSWORD: "/api/resetPassword",
 };
 
 export const SNAPSHOT_ENDPOINT = {
-  GET_LATEST: "/snapshots/latest",
-  GET_RANGE: (years: number) => `/snapshots/range/${years}`,
-  GET_ALL: "/snapshots/all",
-  POST_SNAPSHOT: "/snapshots",
-  DELETE_SNAPSHOT: "/snapshots",
+  GET_LATEST: "/api/snapshots/latest",
+  GET_RANGE: (years: number) => `/api/snapshots/range/${years}`,
+  GET_ALL: "/api/snapshots/all",
+  POST_SNAPSHOT: "/api/snapshots",
+  DELETE_SNAPSHOT: "/api/snapshots",
 };
 
 export const BENCHMARK_ENDPOINT = {
-  GET_BENCHMARK: "/benchmarks",
-  SET_BENCHMARK: "/benchmarks",
+  GET_BENCHMARK: "/api/benchmarks",
+  SET_BENCHMARK: "/api/benchmarks",
 };
