@@ -1,5 +1,6 @@
 <img src="./docs/images/PI_Logo.png"
      alt="PI Logo"
+     align="left"
      style="height: 200px; float: left; margin: 25px" />
 
 # Portfolio Instruments
