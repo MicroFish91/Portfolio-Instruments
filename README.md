@@ -47,6 +47,8 @@ Hosted: Postgres Database - ElephantSQL, Heroku - Express Server, Netlify - Reac
 ## Remaining Stretch Goals
 
 - Auto-suggest feature for Tickers using external API
+- Custom Benchmarks
+- JSON import/export
 
 ## Author
 
