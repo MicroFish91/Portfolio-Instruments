@@ -30,7 +30,7 @@ Password: 1234
 
 To access all the full features, you will need to register your own account.
 
-Note: The server is hosted on the free tier of Heroku and has been known to take a while to boot up from inactivity. Please be patient when first loading while the server wakes back up!
+Note: The server is hosted on the free tier of Heroku and has been known to take a while to boot up from inactivity. Please be patient when first loading while the server wakes back up - it may initially take a few tries!
 
 ## Technologies
 
