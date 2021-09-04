@@ -44,11 +44,13 @@ Formatting: Prettier + Custom
 
 Hosted: Postgres Database - ElephantSQL, Heroku - Express Server, Netlify - React Front End
 
-## Remaining Stretch Goals
+## Additional Stretch Goals/Ideas
 
-- Auto-suggest feature for Tickers using external API
-- Custom Benchmarks
-- JSON import/export
+- Auto-suggest feature for Tickers using external API (Easy-Medium)
+- Custom Benchmarks (Easy)
+- Customize Chart Range (Hard)
+- Emergency Cash Option + Breakdown (Medium)
+- JSON import/export (Medium-Hard)
 
 ## Author
 
