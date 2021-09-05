@@ -51,6 +51,7 @@ Hosted: Postgres Database - ElephantSQL, Heroku - Express Server, Netlify - Reac
 - Customize Chart Range (Hard)
 - Emergency Cash Option + Breakdown (Medium)
 - JSON import/export (Medium-Hard)
+- Refactor/Clean-up Sagas
 
 ## Author
 
