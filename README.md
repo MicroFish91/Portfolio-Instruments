@@ -52,6 +52,7 @@ Hosted: Postgres Database - ElephantSQL, Heroku - Express Server, Netlify - Reac
 - Emergency Cash Option + Breakdown (Medium)
 - JSON import/export (Medium-Hard)
 - Refactor/Clean-up Sagas
+- Compute average annual gain
 
 ## Author
 
