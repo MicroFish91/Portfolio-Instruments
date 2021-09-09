@@ -53,6 +53,7 @@ Hosted: Postgres Database - ElephantSQL, Heroku - Express Server, Netlify - Reac
 - JSON import/export (Medium-Hard)
 - Refactor/Clean-up Sagas
 - Compute average annual gain
+- Testing
 
 ## Author
 
