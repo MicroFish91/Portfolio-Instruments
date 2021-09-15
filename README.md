@@ -1,5 +1,6 @@
 <img src="./docs/images/PI_Logo.png"
      alt="PI Logo"
+     align="left"
      style="height: 200px; float: left; margin: 25px" />
 
 # Portfolio Instruments
@@ -29,7 +30,7 @@ Password: 1234
 
 To access all the full features, you will need to register your own account.
 
-Note: The server is hosted on the free tier of Heroku and has been known to take a while to boot up from inactivity. Please be patient when first loading while the server wakes back up!
+Note: The server is hosted on the free tier of Heroku and has been known to take a while to boot up from inactivity. Please be patient when first loading while the server wakes back up - it may initially take a few tries!
 
 ## Technologies
 
@@ -43,9 +44,16 @@ Formatting: Prettier + Custom
 
 Hosted: Postgres Database - ElephantSQL, Heroku - Express Server, Netlify - React Front End
 
-## Remaining Stretch Goals
+## Additional Stretch Goals/Ideas
 
-- Auto-suggest feature for Tickers using external API
+- Auto-suggest feature for Tickers using external API (Easy-Medium)
+- Custom Benchmarks (Easy)
+- Customize Chart Range (Hard)
+- Emergency Cash Option + Breakdown (Medium)
+- JSON import/export (Medium-Hard)
+- Refactor/Clean-up Sagas
+- Compute average annual gain
+- Testing
 
 ## Author
 
