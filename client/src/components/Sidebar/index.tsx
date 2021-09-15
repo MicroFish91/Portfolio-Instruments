@@ -5,7 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import {
   selectUserEmail,
   selectUserFullName,
-} from "../../redux/User/userSelectors";
+} from "../../redux/User/Selectors";
 import { clearUserAction } from "../../redux/User/userSlice";
 
 interface SidebarProps {}
@@ -18,7 +18,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
   const handleLogout = () => {
     dispatch(clearUserAction());
-    history.push("/login");
+    history.push("/");
   };
 
   useEffect(() => {
@@ -81,18 +81,15 @@ const Sidebar: React.FC<SidebarProps> = () => {
               </span>
             </a>
             <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-              <a className="dropdown-item" href="">
-                <i className="dropdown-icon mdi mdi-account-outline"></i>{" "}
+              <Link to="/profile" className="dropdown-item">
                 Profile
-              </a>
+              </Link>
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="">
-                <i className="dropdown-icon mdi mdi-compass-outline"></i>Getting
-                Started
-              </a>
+              <Link to="/gettingStarted" className="dropdown-item">
+                Getting Started
+              </Link>
               <a className="dropdown-item" href="#" onClick={handleLogout}>
-                <i className="dropdown-icon mdi mdi-logout-variant"></i> Sign
-                out
+                Sign out
               </a>
             </div>
           </div>
@@ -121,17 +118,23 @@ const Sidebar: React.FC<SidebarProps> = () => {
             </a>
             <ul className="slide-menu">
               <li>
-                <Link to="/dashboard/addSnapshot" className="slide-item">
-                  Add Snapshot
+                <Link
+                  to="/portfolio-wizard/add-snapshots"
+                  className="slide-item"
+                >
+                  Add Snapshots
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard/portfolioSnapshots" className="slide-item">
-                  Portfolio Snapshots
+                <Link to="/portfolio-wizard/view-assets" className="slide-item">
+                  View Assets
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard/rebalanceWizard" className="slide-item">
+                <Link
+                  to="/portfolio-wizard/rebalance-wizard"
+                  className="slide-item"
+                >
                   Rebalance Wizard
                 </Link>
               </li>
@@ -142,70 +145,47 @@ const Sidebar: React.FC<SidebarProps> = () => {
           <li className="slide">
             <a className="side-menu__item" data-toggle="slide" href="">
               <i className="side-menu__icon fas fa-table"></i>
-              <span className="side-menu__label">Lazy Portfolios</span>
+              <span className="side-menu__label">Benchmark Portfolios</span>
               <i className="angle fas fa-angle-right"></i>
             </a>
             <ul className="slide-menu">
               <li>
-                <Link to="/dashboard/general" className="slide-item">
+                <Link to="/benchmarks/general" className="slide-item">
                   General
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard/lazyPortfolios/tsm" className="slide-item">
-                  Total Stock Market
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/dashboard/lazyPortfolios/sixtyForty"
-                  className="slide-item"
-                >
+                <Link to="/benchmarks/0" className="slide-item">
                   Classic 60/40
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/dashboard/lazyPortfolios/threeFund"
-                  className="slide-item"
-                >
+                <Link to="/benchmarks/1" className="slide-item">
                   Three Fund Portfolio
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/dashboard/lazyPortfolios/noBrainer"
-                  className="slide-item"
-                >
+                <Link to="/benchmarks/2" className="slide-item">
                   No-Brainer Portfolio
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/dashboard/lazyPortfolios/rickFerri"
-                  className="slide-item"
-                >
+                <Link to="/benchmarks/3" className="slide-item">
                   Rick Ferri Core Four
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard/lazyPortfolios/ivy" className="slide-item">
+                <Link to="/benchmarks/4" className="slide-item">
                   Ivy Portfolio
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/dashboard/lazyPortfolios/permanent"
-                  className="slide-item"
-                >
+                <Link to="/benchmarks/5" className="slide-item">
                   Permanent Portfolio
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/dashboard/lazyPortfolios/goldenButterfly"
-                  className="slide-item"
-                >
+                <Link to="/benchmarks/6" className="slide-item">
                   Golden Butterfly
                 </Link>
               </li>

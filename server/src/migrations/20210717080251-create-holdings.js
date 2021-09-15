@@ -23,6 +23,9 @@ module.exports = {
       expenseRatio: {
         type: Sequelize.DECIMAL,
       },
+      variablePortfolio: {
+        type: Sequelize.BOOLEAN,
+      },
       accountId: {
         type: Sequelize.INTEGER,
         references: {

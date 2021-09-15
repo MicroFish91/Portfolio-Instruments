@@ -1,12 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
+  PostSnapshot,
+  removeSnapshotPayload,
+  SnapshotsDashboardReducerSuccess,
   SnapshotsError,
+  SnapshotsPaginateReducerSuccess,
   SnapshotsReducerState,
-  SnapshotsReducerSuccess,
 } from "./types";
 
 const INITIAL_STATE: SnapshotsReducerState = {
   byId: {},
+  dashboardIds: [],
   allIds: [],
   error: {
     status: "",
@@ -19,14 +23,45 @@ const snapshotSlice = createSlice({
   name: "snapshots",
   initialState: INITIAL_STATE,
   reducers: {
-    initSnapshots: (state) => {
+    initDashboardSnapshots: (state) => {
       state.isLoading = true;
     },
-    setSnapshotsSuccess: (
+    initPaginateSnapshots: (state) => {
+      state.isLoading = true;
+    },
+    postSnapshot: (state, _action: PayloadAction<PostSnapshot>) => {
+      state.isLoading = true;
+    },
+    removeSnapshot: (state, _action: PayloadAction<removeSnapshotPayload>) => {
+      state.isLoading = true;
+    },
+    clearSnapshots: (state) => {
+      state.byId = {};
+      state.dashboardIds = [];
+      state.allIds = [];
+      state.error = {
+        status: "",
+        message: "",
+      };
+      state.isLoading = false;
+    },
+    setDashboardSnapshotsSuccess: (
       state,
-      { payload }: PayloadAction<SnapshotsReducerSuccess>
+      { payload }: PayloadAction<SnapshotsDashboardReducerSuccess>
     ) => {
-      state.byId = payload.byId;
+      state.byId = { ...state.byId, ...payload.byId };
+      state.dashboardIds = payload.dashboardIds;
+      state.error = {
+        status: "",
+        message: "",
+      };
+      state.isLoading = false;
+    },
+    setPaginateSnapshotsSuccess: (
+      state,
+      { payload }: PayloadAction<SnapshotsPaginateReducerSuccess>
+    ) => {
+      state.byId = { ...state.byId, ...payload.byId };
       state.allIds = payload.allIds;
       state.error = {
         status: "",
@@ -36,6 +71,7 @@ const snapshotSlice = createSlice({
     },
     setSnapshotsFail: (state, { payload }: PayloadAction<SnapshotsError>) => {
       state.byId = {};
+      state.dashboardIds = [];
       state.allIds = [];
       state.error = {
         status: payload?.status ? payload.status.toString() : "",
@@ -47,8 +83,13 @@ const snapshotSlice = createSlice({
 });
 
 export const {
-  initSnapshots: initSnapshotsAction,
-  setSnapshotsSuccess: setSnapshotsSuccessAction,
+  initDashboardSnapshots: initDashboardSnapshotsAction,
+  initPaginateSnapshots: initPaginateSnapshotsAction,
+  removeSnapshot: removeSnapshotAction,
+  clearSnapshots: clearSnapshotsAction,
+  postSnapshot: postSnapshotAction,
+  setDashboardSnapshotsSuccess: setDashboardSnapshotsSuccessAction,
+  setPaginateSnapshotsSuccess: setPaginateSnapshotsSuccessAction,
   setSnapshotsFail: setSnapshotsFailAction,
 } = snapshotSlice.actions;
 

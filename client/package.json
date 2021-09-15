@@ -1,10 +1,11 @@
 {
-  "name": "Portfolio_Instruments_Client_v2",
+  "name": "Portfolio_Instruments_Client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
     "axios": "^0.21.1",
+    "capitalize": "^2.0.3",
     "chart.js": "^3.5.0",
     "formik": "^2.2.9",
     "jquery": "^3.6.0",
@@ -18,15 +19,18 @@
     "react-spinners": "^0.11.0",
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.3",
+    "uuid": "^8.3.2",
     "yup": "^0.32.9",
     "yup-password": "^0.2.1"
   },
   "devDependencies": {
+    "@types/capitalize": "^2.0.0",
     "@types/jquery": "^3.5.6",
     "@types/node": "^16.3.3",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.1.8",
+    "@types/uuid": "^8.3.1",
     "typescript": "^4.3.5"
   },
   "scripts": {
@@ -53,5 +57,10 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3001"
+  "engines": {
+    "node": "~14.17.5",
+    "npm": "~6.14.14",
+    "yarn": "~1.22.5"
+  },
+  "proxy": "https://localhost:3001/"
 }

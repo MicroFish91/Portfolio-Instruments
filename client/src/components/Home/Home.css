@@ -1,0 +1,42 @@
+.Home {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.landing-header {
+  position: absolute;
+  top: 15em;
+  left: 20em;
+  width: 30em;
+  height: auto;
+}
+
+.landing-intro {
+  position: absolute;
+  top: 26.5em;
+  left: 20em;
+  width: 30em;
+  height: auto;
+}
+
+@media only screen and (max-width: 850px) {
+  .landing-header {
+    position: absolute;
+    top: 12.5em;
+    left: 5em;
+    width: 25em;
+    height: auto;
+  }
+
+  .landing-intro {
+    position: absolute;
+    top: 24em;
+    left: 5em;
+    width: 25em;
+    height: auto;
+  }
+}

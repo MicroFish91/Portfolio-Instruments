@@ -1,0 +1,2 @@
+/api/* https://fathomless-savannah-31536.herokuapp.com/api/:splat 200
+/* /index.html 200

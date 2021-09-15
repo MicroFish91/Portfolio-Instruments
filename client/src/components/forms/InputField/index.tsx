@@ -2,15 +2,21 @@ import { ErrorMessage, useField } from "formik";
 
 interface TextFieldProps {
   label: string;
+  className?: string;
   name: string;
   type: string;
   placeholder: string;
+  value?: string | number;
 }
 
-const TextField: React.FC<TextFieldProps> = ({ label, ...props }) => {
+const TextField: React.FC<TextFieldProps> = ({
+  label,
+  className = "form-group",
+  ...props
+}) => {
   const [field, meta] = useField(props);
   return (
-    <div className="form-group">
+    <div className={className}>
       <label htmlFor={field.name} className="form-label">
         {label}
       </label>

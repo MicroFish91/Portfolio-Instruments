@@ -23,6 +23,18 @@ module.exports = {
       benchmark: {
         type: Sequelize.STRING(20),
       },
+      confirmed: {
+        type: Sequelize.BOOLEAN,
+      },
+      rebalanceThreshold: {
+        type: Sequelize.INTEGER,
+      },
+      vpThreshold: {
+        type: Sequelize.INTEGER,
+      },
+      lastLoggedIn: {
+        type: Sequelize.DATE,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

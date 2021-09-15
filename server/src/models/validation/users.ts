@@ -27,3 +27,30 @@ export const validateUser = (user: UserAttributes) => {
 
   return schema.validate(user);
 };
+
+export const validatePassword = (password: string) => {
+  const schema = Joi.object({
+    password: passwordComplexity({
+      min: 5,
+      max: 255,
+      lowerCase: 1,
+      upperCase: 1,
+      numeric: 1,
+      requirementCount: 4,
+    }),
+  });
+
+  return schema.validate({ password });
+};
+
+export const validateNotifications = (
+  rebalanceThreshold: number,
+  vpThreshold: number
+) => {
+  const schema = Joi.object({
+    rebalanceThreshold: Joi.number().integer().min(0).max(50).required(),
+    vpThreshold: Joi.number().integer().min(0).max(90).required(),
+  });
+
+  return schema.validate({ rebalanceThreshold, vpThreshold });
+};

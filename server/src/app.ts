@@ -1,3 +1,5 @@
+// import db from "./models";
+import compression from "compression";
 import cors from "cors";
 import debug from "debug";
 import express from "express";
@@ -5,12 +7,22 @@ import helmet from "helmet";
 import morgan from "morgan";
 import passport from "passport";
 import { passportAuthInit } from "./auth";
+import { errorMiddleware } from "./middleware";
 import { combineRouter } from "./routes";
-// import db from "./models";
-// import seedMigrator from "./seeders";
+import { initCronJobs } from "./startup/cronJobs";
+import { initProcessErrorHandler } from "./startup/processErrorHandler";
+import { initSeedData } from "./startup/seedData";
 
 const app = express();
+
+// Startup
 app.use(helmet());
+app.use(compression());
+initProcessErrorHandler();
+initCronJobs();
+initSeedData();
+passportAuthInit();
+app.use(passport.initialize());
 
 // Morgan
 if (app.get("env") === "development") {
@@ -18,6 +30,7 @@ if (app.get("env") === "development") {
   debug("Morgan enabled...");
 }
 
+// Cors
 app.use(
   cors({
     origin: "*",
@@ -29,16 +42,19 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Initialize Passport Auth
-app.use(passport.initialize());
-passportAuthInit();
-
 // Routes
 combineRouter(app);
+
+// Err Handler
+app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+/*
+ * **************  MISC REF *********************
+ */
 
 // db.sequelize.sync().then(() => {
 //   app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

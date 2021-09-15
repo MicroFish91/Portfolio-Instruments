@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.STRING(30),
       },
       notes: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.STRING(255),
       },
       specifiedDate: {
         type: Sequelize.DATE,

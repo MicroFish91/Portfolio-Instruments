@@ -1,4 +1,33 @@
 export const ACCOUNT_TYPES = ["Traditional", "Roth", "Taxable"];
+export const HOLDING_CODES = {
+  CASH: "cash",
+  BILLS: "bills",
+  STB: "stb",
+  ITB: "itb",
+  LTB: "ltb",
+  COMMODITIES: "commodities",
+  GOLD: "gold",
+  REITS: "reits",
+  TSM: "tsm",
+  DLCB: "dlcb",
+  DLCG: "dlcg",
+  DLCV: "dlcv",
+  DMCB: "dmcb",
+  DMCG: "dmcg",
+  DMCV: "dmcv",
+  DSCG: "dscg",
+  DSCB: "dscb",
+  DSCV: "dscv",
+  ILCB: "ilcb",
+  ILCG: "ilcg",
+  ILCV: "ilcv",
+  IMCB: "imcb",
+  IMCG: "imcg",
+  IMCV: "imcv",
+  ISCB: "iscb",
+  ISCG: "iscg",
+  ISCV: "iscv",
+};
 export const HOLDING_CATEGORIES = [
   "tsm",
   "dlcb",
@@ -29,7 +58,6 @@ export const HOLDING_CATEGORIES = [
   "reits",
 ];
 export const PORTFOLIO_BENCHMARKS = [
-  "Total Stock Market",
   "Classic 60/40",
   "Three-Fund Portfolio",
   "No-Brainer Portfolio",
@@ -39,7 +67,6 @@ export const PORTFOLIO_BENCHMARKS = [
   "Golden Butterfly",
 ];
 export const BENCHMARK_ASSET_BREAKDOWN = [
-  { tsm: 100 },
   {
     tsm: 60,
     itb: 40,
