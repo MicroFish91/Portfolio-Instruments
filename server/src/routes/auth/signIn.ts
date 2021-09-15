@@ -72,7 +72,7 @@ export const register = async (req: Request, res: Response) => {
     await sendEmail(
       user.email,
       "Portfolio Instruments - Verify Email",
-      `Please click on the following link to verify: <a href="${SERVER_BASE_URL}/confirmation/${emailToken}">Verify Email</a>`
+      `Please click on the following link to verify: <a href="${SERVER_BASE_URL}/api/confirmation/${emailToken}">Verify Email</a>`
     );
     return res.json({ message: "Success." });
   } else {
