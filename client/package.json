@@ -62,5 +62,5 @@
     "npm": "~6.14.14",
     "yarn": "~1.22.5"
   },
-  "proxy": "https://localhost:3001/"
+  "proxy": "http://localhost:3001"
 }
