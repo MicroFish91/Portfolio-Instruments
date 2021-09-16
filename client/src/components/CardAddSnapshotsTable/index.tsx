@@ -1,5 +1,5 @@
 import { Form, Formik, FormikHelpers } from "formik";
-import React from "react";
+import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { Snapshot } from "../../pages/AddSnapshots/types";
@@ -30,9 +30,9 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
   submitSnapshotData,
   snapshot,
 }) => {
+  const snapshotTotal = useRef(0);
   const currentUserEmail = useSelector(selectUserEmail);
   const dollarFormatter = usdFormatter();
-  let accountTotal = 0;
 
   const submitSnapshot = (
     values: SnapshotForm,
@@ -40,7 +40,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
   ) => {
     if (currentUserEmail !== "hello_world@gmail.com") {
       if (snapshot.length !== 0) {
-        if (accountTotal > 0) {
+        if (snapshotTotal.current !== 0) {
           submitSnapshotData(values);
           actions.resetForm();
         } else {
@@ -64,7 +64,7 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
 
     snapshot.forEach((account) => {
       const keys = ["traditional", "roth", "taxable"];
-      accountTotal = 0;
+      let accountTotal = 0;
       let firstRow = true;
 
       keys.forEach((accountTypeKey) => {
@@ -235,6 +235,8 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
         </tr>
       );
     }
+
+    snapshotTotal.current = netTotal;
 
     return table;
   };
