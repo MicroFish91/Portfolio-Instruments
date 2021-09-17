@@ -23,6 +23,8 @@ Many newcomers are usually unaware of how to begin investing. This website also 
 
 Check it out here: [Portfolio Instruments](https://www.portfolioinstruments.com)
 
+Video Here: https://www.youtube.com/watch?v=h5w9EerJPUE
+
 You can use the following demo account to take a look at the full layout and dashboard features.
 
 Username: hello_world@gmail.com
