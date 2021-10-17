@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import { holdingFormSchema } from "../../validation/holdings";
 import { HoldingForm } from "../../validation/types";
 import Button from "../forms/Button";
@@ -15,7 +15,25 @@ interface CardAddSnapshotsFormProps {
 const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
   addHolding,
 }) => {
+  const [tickerCache, setTickerCache] = useState([] as HoldingForm[]);
+
+  const filterCache = (values: HoldingForm) => {
+    const tickerExists = !!tickerCache.filter(
+      (holding) => holding.holdingTicker === values.holdingTicker
+    ).length;
+
+    if (!tickerExists) {
+      setTickerCache([...tickerCache, values]);
+    }
+  };
+
+  const tickerChangeHandler = (e: ChangeEvent, setFieldValue: any) => {
+    //@ts-ignore
+    setFieldValue("holdingTicker", e.target.value);
+  };
+
   const submitHolding = (values: HoldingForm, actions: any): void => {
+    filterCache(values);
     addHolding(values);
     actions.resetForm();
   };
@@ -37,7 +55,7 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
       validationSchema={holdingFormSchema}
       onSubmit={(values, actions) => submitHolding(values, actions)}
     >
-      {({ values }) => (
+      {({ values, setFieldValue }) => (
         <Form className="card">
           <div className="card-header">
             <h3 className="card-title">Holdings</h3>
@@ -58,6 +76,10 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
                   name="holdingTicker"
                   placeholder="Ex. VITSX"
                   type="text"
+                  onChange={(e) => {
+                    tickerChangeHandler(e, setFieldValue);
+                  }}
+                  value={values.holdingTicker}
                 />
 
                 <InputField

@@ -72,7 +72,6 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
         account.accountType[accountTypeKey].forEach((holding, holdingIndex) => {
           accountTypeTotal += holding.holdingAmount;
           accountTotal += holding.holdingAmount;
-          console.log(holding.holdingVP);
           if (firstRow && holdingIndex === 0) {
             firstRow = false;
             table.push(

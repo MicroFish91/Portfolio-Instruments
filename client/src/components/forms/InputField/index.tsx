@@ -1,4 +1,5 @@
 import { ErrorMessage, useField } from "formik";
+import { ChangeEvent } from "react";
 
 interface TextFieldProps {
   label: string;
@@ -7,6 +8,7 @@ interface TextFieldProps {
   type: string;
   placeholder: string;
   value?: string | number;
+  onChange?: (e: ChangeEvent) => void;
 }
 
 const TextField: React.FC<TextFieldProps> = ({
