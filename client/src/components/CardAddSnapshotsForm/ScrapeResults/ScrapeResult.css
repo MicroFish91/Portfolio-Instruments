@@ -1,0 +1,9 @@
+.ScrapeResult {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.ScrapeResult:hover {
+  background-color: plum;
+  cursor: pointer;
+}

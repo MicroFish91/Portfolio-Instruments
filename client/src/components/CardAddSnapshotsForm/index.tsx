@@ -7,6 +7,7 @@ import Checkbox from "../forms/Checkbox";
 import InputField from "../forms/InputField";
 import SelectField from "../forms/SelectField";
 import { selectAccountTypeMap, selectAssetTypeMap } from "./constants";
+import ScrapeResults from "./ScrapeResults";
 
 interface CardAddSnapshotsFormProps {
   addHolding: (holding: HoldingForm) => void;
@@ -15,20 +16,25 @@ interface CardAddSnapshotsFormProps {
 const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
   addHolding,
 }) => {
-  const [tickerCache, setTickerCache] = useState([] as HoldingForm[]);
+  const [holdingCache, setHoldingCache] = useState([] as HoldingForm[]);
+  const [toggleScrapeResults, setToggleScrapeResults] = useState(false);
 
   const filterCache = (values: HoldingForm) => {
-    const tickerExists = !!tickerCache.filter(
+    values.holdingTicker = values.holdingTicker.toUpperCase();
+
+    const tickerExists = !!holdingCache.filter(
       (holding) => holding.holdingTicker === values.holdingTicker
     ).length;
 
     if (!tickerExists) {
-      setTickerCache([...tickerCache, values]);
+      setHoldingCache([...holdingCache, values]);
     }
   };
 
-  const tickerChangeHandler = (e: ChangeEvent, setFieldValue: any) => {
-    //@ts-ignore
+  const tickerChangeHandler = (
+    e: ChangeEvent<HTMLInputElement>,
+    setFieldValue: any
+  ) => {
     setFieldValue("holdingTicker", e.target.value);
   };
 
@@ -70,7 +76,6 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
                   placeholder="Ex. Vanguard Total Stock Market Index Fund"
                   type="text"
                 />
-
                 <InputField
                   label="Holding Ticker"
                   name="holdingTicker"
@@ -79,8 +84,18 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
                   onChange={(e) => {
                     tickerChangeHandler(e, setFieldValue);
                   }}
+                  onFocus={(_e) => setToggleScrapeResults(!toggleScrapeResults)}
+                  onBlur={(_e) => setToggleScrapeResults(!toggleScrapeResults)}
                   value={values.holdingTicker}
                 />
+
+                {/* Display Ticker Recommendations */}
+                {toggleScrapeResults && (
+                  <ScrapeResults
+                    searchParam={values.holdingTicker}
+                    holdingCache={holdingCache}
+                  />
+                )}
 
                 <InputField
                   label="Holding Amount ($)"
@@ -88,7 +103,6 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
                   placeholder="Ex. 320.25"
                   type="text"
                 />
-
                 <InputField
                   label="Holding Expense Ratio"
                   name="holdingExpenseRatio"

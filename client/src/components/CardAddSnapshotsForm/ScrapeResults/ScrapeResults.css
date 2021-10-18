@@ -1,0 +1,6 @@
+.ScrapeResults {
+  position: relative;
+  border: 2px solid skyblue;
+  height: auto;
+  overflow-x: scroll;
+}
