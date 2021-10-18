@@ -3,13 +3,16 @@ import { HoldingForm } from "../../../validation/types";
 import ScrapeResult from "./scrapeResult";
 import "./ScrapeResults.css";
 import { scrapeYahooFinance } from "./scrapeUtils/scrapeYahooFinance";
+import { scrapedData } from "./scrapeUtils/types";
 
 interface ScrapeResultsProps {
+  addScraped: (scrapedData: scrapedData) => void;
   searchParam: string;
   holdingCache: HoldingForm[];
 }
 
 const ScrapeResults: React.FC<ScrapeResultsProps> = ({
+  addScraped,
   searchParam,
   holdingCache,
 }) => {
@@ -25,7 +28,7 @@ const ScrapeResults: React.FC<ScrapeResultsProps> = ({
           .includes(searchCriteria)
       ) {
         const result = await scrapeYahooFinance(searchCriteria);
-        console.log(result);
+        addScraped(result);
       }
     }
 

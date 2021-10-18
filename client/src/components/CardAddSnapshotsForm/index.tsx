@@ -8,6 +8,7 @@ import InputField from "../forms/InputField";
 import SelectField from "../forms/SelectField";
 import { selectAccountTypeMap, selectAssetTypeMap } from "./constants";
 import ScrapeResults from "./ScrapeResults";
+import { scrapedData } from "./ScrapeResults/scrapeUtils/types";
 
 interface CardAddSnapshotsFormProps {
   addHolding: (holding: HoldingForm) => void;
@@ -18,6 +19,10 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
 }) => {
   const [holdingCache, setHoldingCache] = useState([] as HoldingForm[]);
   const [toggleScrapeResults, setToggleScrapeResults] = useState(false);
+
+  const addScraped = (scrapeData: scrapedData) => {
+    console.log(scrapeData);
+  };
 
   const filterCache = (values: HoldingForm) => {
     values.holdingTicker = values.holdingTicker.toUpperCase();
@@ -92,6 +97,7 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
                 {/* Display Ticker Recommendations */}
                 {toggleScrapeResults && (
                   <ScrapeResults
+                    addScraped={addScraped}
                     searchParam={values.holdingTicker}
                     holdingCache={holdingCache}
                   />
@@ -104,7 +110,7 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
                   type="text"
                 />
                 <InputField
-                  label="Holding Expense Ratio"
+                  label="Holding Expense Ratio (%)"
                   name="holdingExpenseRatio"
                   placeholder="Ex. 0.25"
                   type="text"
