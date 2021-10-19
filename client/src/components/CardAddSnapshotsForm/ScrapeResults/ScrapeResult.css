@@ -4,6 +4,6 @@
 }
 
 .ScrapeResult:hover {
-  background-color: plum;
+  text-decoration: underline;
   cursor: pointer;
 }

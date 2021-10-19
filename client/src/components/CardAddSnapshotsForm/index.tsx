@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { holdingFormSchema } from "../../validation/holdings";
 import { HoldingForm } from "../../validation/types";
 import Button from "../forms/Button";
@@ -20,29 +20,51 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
   const [holdingCache, setHoldingCache] = useState([] as HoldingForm[]);
   const [toggleScrapeResults, setToggleScrapeResults] = useState(false);
 
-  const addScraped = (scrapeData: scrapedData) => {
-    console.log(scrapeData);
+  // Parse Scraped Yahoo Finance Data into Forms ("Whenever we type '`'")
+  const addScraped = (scrapeData: scrapedData, setFieldValue: any) => {
+    setFieldValue("holdingTitle", scrapeData?.holdingTitle || "???");
+    setFieldValue("holdingTicker", scrapeData?.holdingTicker || "???");
+    setFieldValue(
+      "holdingExpenseRatio",
+      scrapeData?.holdingExpenseRatio || "???"
+    );
+    setFieldValue("holdingAmount", "");
+    setFieldValue("holdingLocation", "");
+    setFieldValue("accountType", "Taxable");
+    setFieldValue("assetType", "cash");
+    setFieldValue("holdingVP", false);
   };
 
+  // Cache ticker data whenever we submit a holding
   const filterCache = (values: HoldingForm) => {
     values.holdingTicker = values.holdingTicker.toUpperCase();
 
-    const tickerExists = !!holdingCache.filter(
+    const tickerIndex = holdingCache.findIndex(
       (holding) => holding.holdingTicker === values.holdingTicker
-    ).length;
+    );
 
-    if (!tickerExists) {
+    if (tickerIndex === -1) {
       setHoldingCache([...holdingCache, values]);
+    } else {
+      const newHoldingCache = [...holdingCache];
+      newHoldingCache[tickerIndex] = values;
+      setHoldingCache(newHoldingCache);
     }
   };
 
-  const tickerChangeHandler = (
-    e: ChangeEvent<HTMLInputElement>,
-    setFieldValue: any
-  ) => {
-    setFieldValue("holdingTicker", e.target.value);
+  // This data populates the form whenever we select a ticker from the cache
+  const selectCachedHolding = (holding: HoldingForm, setFieldValue: any) => {
+    setFieldValue("holdingTitle", holding.holdingTitle);
+    setFieldValue("holdingTicker", holding.holdingTicker);
+    setFieldValue("holdingAmount", "");
+    setFieldValue("holdingExpenseRatio", holding.holdingExpenseRatio);
+    setFieldValue("holdingLocation", holding.holdingLocation);
+    setFieldValue("accountType", holding.accountType);
+    setFieldValue("assetType", holding.assetType);
+    setFieldValue("holdingVP", false);
   };
 
+  // On holding submit
   const submitHolding = (values: HoldingForm, actions: any): void => {
     filterCache(values);
     addHolding(values);
@@ -86,21 +108,32 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
                   name="holdingTicker"
                   placeholder="Ex. VITSX"
                   type="text"
-                  onChange={(e) => {
-                    tickerChangeHandler(e, setFieldValue);
-                  }}
+                  onChange={(e) =>
+                    setFieldValue("holdingTicker", e.target.value)
+                  }
                   onFocus={(_e) => setToggleScrapeResults(!toggleScrapeResults)}
-                  onBlur={(_e) => setToggleScrapeResults(!toggleScrapeResults)}
+                  onBlur={(_e) => {
+                    // Delay so that we can click and register the scrape recommendations
+                    setTimeout(
+                      () => setToggleScrapeResults(!toggleScrapeResults),
+                      100
+                    );
+                  }}
                   value={values.holdingTicker}
                 />
 
                 {/* Display Ticker Recommendations */}
                 {toggleScrapeResults && (
-                  <ScrapeResults
-                    addScraped={addScraped}
-                    searchParam={values.holdingTicker}
-                    holdingCache={holdingCache}
-                  />
+                  <>
+                    <ScrapeResults
+                      addScraped={addScraped}
+                      searchParam={values.holdingTicker}
+                      holdingCache={holdingCache}
+                      setFieldValue={setFieldValue}
+                      selectCachedHolding={selectCachedHolding}
+                    />{" "}
+                    <br />{" "}
+                  </>
                 )}
 
                 <InputField
