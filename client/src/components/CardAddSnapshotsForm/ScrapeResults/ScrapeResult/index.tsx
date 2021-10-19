@@ -1,5 +1,5 @@
 import React from "react";
-import { HoldingForm } from "../../../validation/types";
+import { HoldingForm } from "../../../../validation/types";
 import "./ScrapeResult.css";
 
 interface scrapeResultProps {

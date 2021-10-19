@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { HoldingForm } from "../../../validation/types";
-import ScrapeResult from "./scrapeResult";
+import ScrapeResult from "./ScrapeResult/";
 import "./ScrapeResults.css";
 import { scrapeYahooFinance } from "./scrapeUtils/scrapeYahooFinance";
 import { scrapedData } from "./scrapeUtils/types";
