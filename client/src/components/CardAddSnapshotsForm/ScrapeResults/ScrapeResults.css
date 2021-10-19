@@ -1,0 +1,10 @@
+.ScrapeResults {
+  position: relative;
+  height: auto;
+  overflow-x: scroll;
+  border: 1px solid #dadada;
+  border-radius: 7px;
+  box-sizing: border-box;
+  padding: 0.5em;
+  border-color: rgb(176, 205, 230);
+}
