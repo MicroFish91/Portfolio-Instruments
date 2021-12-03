@@ -48,7 +48,7 @@ Hosted: Postgres Database - ElephantSQL, Heroku - Express Server, Netlify - Reac
 
 ## Additional Stretch Goals/Ideas
 
-- Auto-suggest feature for Tickers using external API (Easy-Medium)
+- ~~Auto-suggest feature for Tickers using external API (Easy-Medium)~~ Completed
 - Custom Benchmarks (Easy)
 - Customize Chart Range (Hard)
 - Emergency Cash Option + Breakdown (Medium)
