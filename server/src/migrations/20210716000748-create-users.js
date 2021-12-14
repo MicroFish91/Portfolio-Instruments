@@ -23,6 +23,9 @@ module.exports = {
       benchmark: {
         type: Sequelize.STRING(20),
       },
+      customBenchmark: {
+        type: Sequelize.JSON(),
+      },
       confirmed: {
         type: Sequelize.BOOLEAN,
       },

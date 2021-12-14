@@ -50,6 +50,7 @@ export async function userRegistrationEndpoint(
           email: userData.email,
           firstName: userData.firstName,
           lastName: userData.lastName,
+          customBenchmark: null,
           rebalanceThreshold: 10,
           vpThreshold: 0,
         },

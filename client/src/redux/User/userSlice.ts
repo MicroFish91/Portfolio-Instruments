@@ -8,11 +8,18 @@ import {
 import { CurrentUser, UserError } from "./types";
 import { removeToken, storeToken } from "./userUtils";
 
-const INITIAL_STATE = {
+const INITIAL_STATE: {
+  currentUser: CurrentUser;
+  jwtToken: string;
+  error: { field: string; status: string; message: string };
+  isLoading: boolean;
+  isLoadingField: string;
+} = {
   currentUser: {
     email: "",
     firstName: "",
     lastName: "",
+    customBenchmark: null,
     rebalanceThreshold: 10,
     vpThreshold: 0,
   },
@@ -48,6 +55,7 @@ const userSlice = createSlice({
         email: "",
         firstName: "",
         lastName: "",
+        customBenchmark: null,
         rebalanceThreshold: 10,
         vpThreshold: 0,
       };
@@ -130,6 +138,7 @@ const userSlice = createSlice({
         email: payload.email,
         firstName: "",
         lastName: "",
+        customBenchmark: null,
         rebalanceThreshold: 10,
         vpThreshold: 0,
       };
@@ -152,6 +161,7 @@ const userSlice = createSlice({
         email: payload.email,
         firstName: "",
         lastName: "",
+        customBenchmark: null,
         rebalanceThreshold: 10,
         vpThreshold: 0,
       };
@@ -169,6 +179,7 @@ const userSlice = createSlice({
         email: payload.email,
         firstName: "",
         lastName: "",
+        customBenchmark: null,
         rebalanceThreshold: 10,
         vpThreshold: 0,
       };

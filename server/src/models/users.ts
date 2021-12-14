@@ -1,5 +1,6 @@
 ("use strict");
 import { Model, Optional, Sequelize } from "sequelize";
+import { custBenchmark } from "./validation/types";
 
 export interface UserAttributes {
   id: number;
@@ -8,6 +9,7 @@ export interface UserAttributes {
   firstName: string;
   lastName: string;
   benchmark?: string | null;
+  customBenchmark?: custBenchmark[] | null;
   confirmed: boolean;
   rebalanceThreshold: number;
   vpThreshold: number;
@@ -27,6 +29,7 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
     public firstName!: string;
     public lastName!: string;
     public benchmark?: string | null;
+    public customBenchmark?: custBenchmark[] | null;
     public confirmed!: boolean;
     public rebalanceThreshold!: number;
     public vpThreshold!: number;
@@ -63,6 +66,11 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
       },
       benchmark: {
         type: DataTypes.STRING(20),
+        defaultValue: null,
+        allowNull: true,
+      },
+      customBenchmark: {
+        type: DataTypes.JSON(),
         defaultValue: null,
         allowNull: true,
       },
