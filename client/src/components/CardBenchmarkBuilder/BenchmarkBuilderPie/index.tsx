@@ -51,7 +51,6 @@ const BenchmarkBuilderPie: React.FC<benchmarkBuilderPieProps> = ({
 
   return (
     <div>
-      <h3 className="card-title">Title Placeholder</h3>
       <Pie data={data.data} />
     </div>
   );

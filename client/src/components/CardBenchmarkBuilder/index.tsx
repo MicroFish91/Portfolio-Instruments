@@ -1,24 +1,31 @@
 import React, { useState } from "react";
 import { CustomBenchmarkForm } from "../../validation/types";
+import BenchmarkBuilderForm from "./BenchmarkBuilderForm";
 import BenchmarkBuilderPie from "./BenchmarkBuilderPie";
 import BenchmarkBuilderTable from "./BenchmarkBuilderTable";
 
 interface createCustomBenchmarkProps {}
 
 const CreateCustomBenchmark: React.FC<createCustomBenchmarkProps> = ({}) => {
-  const [assetCategories, setAssetCategories] = useState([] as string[]);
-  const [assetPercentages, setAssetPercentages] = useState([] as number[]);
+  const [assetAllocation, setAssetAllocation] = useState({
+    unallocated: 100,
+  } as { [key: string]: number });
 
   const addAsset = (values: CustomBenchmarkForm) => {
-    setAssetCategories([...assetCategories, values.assetCategory]);
-    setAssetPercentages([
-      ...assetPercentages,
-      parseInt(values.assetPercentage),
-    ]);
+    const newAssetAllocation = { ...assetAllocation };
+    newAssetAllocation["unallocated"] =
+      newAssetAllocation["unallocated"] +
+      (newAssetAllocation[values.assetCategory] || 0) -
+      parseInt(values.assetPercentage);
+    newAssetAllocation[values.assetCategory] = parseInt(values.assetPercentage);
+    setAssetAllocation(newAssetAllocation);
   };
 
-  console.log(assetCategories);
-  console.log(assetPercentages);
+  const resetAssets = () => {
+    setAssetAllocation({
+      unallocated: 100,
+    });
+  };
 
   return (
     <div className="card">
@@ -28,12 +35,17 @@ const CreateCustomBenchmark: React.FC<createCustomBenchmarkProps> = ({}) => {
       <div className="card-body">
         <div className="row">
           <div className="col-md-6 col-lg-6">
-            <BenchmarkBuilderTable addAsset={addAsset} />
+            <BenchmarkBuilderForm addAsset={addAsset} />
+            <br /> <br />
+            <BenchmarkBuilderTable
+              assetAllocation={assetAllocation}
+              resetAssets={resetAssets}
+            />
           </div>
           <div className="col-md-6 col-lg-6">
             <BenchmarkBuilderPie
-              assetCategories={assetCategories}
-              assetPercentages={assetPercentages}
+              assetCategories={Object.keys(assetAllocation)}
+              assetPercentages={Object.values(assetAllocation)}
             />
           </div>
         </div>

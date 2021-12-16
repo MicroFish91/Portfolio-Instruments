@@ -47,3 +47,7 @@ export interface CustomBenchmarkForm {
   assetCategory: string;
   assetPercentage: string;
 }
+
+export interface CustomBenchmarkTitle {
+  benchmarkTitle: string;
+}

@@ -1,58 +1,85 @@
-import { Form, Formik, FormikHelpers } from "formik";
+import { Form, Formik } from "formik";
 import React from "react";
-import { customBenchmarkFormSchema } from "../../../validation/benchmark";
-import { CustomBenchmarkForm } from "../../../validation/types";
-import { selectAssetTypeMap } from "../../CardAddSnapshotsForm/constants";
+import { benchmarkTitleSchema } from "../../../validation/benchmark";
+import { CustomBenchmarkTitle } from "../../../validation/types";
 import Button from "../../forms/Button";
 import InputField from "../../forms/InputField";
-import SelectField from "../../forms/SelectField";
 
-interface cardAddBenchmarksTableProps {
-  addAsset: (values: CustomBenchmarkForm) => void;
+interface benchmarkBuilderTableProps {
+  assetAllocation: { [key: string]: number };
+  resetAssets: () => void;
 }
 
-const CardAddBenchmarksTable: React.FC<cardAddBenchmarksTableProps> = ({
-  addAsset,
+const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
+  assetAllocation,
+  resetAssets,
 }) => {
-  const submitAsset = (
-    values: CustomBenchmarkForm,
-    actions: FormikHelpers<CustomBenchmarkForm>
+  const renderTableBody = () => {
+    return Object.keys(assetAllocation).map((asset) => {
+      return (
+        <tr>
+          <th className="wd-50p">{asset}</th>
+          <th className="wd-50p">{assetAllocation[asset]}</th>
+        </tr>
+      );
+    });
+  };
+
+  const submitCustomBenchmark = (
+    values: CustomBenchmarkTitle,
+    actions: any
   ) => {
-    addAsset(values);
-    actions.resetForm();
+    const unallocated = assetAllocation["unallocated"];
+
+    if (unallocated === 0) {
+      console.log(values);
+      actions.resetForm();
+    } else {
+      alert("Warning: Asset allocation does not sum to 100, please try again.");
+    }
   };
 
   return (
     <Formik
       initialValues={{
-        assetCategory: "cash",
-        assetPercentage: "",
+        benchmarkTitle: "",
       }}
-      validationSchema={customBenchmarkFormSchema}
-      onSubmit={(values, actions) => submitAsset(values, actions)}
+      validationSchema={benchmarkTitleSchema}
+      onSubmit={(values, actions) => submitCustomBenchmark(values, actions)}
+      onReset={resetAssets}
     >
       {() => (
         <Form>
-          <SelectField
-            label="Asset Category"
-            selectMap={selectAssetTypeMap}
-            name="assetCategory"
-            type="text"
-          />
           <InputField
-            label="Asset Percentage"
-            name="assetPercentage"
-            placeholder="Asset Percentage goes here"
+            label=""
+            name="benchmarkTitle"
+            placeholder="Benchmark title goes here"
             type="text"
           />
-          <div>
-            <Button title="Add Asset" />
-            <Button title="Reset Asset" type="reset" />
+          <div className="table-responsive">
+            <table
+              className="table table-striped table-bordered"
+              style={{ width: "100%", borderTop: "1px solid grey" }}
+            >
+              <thead>
+                <tr>
+                  <th className="wd-50p">Asset Category</th>
+                  <th className="wd-50p">Asset Percentage</th>
+                </tr>
+              </thead>
+
+              <tbody>{renderTableBody()}</tbody>
+            </table>
+
+            <br></br>
           </div>
+
+          <Button title="Submit Assets" />
+          <Button title="Clear Assets" type="reset" />
         </Form>
       )}
     </Formik>
   );
 };
 
-export default CardAddBenchmarksTable;
+export default BenchmarkBuilderTableProps;
