@@ -7,19 +7,42 @@ import InputField from "../../forms/InputField";
 
 interface benchmarkBuilderTableProps {
   assetAllocation: { [key: string]: number };
+  deleteAsset: (
+    e: React.MouseEvent<HTMLElement>,
+    assetCategory: string
+  ) => void;
   resetAssets: () => void;
 }
 
 const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
   assetAllocation,
+  deleteAsset,
   resetAssets,
 }) => {
   const renderTableBody = () => {
     return Object.keys(assetAllocation).map((asset) => {
       return (
         <tr>
-          <th className="wd-50p">{asset}</th>
-          <th className="wd-50p">{assetAllocation[asset]}</th>
+          <th className="wd-33p">{asset}</th>
+          <th className="wd-33p">{assetAllocation[asset]}</th>
+          <th className="wd-33p">
+            {asset !== "unallocated" ? (
+              <>
+                {" "}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a className="icon"></a>
+                <a
+                  href="javascript:void(0)"
+                  className="btn btn-danger btn-sm"
+                  onClick={(e: React.MouseEvent<HTMLElement>) =>
+                    deleteAsset(e, asset)
+                  }
+                >
+                  <i className="fas fa-trash"></i> Delete{" "}
+                </a>{" "}
+              </>
+            ) : null}
+          </th>
         </tr>
       );
     });
@@ -63,8 +86,9 @@ const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
             >
               <thead>
                 <tr>
-                  <th className="wd-50p">Asset Category</th>
-                  <th className="wd-50p">Asset Percentage</th>
+                  <th className="wd-33p">Asset Category</th>
+                  <th className="wd-33p">Asset Percentage</th>
+                  <th className="wd-33p">Delete</th>
                 </tr>
               </thead>
 
@@ -74,8 +98,8 @@ const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
             <br></br>
           </div>
 
-          <Button title="Submit Assets" />
-          <Button title="Clear Assets" type="reset" />
+          <Button title="Submit Benchmark" />
+          <Button title="Clear Benchmark" type="reset" />
         </Form>
       )}
     </Formik>

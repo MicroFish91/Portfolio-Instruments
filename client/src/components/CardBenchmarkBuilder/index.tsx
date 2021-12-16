@@ -21,6 +21,17 @@ const CreateCustomBenchmark: React.FC<createCustomBenchmarkProps> = ({}) => {
     setAssetAllocation(newAssetAllocation);
   };
 
+  const deleteAsset = (
+    _e: React.MouseEvent<HTMLElement>,
+    assetCategory: string
+  ) => {
+    const newAssetAllocation = { ...assetAllocation };
+    newAssetAllocation["unallocated"] =
+      newAssetAllocation["unallocated"] + newAssetAllocation[assetCategory];
+    delete newAssetAllocation[assetCategory];
+    setAssetAllocation(newAssetAllocation);
+  };
+
   const resetAssets = () => {
     setAssetAllocation({
       unallocated: 100,
@@ -39,6 +50,7 @@ const CreateCustomBenchmark: React.FC<createCustomBenchmarkProps> = ({}) => {
             <br /> <br />
             <BenchmarkBuilderTable
               assetAllocation={assetAllocation}
+              deleteAsset={deleteAsset}
               resetAssets={resetAssets}
             />
           </div>
