@@ -42,3 +42,8 @@ export interface SnapshotForm {
   snapshotDate: string;
   snapshotNotes: string;
 }
+
+export interface CustomBenchmarkForm {
+  assetCategory: string;
+  assetPercentage: string;
+}

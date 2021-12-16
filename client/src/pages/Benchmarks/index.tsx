@@ -26,10 +26,10 @@ const Benchmarks: React.FC<BenchmarkProps> = () => {
                 </h2>
                 <p className="leading-normal">
                   Selecting a benchmark portfolio is the first step of the
-                  portfolio buildling process. The following lazy portfolios
-                  have been hand-selected as good benchmarks against which to
-                  tailor your personal portfolio. Review each of the portfolios
-                  below and select the one that most aligns with your preferred
+                  portfolio building process. The following lazy portfolios have
+                  been hand-selected as good benchmarks against which to tailor
+                  your personal portfolio. Review each of the portfolios below
+                  and select the one that most aligns with your preferred
                   investing style.{" "}
                 </p>
 
