@@ -64,7 +64,18 @@ export type IncomingSetBenchmarkFetchRaw = {
   };
 };
 
+export type IncomingPostCustomBenchmarkFetchRaw = {
+  data: {
+    message: string;
+  };
+};
+
 export type IncomingSetBenchmarkFetchStandardized = FetchedData<
+  string | null,
+  GenericError | null
+>;
+
+export type IncomingPostCustomBenchmarkFetchStandardized = FetchedData<
   string | null,
   GenericError | null
 >;

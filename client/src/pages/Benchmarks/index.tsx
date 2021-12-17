@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import CardBenchmarks from "../../components/CardBenchmarks";
 import { PORTFOLIO_BENCHMARKS } from "../../constants/portfolioBenchmarks";
@@ -37,6 +37,11 @@ const Benchmarks: React.FC<BenchmarkProps> = () => {
                   To see additional information on each portfolio, click the
                   "View More" button. When you have made a decision, click the
                   "Set Benchmark" button to continue.
+                </p>
+
+                <p className="leading-normal">
+                  For creating and accessing custom benchmarks, go to{" "}
+                  <Link to="/benchmarks/custom">"Custom Benchmarks".</Link>
                 </p>
               </div>
             </div>

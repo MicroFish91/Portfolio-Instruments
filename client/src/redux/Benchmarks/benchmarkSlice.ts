@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PORTFOLIO_BENCHMARKS } from "../../constants";
-import { BenchmarkError, BenchmarkReducerState } from "./types";
+import {
+  BenchmarkError,
+  BenchmarkReducerState,
+  CustomBenchmark,
+} from "./types";
 
 const INITIAL_STATE: BenchmarkReducerState = {
   benchmarkTitle: "",
@@ -26,6 +30,18 @@ const benchmarkSlice = createSlice({
     initPostBenchmark: (
       state,
       _payload: PayloadAction<string | undefined>
+    ): void => {
+      state.isLoading = true;
+    },
+    initGetCustomBenchmark: (
+      state,
+      _payload: PayloadAction<string | undefined>
+    ): void => {
+      state.isLoading = true;
+    },
+    initPostCustomBenchmark: (
+      state,
+      _payload: PayloadAction<CustomBenchmark>
     ): void => {
       state.isLoading = true;
     },
@@ -69,7 +85,9 @@ const benchmarkSlice = createSlice({
 
 export const {
   initGetBenchmark: initGetBenchmarkAction,
+  initGetCustomBenchmark: initGetCustomBenchmarkAction,
   initPostBenchmark: initPostBenchmarkAction,
+  initPostCustomBenchmark: initPostCustomBenchmarkAction,
   clearBenchmark: clearBenchmarkAction,
   setBenchmark: setBenchmarkAction,
   setBenchmarkError: setBenchmarkErrorAction,

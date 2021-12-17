@@ -68,6 +68,12 @@ export interface BenchmarkReducerState {
   isLoading: boolean;
 }
 
+export interface CustomBenchmark {
+  benchmarkTitle: string;
+  assetCategories: string[];
+  assetPercentages: number[];
+}
+
 export type BenchmarkError = GenericError;
 export type AssetRebalanceGeneratorResults = [FormattedAssets, boolean];
 export type VpRebalanceGeneratorResults = [FormattedMacros, boolean];

@@ -1,6 +1,7 @@
 import * as Effects from "redux-saga/effects";
 import {
   getBenchmarkEndpoint,
+  postCustomBenchmarkEndpoint,
   setBenchmarkEndpoint,
 } from "../api/endpoints/benchmarkEndpoints";
 import { clearUserAction } from "../User/userSlice";
@@ -8,9 +9,11 @@ import {
   clearBenchmarkAction,
   initGetBenchmarkAction,
   initPostBenchmarkAction,
+  initPostCustomBenchmarkAction,
   setBenchmarkAction,
   setBenchmarkErrorAction,
 } from "./benchmarkSlice";
+import { CustomBenchmark } from "./types";
 
 const call: any = Effects.call;
 const takeLatest: any = Effects.takeLatest;
@@ -26,6 +29,11 @@ export function* onGetBenchmark() {
 
 export function* onPostBenchmark() {
   yield takeLatest(initPostBenchmarkAction.type, postBenchmark);
+}
+
+export function* onPostCustomBenchmark() {
+  console.log("posting 1");
+  yield takeLatest(initPostCustomBenchmarkAction.type, postCustomBenchmark);
 }
 
 // Workers
@@ -47,9 +55,21 @@ export function* postBenchmark(benchmark: { type: string; payload: string }) {
   }
 }
 
+export function* postCustomBenchmark(benchmark: {
+  type: string;
+  payload: CustomBenchmark;
+}) {
+  console.log("posting 2");
+  const { data, error } = yield postCustomBenchmarkEndpoint(benchmark.payload);
+  if (data) {
+    console.log(data);
+  } else {
+    console.log(error);
+  }
+}
+
 export function* setBenchmark(benchmark: string) {
   const { data, error } = yield setBenchmarkEndpoint(benchmark);
-  console.log(data);
   if (data) {
     yield Effects.put(setBenchmarkAction(benchmark));
   } else {
@@ -66,6 +86,7 @@ export default function* benchmarkSagas() {
   yield Effects.all([
     call(onGetBenchmark),
     call(onPostBenchmark),
+    call(onPostCustomBenchmark),
     call(onLogoutUser),
   ]);
 }

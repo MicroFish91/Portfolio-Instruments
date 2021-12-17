@@ -11,13 +11,15 @@ interface benchmarkBuilderTableProps {
     e: React.MouseEvent<HTMLElement>,
     assetCategory: string
   ) => void;
-  resetAssets: () => void;
+  resetBenchmark: () => void;
+  submitBenchmark: (assetTitle: string) => void;
 }
 
 const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
   assetAllocation,
   deleteAsset,
-  resetAssets,
+  resetBenchmark,
+  submitBenchmark,
 }) => {
   const renderTableBody = () => {
     return Object.keys(assetAllocation).map((asset) => {
@@ -55,7 +57,7 @@ const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
     const unallocated = assetAllocation["unallocated"];
 
     if (unallocated === 0) {
-      console.log(values);
+      submitBenchmark(values.benchmarkTitle);
       actions.resetForm();
     } else {
       alert("Warning: Asset allocation does not sum to 100, please try again.");
@@ -69,7 +71,7 @@ const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
       }}
       validationSchema={benchmarkTitleSchema}
       onSubmit={(values, actions) => submitCustomBenchmark(values, actions)}
-      onReset={resetAssets}
+      onReset={resetBenchmark}
     >
       {() => (
         <Form>

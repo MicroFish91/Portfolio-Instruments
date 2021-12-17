@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { initPostCustomBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
 import { CustomBenchmarkForm } from "../../validation/types";
 import BenchmarkBuilderForm from "./BenchmarkBuilderForm";
 import BenchmarkBuilderPie from "./BenchmarkBuilderPie";
 import BenchmarkBuilderTable from "./BenchmarkBuilderTable";
+import { CustomBenchmark } from "./types";
 
 interface createCustomBenchmarkProps {}
 
@@ -10,6 +13,7 @@ const CreateCustomBenchmark: React.FC<createCustomBenchmarkProps> = ({}) => {
   const [assetAllocation, setAssetAllocation] = useState({
     unallocated: 100,
   } as { [key: string]: number });
+  const dispatch = useDispatch();
 
   const addAsset = (values: CustomBenchmarkForm) => {
     const newAssetAllocation = { ...assetAllocation };
@@ -32,7 +36,30 @@ const CreateCustomBenchmark: React.FC<createCustomBenchmarkProps> = ({}) => {
     setAssetAllocation(newAssetAllocation);
   };
 
-  const resetAssets = () => {
+  const resetBenchmark = () => {
+    setAssetAllocation({
+      unallocated: 100,
+    });
+  };
+
+  const submitBenchmark = (benchmarkTitle: string) => {
+    const assetCategories = [] as string[];
+    const assetPercentages = [] as number[];
+    const finalAllocation: CustomBenchmark = {
+      assetCategories,
+      assetPercentages,
+      benchmarkTitle,
+    };
+
+    Object.keys(assetAllocation).forEach((category) => {
+      if (category !== "unallocated") {
+        assetCategories.push(category);
+        assetPercentages.push(assetAllocation[category]);
+      }
+    });
+
+    dispatch(initPostCustomBenchmarkAction(finalAllocation));
+
     setAssetAllocation({
       unallocated: 100,
     });
@@ -51,7 +78,8 @@ const CreateCustomBenchmark: React.FC<createCustomBenchmarkProps> = ({}) => {
             <BenchmarkBuilderTable
               assetAllocation={assetAllocation}
               deleteAsset={deleteAsset}
-              resetAssets={resetAssets}
+              resetBenchmark={resetBenchmark}
+              submitBenchmark={submitBenchmark}
             />
           </div>
           <div className="col-md-6 col-lg-6">
