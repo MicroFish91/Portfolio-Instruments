@@ -43,11 +43,17 @@ export interface SnapshotForm {
   snapshotNotes: string;
 }
 
-export interface CustomBenchmarkForm {
+export interface CustomBenchmarkAssetsForm {
   assetCategory: string;
   assetPercentage: string;
 }
 
-export interface CustomBenchmarkTitle {
+export interface CustomBenchmarkForm {
   benchmarkTitle: string;
+  benchmarkShortDescription: string;
+  benchmarkLongDescription: string;
+  benchmarkCAGR: string;
+  benchmarkStdDev: string;
+  benchmarkWorstDrawdown: string;
+  benchmarkLongestDrawdown: string;
 }

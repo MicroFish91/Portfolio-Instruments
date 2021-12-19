@@ -1,9 +1,10 @@
 import { Form, Formik } from "formik";
 import React from "react";
 import { benchmarkTitleSchema } from "../../../validation/benchmark";
-import { CustomBenchmarkTitle } from "../../../validation/types";
+import { CustomBenchmarkForm } from "../../../validation/types";
 import Button from "../../forms/Button";
 import InputField from "../../forms/InputField";
+import TextArea from "../../forms/TextArea";
 
 interface benchmarkBuilderTableProps {
   assetAllocation: { [key: string]: number };
@@ -12,7 +13,7 @@ interface benchmarkBuilderTableProps {
     assetCategory: string
   ) => void;
   resetBenchmark: () => void;
-  submitBenchmark: (assetTitle: string) => void;
+  submitBenchmark: (benchmarkForm: CustomBenchmarkForm) => void;
 }
 
 const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
@@ -50,14 +51,11 @@ const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
     });
   };
 
-  const submitCustomBenchmark = (
-    values: CustomBenchmarkTitle,
-    actions: any
-  ) => {
+  const submitCustomBenchmark = (values: CustomBenchmarkForm, actions: any) => {
     const unallocated = assetAllocation["unallocated"];
 
     if (unallocated === 0) {
-      submitBenchmark(values.benchmarkTitle);
+      submitBenchmark(values);
       actions.resetForm();
     } else {
       alert("Warning: Asset allocation does not sum to 100, please try again.");
@@ -68,6 +66,12 @@ const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
     <Formik
       initialValues={{
         benchmarkTitle: "",
+        benchmarkShortDescription: "",
+        benchmarkLongDescription: "",
+        benchmarkCAGR: "",
+        benchmarkStdDev: "",
+        benchmarkWorstDrawdown: "",
+        benchmarkLongestDrawdown: "",
       }}
       validationSchema={benchmarkTitleSchema}
       onSubmit={(values, actions) => submitCustomBenchmark(values, actions)}
@@ -97,6 +101,51 @@ const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
               <tbody>{renderTableBody()}</tbody>
             </table>
 
+            <InputField
+              label=""
+              name="benchmarkShortDescription"
+              placeholder="Benchmark short description goes here"
+              type="text"
+            />
+
+            <TextArea
+              label=" "
+              name="benchmarkLongDescription"
+              placeholder="Benchmark long description goes here"
+              rows={2}
+              type="text"
+            />
+
+            <div className="row">
+              <InputField
+                label="Avg. CAGR"
+                className="col-md-6 col-lg-3"
+                name="benchmarkCAGR"
+                placeholder="%"
+                type="text"
+              />
+              <InputField
+                label="Std. Dev."
+                className="col-md-6 col-lg-3"
+                name="benchmarkStdDev"
+                placeholder="e.g. 10.2"
+                type="text"
+              />
+              <InputField
+                label="Worst Draw."
+                className="col-md-6 col-lg-3"
+                name="benchmarkWorstDrawdown"
+                placeholder="%"
+                type="text"
+              />
+              <InputField
+                label="Longest Draw."
+                className="col-md-6 col-lg-3"
+                name="benchmarkLongestDrawdown"
+                placeholder="yrs"
+                type="text"
+              />
+            </div>
             <br></br>
           </div>
 

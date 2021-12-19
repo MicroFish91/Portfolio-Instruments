@@ -1,5 +1,6 @@
 import React from "react";
 import BenchmarkBuilder from "../../components/CardBenchmarkBuilder";
+import CustomBenchmark from "../../components/CardCustomBenchmarks";
 
 interface CustomBenchmarkProps {}
 
@@ -28,6 +29,12 @@ const CustomBenchmarks: React.FC<CustomBenchmarkProps> = () => {
       </div>
 
       <BenchmarkBuilder />
+      <CustomBenchmark
+        benchmarkTitle="Golden Butterfly"
+        benchmarkDescription="A happy-go-lucky portfolio"
+        assetCategories={["cat1", "cat2"]}
+        assetPercentages={[50, 50]}
+      />
     </>
   );
 };

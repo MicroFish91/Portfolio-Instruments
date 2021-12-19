@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { initPostCustomBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
-import { CustomBenchmarkForm } from "../../validation/types";
+import {
+  CustomBenchmarkAssetsForm,
+  CustomBenchmarkForm,
+} from "../../validation/types";
 import BenchmarkBuilderForm from "./BenchmarkBuilderForm";
 import BenchmarkBuilderPie from "./BenchmarkBuilderPie";
 import BenchmarkBuilderTable from "./BenchmarkBuilderTable";
@@ -15,7 +18,7 @@ const CreateCustomBenchmark: React.FC<createCustomBenchmarkProps> = ({}) => {
   } as { [key: string]: number });
   const dispatch = useDispatch();
 
-  const addAsset = (values: CustomBenchmarkForm) => {
+  const addAsset = (values: CustomBenchmarkAssetsForm) => {
     const newAssetAllocation = { ...assetAllocation };
     newAssetAllocation["unallocated"] =
       newAssetAllocation["unallocated"] +
@@ -42,13 +45,19 @@ const CreateCustomBenchmark: React.FC<createCustomBenchmarkProps> = ({}) => {
     });
   };
 
-  const submitBenchmark = (benchmarkTitle: string) => {
+  const submitBenchmark = (benchmarkForm: CustomBenchmarkForm) => {
     const assetCategories = [] as string[];
     const assetPercentages = [] as number[];
     const finalAllocation: CustomBenchmark = {
+      ...benchmarkForm,
+      benchmarkCAGR: parseFloat(benchmarkForm.benchmarkCAGR),
+      benchmarkStdDev: parseFloat(benchmarkForm.benchmarkStdDev),
+      benchmarkWorstDrawdown: parseFloat(benchmarkForm.benchmarkWorstDrawdown),
+      benchmarkLongestDrawdown: parseInt(
+        benchmarkForm.benchmarkLongestDrawdown
+      ),
       assetCategories,
       assetPercentages,
-      benchmarkTitle,
     };
 
     Object.keys(assetAllocation).forEach((category) => {
@@ -57,6 +66,8 @@ const CreateCustomBenchmark: React.FC<createCustomBenchmarkProps> = ({}) => {
         assetPercentages.push(assetAllocation[category]);
       }
     });
+
+    console.log(finalAllocation);
 
     dispatch(initPostCustomBenchmarkAction(finalAllocation));
 
