@@ -100,54 +100,54 @@ const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
 
               <tbody>{renderTableBody()}</tbody>
             </table>
-
-            <InputField
-              label=""
-              name="benchmarkShortDescription"
-              placeholder="Benchmark short description goes here"
-              type="text"
-            />
-
-            <TextArea
-              label=" "
-              name="benchmarkLongDescription"
-              placeholder="Benchmark long description goes here"
-              rows={2}
-              type="text"
-            />
-
-            <div className="row">
-              <InputField
-                label="Avg. CAGR"
-                className="col-md-6 col-lg-3"
-                name="benchmarkCAGR"
-                placeholder="%"
-                type="text"
-              />
-              <InputField
-                label="Std. Dev."
-                className="col-md-6 col-lg-3"
-                name="benchmarkStdDev"
-                placeholder="e.g. 10.2"
-                type="text"
-              />
-              <InputField
-                label="Worst Draw."
-                className="col-md-6 col-lg-3"
-                name="benchmarkWorstDrawdown"
-                placeholder="%"
-                type="text"
-              />
-              <InputField
-                label="Longest Draw."
-                className="col-md-6 col-lg-3"
-                name="benchmarkLongestDrawdown"
-                placeholder="yrs"
-                type="text"
-              />
-            </div>
-            <br></br>
           </div>
+
+          <InputField
+            label=""
+            name="benchmarkShortDescription"
+            placeholder="Benchmark short description goes here"
+            type="text"
+          />
+
+          <TextArea
+            label=" "
+            name="benchmarkLongDescription"
+            placeholder="Benchmark long description goes here"
+            rows={2}
+            type="text"
+          />
+
+          <div className="row">
+            <InputField
+              label="Avg. CAGR"
+              className="col-md-6 col-lg-3"
+              name="benchmarkCAGR"
+              placeholder="%"
+              type="text"
+            />
+            <InputField
+              label="Std. Dev."
+              className="col-md-6 col-lg-3"
+              name="benchmarkStdDev"
+              placeholder="e.g. 10.2"
+              type="text"
+            />
+            <InputField
+              label="Worst Draw."
+              className="col-md-6 col-lg-3"
+              name="benchmarkWorstDrawdown"
+              placeholder="%"
+              type="text"
+            />
+            <InputField
+              label="Longest Draw."
+              className="col-md-6 col-lg-3"
+              name="benchmarkLongestDrawdown"
+              placeholder="yrs"
+              type="text"
+            />
+          </div>
+          <br></br>
 
           <Button title="Submit Benchmark" />
           <Button title="Clear Benchmark" type="reset" />
