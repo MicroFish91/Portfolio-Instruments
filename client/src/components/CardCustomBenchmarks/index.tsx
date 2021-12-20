@@ -1,5 +1,10 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
+import { useDispatch, useSelector } from "react-redux";
+import { initPostBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
+import { selectBenchmarkTitle } from "../../redux/Benchmarks/Selectors/selectBenchmarkFields";
+import { selectUserFullName } from "../../redux/User/Selectors";
+import { capitalizeWords } from "../../utils";
 import { DEFAULT_COLOR_PALETTE } from "../CardPieChart/constants";
 import { CustomBenchmarkBreakdown } from "./types";
 
@@ -23,6 +28,10 @@ const CustomBenchmark: React.FC<CustomBenchmarkProps> = ({
     benchmarkLongestDrawdown,
   } = customBenchmark;
 
+  const dispatch = useDispatch();
+  const currentBenchmark = useSelector(selectBenchmarkTitle);
+  const username = useSelector(selectUserFullName);
+
   const data = {
     labels: assetCategories,
     datasets: [
@@ -34,6 +43,11 @@ const CustomBenchmark: React.FC<CustomBenchmarkProps> = ({
         ),
       },
     ],
+  };
+
+  const onSetBenchmark = (e: React.MouseEvent<HTMLElement>): void => {
+    e.preventDefault();
+    dispatch(initPostBenchmarkAction(benchmarkTitle));
   };
 
   return (
@@ -49,15 +63,28 @@ const CustomBenchmark: React.FC<CustomBenchmarkProps> = ({
 
         <div className="col-md-12 col-lg-6  pl-0 ">
           <div className="card-body p-6 about-con pabout">
-            <h2 className="mb-4 font-weight-semibold">{benchmarkTitle}</h2>
-            <h4 className="leading-normal">{benchmarkShortDescription}</h4>
+            <h2 className="mb-4 font-weight-semibold">
+              {capitalizeWords(benchmarkTitle)}
+            </h2>
+            <h4 className="leading-normal">
+              {benchmarkShortDescription ? (
+                benchmarkShortDescription
+              ) : (
+                <>Custom User Portfolio</>
+              )}
+            </h4>
             <p className="leading-normal">
-              {benchmarkLongDescription}
+              {benchmarkLongDescription ? (
+                benchmarkLongDescription
+              ) : (
+                <>A custom benchmark, created by {username}</>
+              )}
               <br></br> <br></br>
               <b>
                 <u>Real CAGR</u>
               </b>
               : {benchmarkCAGR}
+              {benchmarkCAGR && <>%</>}
               <br></br>
               <b>
                 <u>Std. Dev.</u>
@@ -68,15 +95,22 @@ const CustomBenchmark: React.FC<CustomBenchmarkProps> = ({
                 <u>Worst Drawdown</u>
               </b>
               : {benchmarkWorstDrawdown}
+              {benchmarkWorstDrawdown && <>%</>}
               <br></br>
               <b>
                 <u>Longest Drawdown</u>
               </b>
-              : {benchmarkLongestDrawdown}
+              : {benchmarkLongestDrawdown}{" "}
+              {benchmarkLongestDrawdown && <>years</>}
               <br></br>{" "}
             </p>
-            <a href="" className="btn btn-indigo btn-lg mt-2">
-              Set Benchmark
+            <a
+              href=""
+              className="btn btn-indigo btn-lg mt-2"
+              onClick={onSetBenchmark}
+            >
+              {currentBenchmark === benchmarkTitle && <span>&#10003;</span>} Set
+              Benchmark
             </a>
             &nbsp;&nbsp;
             <a href="" className="btn btn-indigo btn-lg mt-2">

@@ -22,6 +22,7 @@ import {
 } from "../../redux/Holdings/Selectors";
 import { selectHasSnapshots } from "../../redux/Snapshots/Selectors";
 import { initDashboardSnapshotsAction } from "../../redux/Snapshots/snapshotSlice";
+import { capitalizeWords } from "../../utils";
 
 const Dashboard = () => {
   const benchmarkTitle = useSelector(selectBenchmarkTitle);
@@ -87,7 +88,9 @@ const Dashboard = () => {
               ratios={benchmarkBreakdown}
             />
             <CardPieChart
-              cardTitle={`Current Benchmark: ${benchmarkTitle}`}
+              cardTitle={`Current Benchmark: ${capitalizeWords(
+                benchmarkTitle
+              )}`}
               titles={assetTitles}
               ratios={assetRatios}
             />
