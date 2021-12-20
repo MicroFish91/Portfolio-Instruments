@@ -66,7 +66,7 @@ export type IncomingSetBenchmarkFetchRaw = {
 
 export type IncomingPostCustomBenchmarkFetchRaw = {
   data: {
-    message: string;
+    customBenchmark: string;
   };
 };
 

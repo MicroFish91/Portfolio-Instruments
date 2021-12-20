@@ -75,7 +75,7 @@ export async function postCustomBenchmarkEndpoint(
         },
       });
     return {
-      data: benchmarkResponse.data.message,
+      data: benchmarkResponse.data.customBenchmark,
       error: null,
     };
   } catch (error: any) {

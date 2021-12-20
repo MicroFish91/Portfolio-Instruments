@@ -4,11 +4,11 @@ import { initPostCustomBenchmarkAction } from "../../redux/Benchmarks/benchmarkS
 import {
   CustomBenchmarkAssetsForm,
   CustomBenchmarkForm,
+  CustomBenchmarkFormConverted,
 } from "../../validation/types";
 import BenchmarkBuilderForm from "./BenchmarkBuilderForm";
 import BenchmarkBuilderPie from "./BenchmarkBuilderPie";
 import BenchmarkBuilderTable from "./BenchmarkBuilderTable";
-import { CustomBenchmark } from "./types";
 
 interface createCustomBenchmarkProps {}
 
@@ -48,7 +48,7 @@ const CreateCustomBenchmark: React.FC<createCustomBenchmarkProps> = ({}) => {
   const submitBenchmark = (benchmarkForm: CustomBenchmarkForm) => {
     const assetCategories = [] as string[];
     const assetPercentages = [] as number[];
-    const finalAllocation: CustomBenchmark = {
+    const finalAllocation: CustomBenchmarkFormConverted = {
       ...benchmarkForm,
       benchmarkCAGR: parseFloat(benchmarkForm.benchmarkCAGR),
       benchmarkStdDev: parseFloat(benchmarkForm.benchmarkStdDev),
@@ -66,8 +66,6 @@ const CreateCustomBenchmark: React.FC<createCustomBenchmarkProps> = ({}) => {
         assetPercentages.push(assetAllocation[category]);
       }
     });
-
-    console.log(finalAllocation);
 
     dispatch(initPostCustomBenchmarkAction(finalAllocation));
 

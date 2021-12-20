@@ -11,7 +11,6 @@ export type CurrentUser = {
   email: string;
   firstName: string;
   lastName: string;
-  customBenchmark: custBenchmark[] | null;
   rebalanceThreshold: number;
   vpThreshold: number;
 };

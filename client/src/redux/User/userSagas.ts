@@ -13,6 +13,7 @@ import {
   userLoginEndpoint,
   userRegistrationEndpoint,
 } from "../api/endpoints/userEndpoints";
+import { setCustomBenchmarkAction } from "../Benchmarks/benchmarkSlice";
 import {
   clearUserLoadingAction,
   userChangeNotificationsAction,
@@ -92,6 +93,10 @@ function* changePassword({ payload }: { payload: ChangePasswordForm }) {
 function* loginUser({ payload }: { payload: LoginForm }) {
   const { data, error } = yield userLoginEndpoint(payload);
   if (data) {
+    yield Effects.put(
+      setCustomBenchmarkAction(data.currentUser.customBenchmark)
+    );
+    delete data.currentUser.customBenchmark;
     yield Effects.put(userLoginSuccessAction(data));
   } else if (error) {
     yield Effects.put(userLoginFailAction({ ...error, email: payload.email }));

@@ -8,6 +8,7 @@ export const postCustom = async (req: Request, res: Response) => {
   const { id } = req.user as User;
 
   let { customBenchmark } = await db.Users.findOne({ where: { id } });
+  let updatedBenchmark;
 
   incomingBenchmark.benchmarkTitle =
     incomingBenchmark.benchmarkTitle.toLowerCase();
@@ -29,7 +30,7 @@ export const postCustom = async (req: Request, res: Response) => {
       { where: { id } }
     );
   }
-  // If customBenchmarks JSON field has data, we must append to it
+  // If customBenchmarks JSON field has data, append to it
   else {
     customBenchmark = JSON.parse(customBenchmark);
     customBenchmark[incomingBenchmark.benchmarkTitle] = {
@@ -46,5 +47,7 @@ export const postCustom = async (req: Request, res: Response) => {
     );
   }
 
-  return res.json({ message: "Custom benchmark posted." });
+  updatedBenchmark = await db.Users.findOne({ where: { id } });
+
+  return res.json({ customBenchmark: updatedBenchmark.customBenchmark });
 };

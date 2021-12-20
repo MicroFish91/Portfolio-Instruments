@@ -12,6 +12,8 @@ import {
   initPostCustomBenchmarkAction,
   setBenchmarkAction,
   setBenchmarkErrorAction,
+  setCustomBenchmarkAction,
+  setCustomBenchmarkErrorAction,
 } from "./benchmarkSlice";
 import { CustomBenchmark } from "./types";
 
@@ -32,7 +34,6 @@ export function* onPostBenchmark() {
 }
 
 export function* onPostCustomBenchmark() {
-  console.log("posting 1");
   yield takeLatest(initPostCustomBenchmarkAction.type, postCustomBenchmark);
 }
 
@@ -59,12 +60,11 @@ export function* postCustomBenchmark(benchmark: {
   type: string;
   payload: CustomBenchmark;
 }) {
-  console.log("posting 2");
   const { data, error } = yield postCustomBenchmarkEndpoint(benchmark.payload);
   if (data) {
-    console.log(data);
+    yield Effects.put(setCustomBenchmarkAction(data));
   } else {
-    console.log(error);
+    yield Effects.put(setCustomBenchmarkErrorAction(error));
   }
 }
 

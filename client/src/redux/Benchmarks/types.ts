@@ -61,6 +61,7 @@ export interface BenchmarkReducerState {
   benchmarkTitle: string;
   assetTitles: string[];
   assetRatios: number[];
+  customBenchmark: CustomBenchmarkMap | null;
   error: {
     status: string;
     message: string;
@@ -68,10 +69,31 @@ export interface BenchmarkReducerState {
   isLoading: boolean;
 }
 
-export interface CustomBenchmark {
+export interface CustomBenchmarkForm {
   benchmarkTitle: string;
+  assetCategory: string[];
+  assetPercentages: number[];
+  benchmarkShortDescription: string | null;
+  benchmarkLongDescription: string | null;
+  benchmarkCAGR: string | null;
+  benchmarkStdDev: string | null;
+  benchmarkWorstDrawdown: string | null;
+  benchmarkLongestDrawdown: string | null;
+}
+
+export interface CustomBenchmark {
   assetCategories: string[];
   assetPercentages: number[];
+  benchmarkShortDescription: string | null;
+  benchmarkLongDescription: string | null;
+  benchmarkCAGR: number | null;
+  benchmarkStdDev: number | null;
+  benchmarkWorstDrawdown: number | null;
+  benchmarkLongestDrawdown: number | null;
+}
+
+export interface CustomBenchmarkMap {
+  [benchmarkTitle: string]: CustomBenchmark;
 }
 
 export type BenchmarkError = GenericError;

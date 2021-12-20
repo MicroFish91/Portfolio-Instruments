@@ -57,3 +57,15 @@ export interface CustomBenchmarkForm {
   benchmarkWorstDrawdown: string;
   benchmarkLongestDrawdown: string;
 }
+
+export interface CustomBenchmarkFormConverted {
+  assetCategories: string[];
+  assetPercentages: number[];
+  benchmarkTitle: string;
+  benchmarkShortDescription: string;
+  benchmarkLongDescription: string;
+  benchmarkCAGR: number;
+  benchmarkStdDev: number;
+  benchmarkWorstDrawdown: number;
+  benchmarkLongestDrawdown: number;
+}

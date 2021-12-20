@@ -10,6 +10,7 @@ const INITIAL_STATE: BenchmarkReducerState = {
   benchmarkTitle: "",
   assetTitles: [],
   assetRatios: [],
+  customBenchmark: null,
   error: {
     status: "",
     message: "",
@@ -60,10 +61,23 @@ const benchmarkSlice = createSlice({
       };
       state.isLoading = false;
     },
+    setCustomBenchmark: (state, { payload }: PayloadAction<string>): void => {
+      state.customBenchmark = payload ? JSON.parse(payload) : null;
+    },
     setBenchmarkError: (state, { payload }: PayloadAction<BenchmarkError>) => {
       state.benchmarkTitle = "";
       state.assetTitles = [];
       state.assetRatios = [];
+      state.error = {
+        status: payload.status,
+        message: payload.message,
+      };
+      state.isLoading = false;
+    },
+    setCustomBenchmarkError: (
+      state,
+      { payload }: PayloadAction<BenchmarkError>
+    ) => {
       state.error = {
         status: payload.status,
         message: payload.message,
@@ -90,7 +104,9 @@ export const {
   initPostCustomBenchmark: initPostCustomBenchmarkAction,
   clearBenchmark: clearBenchmarkAction,
   setBenchmark: setBenchmarkAction,
+  setCustomBenchmark: setCustomBenchmarkAction,
   setBenchmarkError: setBenchmarkErrorAction,
+  setCustomBenchmarkError: setCustomBenchmarkErrorAction,
 } = benchmarkSlice.actions;
 
 export default benchmarkSlice.reducer;

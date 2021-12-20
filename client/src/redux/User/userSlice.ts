@@ -19,7 +19,6 @@ const INITIAL_STATE: {
     email: "",
     firstName: "",
     lastName: "",
-    customBenchmark: null,
     rebalanceThreshold: 10,
     vpThreshold: 0,
   },
@@ -55,7 +54,6 @@ const userSlice = createSlice({
         email: "",
         firstName: "",
         lastName: "",
-        customBenchmark: null,
         rebalanceThreshold: 10,
         vpThreshold: 0,
       };
@@ -138,7 +136,6 @@ const userSlice = createSlice({
         email: payload.email,
         firstName: "",
         lastName: "",
-        customBenchmark: null,
         rebalanceThreshold: 10,
         vpThreshold: 0,
       };
@@ -161,7 +158,6 @@ const userSlice = createSlice({
         email: payload.email,
         firstName: "",
         lastName: "",
-        customBenchmark: null,
         rebalanceThreshold: 10,
         vpThreshold: 0,
       };
@@ -179,7 +175,6 @@ const userSlice = createSlice({
         email: payload.email,
         firstName: "",
         lastName: "",
-        customBenchmark: null,
         rebalanceThreshold: 10,
         vpThreshold: 0,
       };
