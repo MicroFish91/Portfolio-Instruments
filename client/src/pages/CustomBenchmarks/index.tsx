@@ -1,10 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import BenchmarkBuilder from "../../components/CardBenchmarkBuilder";
 import CustomBenchmark from "../../components/CardCustomBenchmarks";
+import { selectCustomBenchmarks } from "../../redux/Benchmarks/Selectors/selectBenchmarkFields";
 
 interface CustomBenchmarkProps {}
 
 const CustomBenchmarks: React.FC<CustomBenchmarkProps> = () => {
+  const customBenchmarks = useSelector(selectCustomBenchmarks);
+
   return (
     <>
       <div className="card">
@@ -29,12 +33,16 @@ const CustomBenchmarks: React.FC<CustomBenchmarkProps> = () => {
       </div>
 
       <BenchmarkBuilder />
-      <CustomBenchmark
-        benchmarkTitle="Golden Butterfly"
-        benchmarkDescription="A happy-go-lucky portfolio"
-        assetCategories={["cat1", "cat2"]}
-        assetPercentages={[50, 50]}
-      />
+
+      {customBenchmarks &&
+        Object.keys(customBenchmarks).map((benchmark) => {
+          return (
+            <CustomBenchmark
+              benchmarkTitle={benchmark}
+              customBenchmark={customBenchmarks[benchmark]}
+            />
+          );
+        })}
     </>
   );
 };

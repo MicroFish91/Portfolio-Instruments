@@ -1,21 +1,28 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
 import { DEFAULT_COLOR_PALETTE } from "../CardPieChart/constants";
+import { CustomBenchmarkBreakdown } from "./types";
 
 interface CustomBenchmarkProps {
   benchmarkTitle: string;
-  benchmarkDescription: string;
-  assetCategories: string[];
-  assetPercentages: number[];
+  customBenchmark: CustomBenchmarkBreakdown;
 }
 
 const CustomBenchmark: React.FC<CustomBenchmarkProps> = ({
   benchmarkTitle,
-  benchmarkDescription,
-  assetCategories,
-  assetPercentages,
+  customBenchmark,
 }) => {
-  console.log("working");
+  const {
+    assetCategories,
+    assetPercentages,
+    benchmarkShortDescription,
+    benchmarkLongDescription,
+    benchmarkCAGR,
+    benchmarkStdDev,
+    benchmarkWorstDrawdown,
+    benchmarkLongestDrawdown,
+  } = customBenchmark;
+
   const data = {
     labels: assetCategories,
     datasets: [
@@ -43,11 +50,41 @@ const CustomBenchmark: React.FC<CustomBenchmarkProps> = ({
         <div className="col-md-12 col-lg-6  pl-0 ">
           <div className="card-body p-6 about-con pabout">
             <h2 className="mb-4 font-weight-semibold">{benchmarkTitle}</h2>
-            <h4 className="leading-normal">{benchmarkDescription}</h4>
+            <h4 className="leading-normal">{benchmarkShortDescription}</h4>
+            <p className="leading-normal">
+              {benchmarkLongDescription}
+              <br></br> <br></br>
+              <b>
+                <u>Real CAGR</u>
+              </b>
+              : {benchmarkCAGR}
+              <br></br>
+              <b>
+                <u>Std. Dev.</u>
+              </b>
+              : {benchmarkStdDev}
+              <br></br>
+              <b>
+                <u>Worst Drawdown</u>
+              </b>
+              : {benchmarkWorstDrawdown}
+              <br></br>
+              <b>
+                <u>Longest Drawdown</u>
+              </b>
+              : {benchmarkLongestDrawdown}
+              <br></br>{" "}
+            </p>
+            <a href="" className="btn btn-indigo btn-lg mt-2">
+              Set Benchmark
+            </a>
+            &nbsp;&nbsp;
+            <a href="" className="btn btn-indigo btn-lg mt-2">
+              Delete Benchmark
+            </a>
           </div>
         </div>
       </div>
-      e
     </div>
   );
 };
