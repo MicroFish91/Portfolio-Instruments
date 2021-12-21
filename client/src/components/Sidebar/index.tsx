@@ -189,6 +189,11 @@ const Sidebar: React.FC<SidebarProps> = () => {
                   Golden Butterfly
                 </Link>
               </li>
+              <li>
+                <Link to="/benchmarks/custom" className="slide-item">
+                  Custom Benchmarks
+                </Link>
+              </li>
             </ul>
           </li>
         </ul>

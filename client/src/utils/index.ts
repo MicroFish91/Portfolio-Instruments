@@ -24,3 +24,16 @@ export const usdFormatter = () => {
     currency: "USD",
   });
 };
+
+export const capitalizeWords = (words: string): string => {
+  const wordsList = words.split(" ");
+  let capitalized = "";
+
+  for (let i = 0; i < wordsList.length; i++) {
+    const word = wordsList[i];
+    if (i !== 0) capitalized = capitalized + " ";
+    capitalized = capitalized + word[0].toUpperCase() + word.slice(1);
+  }
+
+  return capitalized;
+};

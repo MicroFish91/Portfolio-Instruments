@@ -23,3 +23,9 @@ export type IncomingHolding = {
   variablePortfolio: boolean;
   accountId?: number;
 };
+
+export type custBenchmark = {
+  title: string;
+  assetTitles: string[];
+  assetRatios: number[];
+};

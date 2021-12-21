@@ -8,7 +8,13 @@ import {
 import { CurrentUser, UserError } from "./types";
 import { removeToken, storeToken } from "./userUtils";
 
-const INITIAL_STATE = {
+const INITIAL_STATE: {
+  currentUser: CurrentUser;
+  jwtToken: string;
+  error: { field: string; status: string; message: string };
+  isLoading: boolean;
+  isLoadingField: string;
+} = {
   currentUser: {
     email: "",
     firstName: "",

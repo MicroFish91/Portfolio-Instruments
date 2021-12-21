@@ -15,6 +15,7 @@ export const login = async (req: Request, res: Response) => {
     firstName,
     lastName,
     confirmed,
+    customBenchmark,
     rebalanceThreshold,
     vpThreshold,
   } = req.user as User;
@@ -27,6 +28,7 @@ export const login = async (req: Request, res: Response) => {
         email,
         firstName,
         lastName,
+        customBenchmark,
         rebalanceThreshold,
         vpThreshold,
       },
@@ -65,6 +67,7 @@ export const register = async (req: Request, res: Response) => {
       firstName,
       lastName,
       confirmed: false,
+      customBenchmark: null,
       rebalanceThreshold: 10,
       vpThreshold: 0,
     });

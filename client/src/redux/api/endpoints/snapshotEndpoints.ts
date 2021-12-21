@@ -25,7 +25,7 @@ export async function getLatestSnapshotEndpoint(): Promise<IncomingSnapshotsFetc
       data: snapshotResponse,
       error: null,
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
       data: null,
       error: {
@@ -50,7 +50,7 @@ export async function getLineChartSnapshotsEndpoint(): Promise<IncomingSnapshots
       data: snapshotResponse,
       error: null,
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
       data: null,
       error: {
@@ -75,7 +75,7 @@ export async function getPaginateSnapshotsEndpoint(): Promise<IncomingSnapshotsF
       data: snapshotResponse,
       error: null,
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
       data: null,
       error: {
@@ -103,7 +103,7 @@ export async function postSnapshotEndpoint(
       data: snapshotResponse.data.message,
       error: null,
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
       data: null,
       error: {
@@ -133,7 +133,7 @@ export async function removeSnapshotEndpoint(
       data: snapshotResponse.data.message,
       error: null,
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
       data: null,
       error: {

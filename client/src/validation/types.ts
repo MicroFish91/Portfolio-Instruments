@@ -42,3 +42,30 @@ export interface SnapshotForm {
   snapshotDate: string;
   snapshotNotes: string;
 }
+
+export interface CustomBenchmarkAssetsForm {
+  assetCategory: string;
+  assetPercentage: string;
+}
+
+export interface CustomBenchmarkForm {
+  benchmarkTitle: string;
+  benchmarkShortDescription: string;
+  benchmarkLongDescription: string;
+  benchmarkCAGR: string;
+  benchmarkStdDev: string;
+  benchmarkWorstDrawdown: string;
+  benchmarkLongestDrawdown: string;
+}
+
+export interface CustomBenchmarkFormConverted {
+  assetCategories: string[];
+  assetPercentages: number[];
+  benchmarkTitle: string;
+  benchmarkShortDescription: string;
+  benchmarkLongDescription: string;
+  benchmarkCAGR: number;
+  benchmarkStdDev: number;
+  benchmarkWorstDrawdown: number;
+  benchmarkLongestDrawdown: number;
+}

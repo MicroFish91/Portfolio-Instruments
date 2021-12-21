@@ -8,6 +8,7 @@ import SnapshotsFallback from "./components/ErrorFallbacks/SnapshotsFallback";
 import ContentWrapper from "./hoc/contentWrapper";
 import AddSnapshots from "./pages/AddSnapshots";
 import Benchmarks from "./pages/Benchmarks";
+import CustomBenchmarks from "./pages/CustomBenchmarks";
 import Dashboard from "./pages/Dashboard";
 import EmailConfirmation from "./pages/EmailConfirmation";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -31,6 +32,7 @@ const App = () => {
         <Route exact path="/resetPassword" component={ForgotPassword} />
         <Route exact path="/resetConfirmation" component={ResetConfirmation} />
         <Route
+          exact
           path="/profile"
           render={() => (
             <ContentWrapper
@@ -43,6 +45,7 @@ const App = () => {
           )}
         />
         <Route
+          exact
           path="/gettingStarted"
           render={() => (
             <ContentWrapper
@@ -55,6 +58,7 @@ const App = () => {
           )}
         />
         <Route
+          exact
           path="/dashboard"
           render={() => (
             <ContentWrapper
@@ -67,6 +71,7 @@ const App = () => {
           )}
         />
         <Route
+          exact
           path="/portfolio-wizard/add-snapshots"
           render={() => (
             <ContentWrapper
@@ -79,6 +84,7 @@ const App = () => {
           )}
         />
         <Route
+          exact
           path="/portfolio-wizard/view-assets"
           render={() => (
             <ContentWrapper
@@ -91,6 +97,7 @@ const App = () => {
           )}
         />
         <Route
+          exact
           path="/portfolio-wizard/rebalance-wizard"
           render={() => (
             <ContentWrapper
@@ -99,6 +106,19 @@ const App = () => {
               minorTitle={"Portfolio Wizard"}
             >
               <RebalanceWizard />
+            </ContentWrapper>
+          )}
+        />
+        <Route
+          exact
+          path="/benchmarks/custom"
+          render={() => (
+            <ContentWrapper
+              fallback={BenchmarkFallback}
+              majorTitle={"Benchmark Portfolios"}
+              minorTitle={"Custom Benchmarks"}
+            >
+              <CustomBenchmarks />
             </ContentWrapper>
           )}
         />
