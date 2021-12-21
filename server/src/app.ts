@@ -1,4 +1,3 @@
-// import db from "./models";
 import compression from "compression";
 import cors from "cors";
 import debug from "debug";
@@ -8,6 +7,7 @@ import morgan from "morgan";
 import passport from "passport";
 import { passportAuthInit } from "./auth";
 import { errorMiddleware } from "./middleware";
+// import db from "./models";
 import { combineRouter } from "./routes";
 import { initCronJobs } from "./startup/cronJobs";
 // import { initProcessErrorHandler } from "./startup/processErrorHandler";

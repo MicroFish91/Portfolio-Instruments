@@ -32,9 +32,9 @@ const selectorFn: SelectorFn = {
 const baseSize = (length: number): string => {
   if (length >= 0 && length <= 6) {
     return "h2";
-  } else if (length > 5 && length <= 10) {
+  } else if (length > 6 && length <= 9) {
     return "h3";
-  } else if (length > 10 && length <= 12) {
+  } else if (length > 9 && length <= 12) {
     return "h4";
   } else {
     return "h5";

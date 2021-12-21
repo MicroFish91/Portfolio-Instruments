@@ -19,4 +19,7 @@ export const SNAPSHOT_ENDPOINT = {
 export const BENCHMARK_ENDPOINT = {
   GET_BENCHMARK: "/api/benchmarks",
   SET_BENCHMARK: "/api/benchmarks",
+  GET_CUSTOM_BENCHMARK: "/api/benchmarks/custom",
+  SET_CUSTOM_BENCHMARK: "/api/benchmarks/custom",
+  REMOVE_FROM_CUSTOM: "/api/benchmarks/custom",
 };

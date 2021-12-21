@@ -25,7 +25,7 @@ export async function userLoginEndpoint(
       },
       error: null,
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
       data: null,
       error: {
@@ -57,7 +57,7 @@ export async function userRegistrationEndpoint(
       },
       error: null,
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
       data: null,
       error: {
@@ -94,7 +94,7 @@ export async function changePasswordEndpoint(
       data: userResponse,
       error: null,
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
       data: null,
       error: {
@@ -123,7 +123,7 @@ export async function changeNotificationsEndpoint(
       data: userResponse,
       error: null,
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
       data: null,
       error: {
@@ -146,7 +146,7 @@ export async function resetPasswordEndpoint(
       data: userResponse,
       error: null,
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
       data: null,
       error: {
