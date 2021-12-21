@@ -46,6 +46,12 @@ const benchmarkSlice = createSlice({
     ): void => {
       state.isLoading = true;
     },
+    initRemoveFromCustomBenchmark: (
+      state,
+      _payload: PayloadAction<string>
+    ): void => {
+      state.isLoading = true;
+    },
     setBenchmark: (state, { payload }: PayloadAction<string>): void => {
       const customBenchmarks = state.customBenchmark;
 
@@ -90,6 +96,7 @@ const benchmarkSlice = createSlice({
     },
     setCustomBenchmark: (state, { payload }: PayloadAction<string>): void => {
       state.customBenchmark = payload ? JSON.parse(payload) : null;
+      state.isLoading = false;
     },
     setBenchmarkError: (state, { payload }: PayloadAction<BenchmarkError>) => {
       state.benchmarkTitle = "";
@@ -129,6 +136,7 @@ export const {
   initGetCustomBenchmark: initGetCustomBenchmarkAction,
   initPostBenchmark: initPostBenchmarkAction,
   initPostCustomBenchmark: initPostCustomBenchmarkAction,
+  initRemoveFromCustomBenchmark: initRemoveFromCustomBenchmarkAction,
   clearBenchmark: clearBenchmarkAction,
   setBenchmark: setBenchmarkAction,
   setCustomBenchmark: setCustomBenchmarkAction,

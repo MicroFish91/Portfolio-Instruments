@@ -24,6 +24,7 @@ module.exports = {
         type: Sequelize.STRING(20),
       },
       customBenchmark: {
+        allowNull: true,
         type: Sequelize.JSON(),
       },
       confirmed: {

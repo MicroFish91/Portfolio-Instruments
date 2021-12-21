@@ -70,12 +70,23 @@ export type IncomingPostCustomBenchmarkFetchRaw = {
   };
 };
 
+export type IncomingRemoveFromCustomBenchmarkFetchRaw = {
+  data: {
+    customBenchmark: string;
+  };
+};
+
 export type IncomingSetBenchmarkFetchStandardized = FetchedData<
   string | null,
   GenericError | null
 >;
 
 export type IncomingPostCustomBenchmarkFetchStandardized = FetchedData<
+  string | null,
+  GenericError | null
+>;
+
+export type IncomingRemoveCustomBenchmarkFetchStandardized = FetchedData<
   string | null,
   GenericError | null
 >;

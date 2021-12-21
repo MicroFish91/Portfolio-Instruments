@@ -1,7 +1,11 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
-import { initPostBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
+import {
+  clearBenchmarkAction,
+  initPostBenchmarkAction,
+  initRemoveFromCustomBenchmarkAction,
+} from "../../redux/Benchmarks/benchmarkSlice";
 import { selectBenchmarkTitle } from "../../redux/Benchmarks/Selectors/selectBenchmarkFields";
 import { selectUserFullName } from "../../redux/User/Selectors";
 import { capitalizeWords } from "../../utils";
@@ -43,6 +47,16 @@ const CustomBenchmark: React.FC<CustomBenchmarkProps> = ({
         ),
       },
     ],
+  };
+
+  const onDeleteBenchmark = (e: React.MouseEvent<HTMLElement>): void => {
+    e.preventDefault();
+
+    if (currentBenchmark === benchmarkTitle) {
+      dispatch(clearBenchmarkAction());
+    }
+
+    dispatch(initRemoveFromCustomBenchmarkAction(benchmarkTitle));
   };
 
   const onSetBenchmark = (e: React.MouseEvent<HTMLElement>): void => {
@@ -113,7 +127,11 @@ const CustomBenchmark: React.FC<CustomBenchmarkProps> = ({
               Benchmark
             </a>
             &nbsp;&nbsp;
-            <a href="" className="btn btn-indigo btn-lg mt-2">
+            <a
+              href=""
+              className="btn btn-indigo btn-lg mt-2"
+              onClick={onDeleteBenchmark}
+            >
               Delete Benchmark
             </a>
           </div>

@@ -21,4 +21,5 @@ export const BENCHMARK_ENDPOINT = {
   SET_BENCHMARK: "/api/benchmarks",
   GET_CUSTOM_BENCHMARK: "/api/benchmarks/custom",
   SET_CUSTOM_BENCHMARK: "/api/benchmarks/custom",
+  REMOVE_FROM_CUSTOM: "/api/benchmarks/custom",
 };

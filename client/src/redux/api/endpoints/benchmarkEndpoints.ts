@@ -6,6 +6,8 @@ import {
   IncomingGetBenchmarkFetchStandardized,
   IncomingPostCustomBenchmarkFetchRaw,
   IncomingPostCustomBenchmarkFetchStandardized,
+  IncomingRemoveCustomBenchmarkFetchStandardized,
+  IncomingRemoveFromCustomBenchmarkFetchRaw,
   IncomingSetBenchmarkFetchRaw,
   IncomingSetBenchmarkFetchStandardized,
 } from "../types";
@@ -23,6 +25,37 @@ export async function getBenchmarkEndpoint(): Promise<IncomingGetBenchmarkFetchS
     );
     return {
       data: benchmarkResponse.data.benchmark,
+      error: null,
+    };
+  } catch (error: any) {
+    return {
+      data: null,
+      error: {
+        status: error.response.status,
+        message: error.message,
+      },
+    };
+  }
+}
+
+export async function removeFromCustomBenchmarkEndpoint(
+  benchmark: string
+): Promise<IncomingRemoveCustomBenchmarkFetchStandardized> {
+  try {
+    const benchmarkResponse: IncomingRemoveFromCustomBenchmarkFetchRaw =
+      await axios.put(
+        BENCHMARK_ENDPOINT.REMOVE_FROM_CUSTOM,
+        { benchmark },
+        {
+          headers: {
+            authorization: getToken(),
+            ["Content-Type"]: "application/json ",
+            ["Access-Control-Allow-Origin"]: "*",
+          },
+        }
+      );
+    return {
+      data: benchmarkResponse.data.customBenchmark,
       error: null,
     };
   } catch (error: any) {

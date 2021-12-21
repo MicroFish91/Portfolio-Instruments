@@ -1,13 +1,19 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { ClipLoader } from "react-spinners";
+import { v4 as uuidv4 } from "uuid";
 import BenchmarkBuilder from "../../components/CardBenchmarkBuilder";
 import CustomBenchmark from "../../components/CardCustomBenchmarks";
-import { selectCustomBenchmarks } from "../../redux/Benchmarks/Selectors/selectBenchmarkFields";
+import {
+  selectCustomBenchmarks,
+  selectIsLoading,
+} from "../../redux/Benchmarks/Selectors/selectBenchmarkFields";
 
 interface CustomBenchmarkProps {}
 
 const CustomBenchmarks: React.FC<CustomBenchmarkProps> = () => {
   const customBenchmarks = useSelector(selectCustomBenchmarks);
+  const benchmarkIsLoading = useSelector(selectIsLoading);
 
   return (
     <>
@@ -34,10 +40,20 @@ const CustomBenchmarks: React.FC<CustomBenchmarkProps> = () => {
 
       <BenchmarkBuilder />
 
-      {customBenchmarks &&
+      {benchmarkIsLoading && (
+        <>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <ClipLoader size={180} color="purple" />
+          </div>
+        </>
+      )}
+
+      {!benchmarkIsLoading &&
+        customBenchmarks &&
         Object.keys(customBenchmarks).map((benchmark) => {
           return (
             <CustomBenchmark
+              key={uuidv4()}
               benchmarkTitle={benchmark}
               customBenchmark={customBenchmarks[benchmark]}
             />
