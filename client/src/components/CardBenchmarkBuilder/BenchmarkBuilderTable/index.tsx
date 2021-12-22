@@ -1,5 +1,7 @@
 import { Form, Formik } from "formik";
 import React from "react";
+import { useSelector } from "react-redux";
+import { selectUserEmail } from "../../../redux/User/Selectors";
 import { benchmarkTitleSchema } from "../../../validation/benchmark";
 import { CustomBenchmarkForm } from "../../../validation/types";
 import Button from "../../forms/Button";
@@ -22,6 +24,8 @@ const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
   resetBenchmark,
   submitBenchmark,
 }) => {
+  const currentUserEmail = useSelector(selectUserEmail);
+
   const renderTableBody = () => {
     return Object.keys(assetAllocation).map((asset) => {
       return (
@@ -52,6 +56,11 @@ const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
   };
 
   const submitCustomBenchmark = (values: CustomBenchmarkForm, actions: any) => {
+    if (currentUserEmail === "hello_world@gmail.com") {
+      alert("This feature is disabled for demo accounts.");
+      return;
+    }
+
     const unallocated = assetAllocation["unallocated"];
 
     if (unallocated === 0) {

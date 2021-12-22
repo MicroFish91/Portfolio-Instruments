@@ -38,19 +38,20 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
     values: SnapshotForm,
     actions: FormikHelpers<SnapshotForm>
   ) => {
-    if (currentUserEmail !== "hello_world@gmail.com") {
-      if (snapshot.length !== 0) {
-        if (snapshotTotal.current !== 0) {
-          submitSnapshotData(values);
-          actions.resetForm();
-        } else {
-          alert("Unable to submit a snapshot less than or equal to zero.");
-        }
+    if (currentUserEmail === "hello_world@gmail.com") {
+      alert("This feature is disabled for demo accounts.");
+      return;
+    }
+
+    if (snapshot.length !== 0) {
+      if (snapshotTotal.current !== 0) {
+        submitSnapshotData(values);
+        actions.resetForm();
       } else {
-        alert("Please enter a holding before attempting to save a snapshot.");
+        alert("Unable to submit a snapshot less than or equal to zero.");
       }
     } else {
-      alert("This feature is disabled for demo accounts.");
+      alert("Please enter a holding before attempting to save a snapshot.");
     }
   };
 
