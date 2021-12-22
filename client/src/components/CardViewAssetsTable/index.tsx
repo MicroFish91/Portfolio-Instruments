@@ -62,20 +62,25 @@ const CardViewAssetsTable: React.FC<CardViewAssetsTableProps> = () => {
   };
 
   const deleteSnapshot = (id: number) => {
-    if (currentUserEmail !== "hello_world@gmail.com") {
-      const accountIds = getAccountIds(id);
-      const holdingIds = getHoldingIds(accountIds);
-
-      dispatch(
-        removeSnapshotAction({
-          snapshotId: id,
-          accountIds,
-          holdingIds,
-        })
-      );
-    } else {
+    if (currentUserEmail === "hello_world@gmail.com") {
       alert("This feature is blocked for demo accounts.");
+      return;
     }
+
+    if (!window.confirm("Do you want to permanently delete this snapshot?")) {
+      return;
+    }
+
+    const accountIds = getAccountIds(id);
+    const holdingIds = getHoldingIds(accountIds);
+
+    dispatch(
+      removeSnapshotAction({
+        snapshotId: id,
+        accountIds,
+        holdingIds,
+      })
+    );
   };
 
   return (
