@@ -6,6 +6,7 @@ export const USER_ENDPOINT = {
   CHANGE_NOTIFICATIONS: "/api/changeNotifications",
   CHANGE_PASSWORD: "/api/changePassword",
   RESET_PASSWORD: "/api/resetPassword",
+  DELETE_USER: "/api/deleteUser",
 };
 
 export const SNAPSHOT_ENDPOINT = {

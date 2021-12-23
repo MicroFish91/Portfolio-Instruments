@@ -26,6 +26,10 @@ export type IncomingChangeNotificationsFetchRaw = {
   };
 };
 
+export type IncomingDeleteUserFetchRaw = {
+  message: string;
+};
+
 export type IncomingUserLoginFetchRaw = {
   data: { token: string; currentUser: CurrentUser };
 };
@@ -37,6 +41,7 @@ export type IncomingUserRegistrationFetchRaw = {
 export type IncomingUserFetchStandardized = FetchedData<
   | IncomingChangePasswordFetchRaw
   | IncomingChangeNotificationsFetchRaw
+  | IncomingDeleteUserFetchRaw
   | { jwtToken: string; currentUser: CurrentUser }
   | null,
   GenericError | null
