@@ -1,6 +1,6 @@
 {
   "gentleman's portfolio": {
-    "benchmarkShortDescription": "Ages like a fine wine",
+    "benchmarkShortDescription": "Ages Like Fine Wine",
     "benchmarkLongDescription": "For those with sophisticated tastes, look no further than the Gentleman's Portfolio.",
     "benchmarkCAGR": 10,
     "benchmarkStdDev": 14.5,
@@ -11,7 +11,7 @@
   },
   "plunderer's portfolio": {
     "benchmarkShortDescription": "Fixation on Real Assets",
-    "benchmarkLongDescription": "The ultimate inflation-hedge portfolio",
+    "benchmarkLongDescription": "The ultimate inflation-hedge portfolio.",
     "benchmarkCAGR": 7,
     "benchmarkStdDev": 20.2,
     "benchmarkWorstDrawdown": 34,

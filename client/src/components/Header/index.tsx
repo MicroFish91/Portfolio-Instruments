@@ -43,7 +43,7 @@ const Header: React.FC = () => {
             Please consult the "Rebalance Wizard" for more info.
           </div>{" "}
           <br></br>
-          {liquidCash === 0 && (
+          {liquidCash === undefined && (
             <strong>
               Liquid Cash:{" "}
               {
@@ -53,7 +53,7 @@ const Header: React.FC = () => {
               }
             </strong>
           )}
-          {liquidCash !== 0 && (
+          {liquidCash !== undefined && (
             <strong>Liquid Cash: {dollarFormatter.format(liquidCash)}</strong>
           )}
         </div>
@@ -70,7 +70,7 @@ const Header: React.FC = () => {
         <div>
           <strong>Portfolio Status: Excellent</strong>
           <div className="small text-muted">No change required.</div> <br></br>
-          {liquidCash === 0 && (
+          {liquidCash === undefined && (
             <strong>
               Liquid Cash:{" "}
               {
@@ -80,7 +80,7 @@ const Header: React.FC = () => {
               }
             </strong>
           )}
-          {liquidCash !== 0 && (
+          {liquidCash !== undefined && (
             <strong>Liquid Cash: {dollarFormatter.format(liquidCash)}</strong>
           )}
         </div>
@@ -100,7 +100,7 @@ const Header: React.FC = () => {
             Please begin by clicking on "Getting Started".
           </div>{" "}
           <br></br>
-          {liquidCash === 0 && (
+          {liquidCash === undefined && (
             <strong>
               Liquid Cash:{" "}
               {
@@ -110,7 +110,7 @@ const Header: React.FC = () => {
               }
             </strong>
           )}
-          {liquidCash !== 0 && (
+          {liquidCash !== undefined && (
             <strong>Liquid Cash: {dollarFormatter.format(liquidCash)}</strong>
           )}
         </div>
