@@ -1,6 +1,6 @@
 import { Form, Formik, FormikHelpers } from "formik";
 import React from "react";
-import { customBenchmarkFormSchema } from "../../../validation/benchmark";
+import { customBenchmarkAssetSchema } from "../../../validation/benchmark";
 import { CustomBenchmarkAssetsForm } from "../../../validation/types";
 import { selectAssetTypeMap } from "../../CardAddSnapshotsForm/constants";
 import Button from "../../forms/Button";
@@ -28,7 +28,7 @@ const BenchmarkBuilderForm: React.FC<BenchmarkBuilderFormProps> = ({
         assetCategory: "cash",
         assetPercentage: "",
       }}
-      validationSchema={customBenchmarkFormSchema}
+      validationSchema={customBenchmarkAssetSchema}
       onSubmit={(values, actions) => submitAsset(values, actions)}
     >
       {() => (

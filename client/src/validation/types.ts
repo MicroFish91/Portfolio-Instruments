@@ -69,3 +69,7 @@ export interface CustomBenchmarkFormConverted {
   benchmarkWorstDrawdown: number;
   benchmarkLongestDrawdown: number;
 }
+
+export interface exportDataForm {
+  exportDataLength: string;
+}

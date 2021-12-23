@@ -29,3 +29,40 @@ export type custBenchmark = {
   assetTitles: string[];
   assetRatios: number[];
 };
+
+// -------- Raw Record Layout ---------
+
+export type SnapshotRecord = {
+  id: number;
+  title: string;
+  benchmark: string;
+  notes: string;
+  Accounts?: AccountRecord[];
+  userId: number;
+  specifiedDate: Date;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type AccountRecord = {
+  id: number;
+  location: string;
+  type: "Taxable" | "Roth" | "Traditional";
+  snapshotId: number;
+  Holdings?: HoldingRecord[];
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type HoldingRecord = {
+  id: number;
+  title: string;
+  ticker: string;
+  category: string;
+  variablePortfolio: boolean;
+  total: string;
+  expenseRatio: string;
+  accountId: number;
+  createdAt: Date;
+  updatedAt: Date;
+};

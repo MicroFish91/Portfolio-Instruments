@@ -9,15 +9,15 @@ import {
   selectUserLoadingField,
   selectUserRebalanceThreshold,
   selectUserVpThreshold,
-} from "../../redux/User/Selectors";
+} from "../../../redux/User/Selectors";
 import {
   clearUserErrorAction,
   userChangeNotificationsAction,
-} from "../../redux/User/userSlice";
-import { ChangeNotificationForm } from "../../validation/types";
-import { changeNotificationFormSchema } from "../../validation/users";
-import Button from "../forms/Button";
-import InputField from "../forms/InputField";
+} from "../../../redux/User/userSlice";
+import { ChangeNotificationForm } from "../../../validation/types";
+import { changeNotificationFormSchema } from "../../../validation/users";
+import Button from "../../forms/Button";
+import InputField from "../../forms/InputField";
 
 const NotificationForm = () => {
   const [changedNotifications, setChangedNotifications] = useState(false);
