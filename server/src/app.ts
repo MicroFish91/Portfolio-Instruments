@@ -12,6 +12,7 @@ import { combineRouter } from "./routes";
 import { initCronJobs } from "./startup/cronJobs";
 // import { initProcessErrorHandler } from "./startup/processErrorHandler";
 import { initSeedData } from "./startup/seedData";
+// import { seedFullCustomUser } from "./utils/dbUtils/routineMaintenance/FullCustomUserSeed";
 
 const app = express();
 
@@ -19,6 +20,7 @@ const app = express();
 app.use(helmet());
 app.use(compression());
 // initProcessErrorHandler();
+// seedFullCustomUser("hello_world2@gmail.com");
 initCronJobs();
 initSeedData();
 passportAuthInit();
