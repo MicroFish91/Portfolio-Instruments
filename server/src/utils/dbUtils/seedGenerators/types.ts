@@ -10,6 +10,7 @@ export interface UserSeed {
   lastName: string;
   benchmark: string;
   confirmed: boolean;
+  customBenchmark: string | null;
   rebalanceThreshold: number;
   vpThreshold: number;
   lastLoggedIn: Date;

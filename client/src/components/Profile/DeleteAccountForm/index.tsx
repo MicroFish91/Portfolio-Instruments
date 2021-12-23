@@ -43,7 +43,6 @@ const DeleteAccountForm = () => {
             <a
               href="#"
               className={`btn btn-primary ml-1`}
-              target="_blank"
               onClick={onDeleteAccount}
             >
               Delete Account

@@ -7,7 +7,10 @@ import {
   initRemoveFromCustomBenchmarkAction,
 } from "../../redux/Benchmarks/benchmarkSlice";
 import { selectBenchmarkTitle } from "../../redux/Benchmarks/Selectors/selectBenchmarkFields";
-import { selectUserFullName } from "../../redux/User/Selectors";
+import {
+  selectUserEmail,
+  selectUserFullName,
+} from "../../redux/User/Selectors";
 import { capitalizeWords } from "../../utils";
 import { DEFAULT_COLOR_PALETTE } from "../CardPieChart/constants";
 import { CustomBenchmarkBreakdown } from "./types";
@@ -35,6 +38,7 @@ const CustomBenchmark: React.FC<CustomBenchmarkProps> = ({
   const dispatch = useDispatch();
   const currentBenchmark = useSelector(selectBenchmarkTitle);
   const username = useSelector(selectUserFullName);
+  const userEmail = useSelector(selectUserEmail);
 
   const data = {
     labels: assetCategories,
@@ -52,6 +56,11 @@ const CustomBenchmark: React.FC<CustomBenchmarkProps> = ({
   const onDeleteBenchmark = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
 
+    if (userEmail === "hello_world@gmail.com") {
+      alert("This feature is blocked for demo accounts.");
+      return;
+    }
+
     if (currentBenchmark === benchmarkTitle) {
       dispatch(clearBenchmarkAction());
     }
@@ -61,6 +70,12 @@ const CustomBenchmark: React.FC<CustomBenchmarkProps> = ({
 
   const onSetBenchmark = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
+
+    if (userEmail === "hello_world@gmail.com") {
+      alert("This feature is blocked for demo accounts.");
+      return;
+    }
+
     dispatch(initPostBenchmarkAction(benchmarkTitle));
   };
 
