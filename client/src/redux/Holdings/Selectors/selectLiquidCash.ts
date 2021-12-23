@@ -10,7 +10,9 @@ export const selectLiquidCash = createSelector(
   selectTaxableAccounts,
   selectHoldingsById,
   selectHoldingsAllIds,
-  (taxableAccountIds, holdingsById, holdingsList) => {
+  (taxableAccountIds, holdingsById, holdingsList): number | undefined => {
+    if (!holdingsList?.length) return undefined;
+
     let liquidTotal = 0;
 
     holdingsList.forEach((holdingId) => {

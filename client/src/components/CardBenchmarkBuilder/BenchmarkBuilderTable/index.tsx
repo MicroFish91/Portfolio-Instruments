@@ -56,7 +56,7 @@ const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
   };
 
   const submitCustomBenchmark = (values: CustomBenchmarkForm, actions: any) => {
-    if (currentUserEmail !== "hello_world@gmail.com") {
+    if (currentUserEmail === "hello_world@gmail.com") {
       alert("This feature is disabled for demo accounts.");
       return;
     }
