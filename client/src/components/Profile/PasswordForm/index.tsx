@@ -7,15 +7,15 @@ import {
   selectUserErrorField,
   selectUserErrorMessage,
   selectUserLoadingField,
-} from "../../redux/User/Selectors";
+} from "../../../redux/User/Selectors";
 import {
   clearUserErrorAction,
   userchangePasswordAction,
-} from "../../redux/User/userSlice";
-import { ChangePasswordForm } from "../../validation/types";
-import { passwordFormSchema } from "../../validation/users";
-import Button from "../forms/Button";
-import InputField from "../forms/InputField";
+} from "../../../redux/User/userSlice";
+import { ChangePasswordForm } from "../../../validation/types";
+import { passwordFormSchema } from "../../../validation/users";
+import Button from "../../forms/Button";
+import InputField from "../../forms/InputField";
 
 const PasswordForm = () => {
   const [changedPassword, setChangedPassword] = useState(false);

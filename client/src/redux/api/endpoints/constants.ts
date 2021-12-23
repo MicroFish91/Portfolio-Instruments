@@ -23,3 +23,7 @@ export const BENCHMARK_ENDPOINT = {
   SET_CUSTOM_BENCHMARK: "/api/benchmarks/custom",
   REMOVE_FROM_CUSTOM: "/api/benchmarks/custom",
 };
+
+export const LOG_ENDPOINT = {
+  GET_RECORDS_JSON: (years: string) => `/api/logs/records/json/${years}`,
+};

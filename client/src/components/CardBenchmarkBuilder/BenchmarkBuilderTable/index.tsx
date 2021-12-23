@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectUserEmail } from "../../../redux/User/Selectors";
-import { benchmarkTitleSchema } from "../../../validation/benchmark";
+import { customBenchmarkFormSchema } from "../../../validation/benchmark";
 import { CustomBenchmarkForm } from "../../../validation/types";
 import Button from "../../forms/Button";
 import InputField from "../../forms/InputField";
@@ -82,7 +82,7 @@ const BenchmarkBuilderTableProps: React.FC<benchmarkBuilderTableProps> = ({
         benchmarkWorstDrawdown: "",
         benchmarkLongestDrawdown: "",
       }}
-      validationSchema={benchmarkTitleSchema}
+      validationSchema={customBenchmarkFormSchema}
       onSubmit={(values, actions) => submitCustomBenchmark(values, actions)}
       onReset={resetBenchmark}
     >
