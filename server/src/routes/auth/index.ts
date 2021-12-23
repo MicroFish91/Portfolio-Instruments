@@ -1,6 +1,7 @@
 import express from "express";
 import { asyncMiddleware, requireJwt, requireLogin } from "../../middleware";
 import { changeNotifications } from "./changeNotifications";
+import { deleteUser } from "./deleteUser";
 import { confirmEmail, resendConfirmEmail } from "./email";
 import { changePassword, resetPassword } from "./password";
 import { login, register } from "./signIn";
@@ -21,5 +22,8 @@ router.post(
   requireJwt,
   asyncMiddleware(changeNotifications)
 );
+
+// Delete Account
+router.delete("/deleteUser", requireJwt, asyncMiddleware(deleteUser));
 
 export default router;

@@ -11,7 +11,7 @@ import { errorMiddleware } from "./middleware";
 import { combineRouter } from "./routes";
 import { initCronJobs } from "./startup/cronJobs";
 // import { initProcessErrorHandler } from "./startup/processErrorHandler";
-// import { initSeedData } from "./startup/seedData";
+import { initSeedData } from "./startup/seedData";
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use(helmet());
 app.use(compression());
 // initProcessErrorHandler();
 initCronJobs();
-// initSeedData();
+initSeedData();
 passportAuthInit();
 app.use(passport.initialize());
 

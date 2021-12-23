@@ -1,10 +1,18 @@
-import ProfileComponent from "../../components/Profile";
+import DeleteAccountForm from "../../components/Profile/DeleteAccountForm";
+import ExportDataForm from "../../components/Profile/ExportDataForm";
+import NotificationForm from "../../components/Profile/NotificationForm";
+import PasswordForm from "../../components/Profile/PasswordForm";
 
 const Profile = () => {
   return (
-    <>
-      <ProfileComponent />
-    </>
+    <div className="row">
+      <div className="col-lg-12">
+        <NotificationForm />
+        <PasswordForm />
+        <ExportDataForm />
+        <DeleteAccountForm />
+      </div>
+    </div>
   );
 };
 
