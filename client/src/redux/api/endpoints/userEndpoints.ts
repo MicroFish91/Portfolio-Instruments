@@ -4,6 +4,7 @@ import { getToken } from "../../User/userUtils";
 import {
   IncomingChangeNotificationsFetchRaw,
   IncomingChangePasswordFetchRaw,
+  IncomingDeleteUserFetchRaw,
   IncomingUserFetchStandardized,
   IncomingUserLoginFetchRaw,
   IncomingUserRegistrationFetchRaw,
@@ -129,6 +130,31 @@ export async function changeNotificationsEndpoint(
       error: {
         status: error.response.status,
         message: error.response.data.message,
+      },
+    };
+  }
+}
+
+export async function deleteUserEndpoint(): Promise<IncomingUserFetchStandardized> {
+  try {
+    const deleteUserResponse: IncomingDeleteUserFetchRaw = await axios.delete(
+      USER_ENDPOINT.DELETE_USER,
+      {
+        headers: {
+          authorization: getToken(),
+        },
+      }
+    );
+    return {
+      data: deleteUserResponse,
+      error: null,
+    };
+  } catch (error: any) {
+    return {
+      data: null,
+      error: {
+        status: error.response.status,
+        message: error.message,
       },
     };
   }
