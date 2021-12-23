@@ -49,8 +49,6 @@ export async function removeFromCustomBenchmarkEndpoint(
         {
           headers: {
             authorization: getToken(),
-            ["Content-Type"]: "application/json ",
-            ["Access-Control-Allow-Origin"]: "*",
           },
         }
       );

@@ -208,3 +208,16 @@ export type OutgoingHolding = {
   variablePortfolio: boolean;
   accountId?: number;
 };
+
+// ! Export Records
+// * Incoming
+export type IncomingRecordsJsonExport = {
+  data: {
+    data: IncomingSnapshotRaw[];
+  };
+};
+
+export type IncomingRecordsJsonExportFetchStandardized = FetchedData<
+  IncomingSnapshotRaw[] | null,
+  GenericError | null
+>;

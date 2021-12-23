@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const customBenchmarkFormSchema = yup.object().shape({
+export const customBenchmarkAssetSchema = yup.object().shape({
   assetTitle: yup.string(),
   assetPercentage: yup
     .string()
@@ -8,7 +8,7 @@ export const customBenchmarkFormSchema = yup.object().shape({
     .required("An asset percentage is required."),
 });
 
-export const benchmarkTitleSchema = yup.object().shape({
+export const customBenchmarkFormSchema = yup.object().shape({
   benchmarkTitle: yup.string().required("A benchmark title is required."),
   benchmarkShortDescription: yup
     .string()
