@@ -10,7 +10,7 @@ const DeleteAccountForm = () => {
   const history = useHistory();
 
   const onDeleteAccount = async () => {
-    if (userEmail !== "hello_world@gmail.com") {
+    if (userEmail === "hello_world@gmail.com") {
       alert("This feature is blocked for demo accounts.");
       return;
     }
@@ -43,7 +43,6 @@ const DeleteAccountForm = () => {
             <a
               href="#"
               className={`btn btn-primary ml-1`}
-              target="_blank"
               onClick={onDeleteAccount}
             >
               Delete Account

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { initPostCustomBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
+import { selectUserEmail } from "../../redux/User/Selectors";
 import {
   CustomBenchmarkAssetsForm,
   CustomBenchmarkForm,
@@ -16,6 +17,7 @@ const CreateCustomBenchmark: React.FC<createCustomBenchmarkProps> = ({}) => {
   const [assetAllocation, setAssetAllocation] = useState({
     unallocated: 100,
   } as { [key: string]: number });
+  const userEmail = useSelector(selectUserEmail);
   const dispatch = useDispatch();
 
   const addAsset = (values: CustomBenchmarkAssetsForm) => {
@@ -46,6 +48,11 @@ const CreateCustomBenchmark: React.FC<createCustomBenchmarkProps> = ({}) => {
   };
 
   const submitBenchmark = (benchmarkForm: CustomBenchmarkForm) => {
+    if (userEmail === "hello_world@gmail.com") {
+      alert("This feature is restricted for demo accounts.");
+      return;
+    }
+
     const assetCategories = [] as string[];
     const assetPercentages = [] as number[];
     const finalAllocation: CustomBenchmarkFormConverted = {
