@@ -2,10 +2,10 @@ import bcrypt from "bcryptjs";
 import { UserSeed } from "../types";
 import CUSTOM_BENCHMARK from "./customBenchmark.json";
 
-export const generateCustomUser = (): Promise<UserSeed> => {
+export const generateCustomUser = (email: string): Promise<UserSeed> => {
   return new Promise(async (res, _rej) => {
     const user: UserSeed = {
-      email: "hello_world@gmail.com",
+      email,
       password: await bcrypt.hashSync("1234", 8),
       firstName: "Harry",
       lastName: "Browne",

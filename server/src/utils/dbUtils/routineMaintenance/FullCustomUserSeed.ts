@@ -8,10 +8,12 @@ import {
   generateCustomUser,
 } from "../seedGenerators/generateFullCustomUser";
 
-export const seedFullCustomUser = (): Promise<void> => {
+export const seedFullCustomUser = (
+  email: string = "hello_world@gmail.com"
+): Promise<void> => {
   return new Promise(async (res, rej) => {
     try {
-      const userData = await generateCustomUser();
+      const userData = await generateCustomUser(email);
       const user = await db.Users.create(userData);
 
       const snapshotData = generateCustomSnapshots(user.id);
