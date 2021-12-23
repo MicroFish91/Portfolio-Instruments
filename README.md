@@ -48,11 +48,12 @@ Hosted: Postgres Database - ElephantSQL, Heroku - Express Server, Netlify - Reac
 
 ## Additional Stretch Goals/Ideas
 
-- ~~Auto-suggest feature for Tickers using external API (Easy-Medium)~~ Completed
-- Custom Benchmarks (Easy)
+- ~~Auto-suggest feature for Tickers using external API (Medium)~~ Completed
+- ~~Custom Benchmarks (Medium-Hard)~~ Completed
 - Customize Chart Range (Hard)
 - Emergency Cash Option + Breakdown (Medium)
-- JSON import/export (Medium-Hard)
+- ~~JSON export (Easy)~~ Completed
+- ~~Delete Account~~ Completed
 - Refactor/Clean-up Sagas
 - Compute average annual gain
 - Testing
