@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.STRING(20),
       },
       benchmark: {
-        type: Sequelize.STRING(20),
+        type: Sequelize.STRING(50),
       },
       customBenchmark: {
         allowNull: true,

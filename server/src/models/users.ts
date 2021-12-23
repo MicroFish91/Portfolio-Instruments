@@ -65,7 +65,7 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
         allowNull: false,
       },
       benchmark: {
-        type: DataTypes.STRING(20),
+        type: DataTypes.STRING(50),
         defaultValue: null,
         allowNull: true,
       },

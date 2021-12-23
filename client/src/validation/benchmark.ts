@@ -9,7 +9,10 @@ export const customBenchmarkAssetSchema = yup.object().shape({
 });
 
 export const customBenchmarkFormSchema = yup.object().shape({
-  benchmarkTitle: yup.string().required("A benchmark title is required."),
+  benchmarkTitle: yup
+    .string()
+    .max(50, "Benchmark title is too long.")
+    .required("A benchmark title is required."),
   benchmarkShortDescription: yup
     .string()
     .max(50, "Benchmark short description is too long."),
