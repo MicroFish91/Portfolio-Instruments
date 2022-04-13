@@ -73,3 +73,15 @@ export interface CustomBenchmarkFormConverted {
 export interface exportDataForm {
   exportDataLength: string;
 }
+
+export interface cagForm {
+  annualExpenses: string;
+  annualInflation: string;
+  annualReturn: string;
+  numberOfYears: string;
+  principal: string;
+  periodsPerYear: string;
+  recurringInvestment: string;
+  safeWithdrawalRate: string;
+  stdDeviation: string;
+}

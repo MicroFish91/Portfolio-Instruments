@@ -9,10 +9,10 @@ const swr = 0.04;
 console.log(annualExpenses / swr);
 
 // User form variables
-const p = 100000; // principal
+const p = 180000; // principal
 const ar = 0.063; // annual return
 const n = 26; // number of periods per year
-const ri = 1500; // recurring investment amount per n
+const ri = 2460; // recurring investment amount per n
 const t = 20; // number of years
 
 const nthRate = convertNthRate(ar, n);
