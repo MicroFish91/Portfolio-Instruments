@@ -70,11 +70,11 @@ export interface CustomBenchmarkFormConverted {
   benchmarkLongestDrawdown: number;
 }
 
-export interface exportDataForm {
+export interface ExportDataForm {
   exportDataLength: string;
 }
 
-export interface cagForm {
+export interface CagForm {
   annualExpenses: string;
   annualInflation: string;
   annualReturn: string;
@@ -86,7 +86,7 @@ export interface cagForm {
   stdDeviation: string;
 }
 
-export interface cagFormConverted {
+export interface CagFormConverted {
   annualExpenses: number;
   annualInflation: number;
   annualReturn: number;
@@ -96,4 +96,22 @@ export interface cagFormConverted {
   recurringInvestment: number;
   safeWithdrawalRate: number;
   stdDeviation: number;
+}
+
+export interface IncomeTaxForm {
+  grossPay: string;
+  federalTax: string;
+  fica: string;
+  medicare: string;
+  state: string;
+  other: string;
+}
+
+export interface IncomeTaxFormConverted {
+  grossPay: number;
+  federalTax: number;
+  fica: number;
+  medicare: number;
+  state: number;
+  other: number;
 }
