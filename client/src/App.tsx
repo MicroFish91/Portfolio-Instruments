@@ -2,12 +2,14 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import BenchmarkFallback from "./components/ErrorFallbacks/BenchmarkFallback";
 import DashboardFallback from "./components/ErrorFallbacks/DashboardFallback";
+import PortfolioCalculatorsFallback from "./components/ErrorFallbacks/PortfolioCalculatorsFallback";
 import ProfileFallback from "./components/ErrorFallbacks/ProfileFallback";
 import RebalanceWizardFallback from "./components/ErrorFallbacks/RebalanceWizardFallback";
 import SnapshotsFallback from "./components/ErrorFallbacks/SnapshotsFallback";
 import ContentWrapper from "./hoc/contentWrapper";
 import AddSnapshots from "./pages/AddSnapshots";
 import Benchmarks from "./pages/Benchmarks";
+import CompoundAnnualGrowth from "./pages/CompoundAnnualGrowth";
 import CustomBenchmarks from "./pages/CustomBenchmarks";
 import Dashboard from "./pages/Dashboard";
 import EmailConfirmation from "./pages/EmailConfirmation";
@@ -106,6 +108,19 @@ const App = () => {
               minorTitle={"Portfolio Wizard"}
             >
               <RebalanceWizard />
+            </ContentWrapper>
+          )}
+        />
+        <Route
+          exact
+          path="/portfolio-calculators/compound-annual-growth"
+          render={() => (
+            <ContentWrapper
+              fallback={PortfolioCalculatorsFallback}
+              majorTitle={"Compound Annual Growth"}
+              minorTitle={"Portfolio Calculators"}
+            >
+              <CompoundAnnualGrowth />
             </ContentWrapper>
           )}
         />

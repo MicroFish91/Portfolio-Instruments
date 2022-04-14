@@ -66,6 +66,15 @@ export const selectTotalTaxable = createSelector(
   }
 );
 
+export const selectTotalNetWorth = createSelector(
+  selectTotalTraditional,
+  selectTotalRoth,
+  selectTotalTaxable,
+  (traditional, roth, taxable) => {
+    return traditional + roth + taxable;
+  }
+);
+
 export const selectTotalsByInstitutions = createSelector(
   selectHoldingsById,
   selectHoldingsDashboardIds,

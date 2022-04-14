@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import CardBenchmarks from "../../components/CardBenchmarks";
+import BenchmarkChart from "../../components/BenchmarkChart";
 import { PORTFOLIO_BENCHMARKS } from "../../constants/portfolioBenchmarks";
 
 interface BenchmarkProps {}
@@ -52,7 +52,7 @@ const Benchmarks: React.FC<BenchmarkProps> = () => {
       {benchmarkIndex === "general" && (
         <div>
           {PORTFOLIO_BENCHMARKS.assetNames.map((_portfolio, index) => {
-            return <CardBenchmarks key={uuidv4()} benchmarkIndex={index} />;
+            return <BenchmarkChart key={uuidv4()} benchmarkIndex={index} />;
           })}
         </div>
       )}
@@ -62,7 +62,7 @@ const Benchmarks: React.FC<BenchmarkProps> = () => {
         <div>
           {/* Card Benchmark */}
           {benchmarkIndex && (
-            <CardBenchmarks benchmarkIndex={parseInt(benchmarkIndex)} />
+            <BenchmarkChart benchmarkIndex={parseInt(benchmarkIndex)} />
           )}
         </div>
       ) : null}

@@ -10,13 +10,11 @@ import { selectAccountTypeMap, selectAssetTypeMap } from "./constants";
 import ScrapeResults from "./ScrapeResults";
 import { scrapedData } from "./ScrapeResults/scrapeUtils/types";
 
-interface CardAddSnapshotsFormProps {
+interface AddSnapshotsFormProps {
   addHolding: (holding: HoldingForm) => void;
 }
 
-const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
-  addHolding,
-}) => {
+const AddSnapshotsForm: React.FC<AddSnapshotsFormProps> = ({ addHolding }) => {
   const [holdingCache, setHoldingCache] = useState([] as HoldingForm[]);
   const [toggleScrapeResults, setToggleScrapeResults] = useState(false);
 
@@ -191,4 +189,4 @@ const CardAddSnapshotsForm: React.FC<CardAddSnapshotsFormProps> = ({
   );
 };
 
-export default CardAddSnapshotsForm;
+export default AddSnapshotsForm;

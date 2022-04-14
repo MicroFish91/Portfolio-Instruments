@@ -12,7 +12,7 @@ import DateField from "../forms/DateField";
 import InputField from "../forms/InputField";
 import TextArea from "../forms/TextArea";
 
-interface CardAddSnapshotsTableProps {
+interface AddSnapshotsTableProps {
   deleteHolding: (
     e: React.MouseEvent<HTMLElement>,
     accountName: string,
@@ -24,7 +24,7 @@ interface CardAddSnapshotsTableProps {
   snapshot: Snapshot;
 }
 
-const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
+const AddSnapshotsTable: React.FC<AddSnapshotsTableProps> = ({
   deleteHolding,
   resetSnapshotData,
   submitSnapshotData,
@@ -324,4 +324,4 @@ const CardAddSnapshotsTable: React.FC<CardAddSnapshotsTableProps> = ({
   );
 };
 
-export default CardAddSnapshotsTable;
+export default AddSnapshotsTable;

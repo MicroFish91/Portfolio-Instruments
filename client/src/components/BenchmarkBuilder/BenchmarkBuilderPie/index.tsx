@@ -1,6 +1,6 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
-import { DEFAULT_COLOR_PALETTE } from "../../CardPieChart/constants";
+import { DEFAULT_COLOR_PALETTE } from "../../PieChart/constants";
 
 interface benchmarkBuilderPieProps {
   assetCategories: string[];
