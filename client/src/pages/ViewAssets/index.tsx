@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import CardViewAssetsTable from "../../components/CardViewAssetsTable";
+import CardViewAssetsTable from "../../components/ViewAssetsTable";
 import { selectHasBenchmark } from "../../redux/Benchmarks/Selectors";
 import { selectHasSnapshots } from "../../redux/Snapshots/Selectors";
 

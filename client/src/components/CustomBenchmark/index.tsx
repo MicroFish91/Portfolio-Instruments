@@ -12,7 +12,7 @@ import {
   selectUserFullName,
 } from "../../redux/User/Selectors";
 import { capitalizeWords } from "../../utils";
-import { DEFAULT_COLOR_PALETTE } from "../CardPieChart/constants";
+import { DEFAULT_COLOR_PALETTE } from "../PieChart/constants";
 import { CustomBenchmarkBreakdown } from "./types";
 
 interface CustomBenchmarkProps {

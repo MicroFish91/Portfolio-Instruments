@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { selectTaxShelterPercentages } from "../../redux/Holdings/Selectors";
 import Shelter from "./Shelter";
 
-interface CardTaxShelterProps {}
+interface TaxShelterChartProps {}
 
-const CardTaxShelter: React.FC<CardTaxShelterProps> = () => {
+const TaxShelterCharts: React.FC<TaxShelterChartProps> = () => {
   const taxShelterPercentages = useSelector(selectTaxShelterPercentages);
 
   return (
@@ -39,4 +39,4 @@ const CardTaxShelter: React.FC<CardTaxShelterProps> = () => {
   );
 };
 
-export default CardTaxShelter;
+export default TaxShelterCharts;

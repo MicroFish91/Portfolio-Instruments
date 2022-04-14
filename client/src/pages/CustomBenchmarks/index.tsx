@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import { v4 as uuidv4 } from "uuid";
-import BenchmarkBuilder from "../../components/CardBenchmarkBuilder";
-import CustomBenchmark from "../../components/CardCustomBenchmarks";
+import BenchmarkBuilder from "../../components/BenchmarkBuilder";
+import CustomBenchmark from "../../components/CustomBenchmark";
 import {
   selectCustomBenchmarks,
   selectIsLoading,

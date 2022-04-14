@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { selectPercentageByInstitutions } from "../../redux/Holdings/Selectors";
 import Institution from "./Institution";
 
-interface CardInstitutionsProps {}
+interface InstitutionalProps {}
 
-const CardInstitutions: React.FC<CardInstitutionsProps> = () => {
+const InstitutionalCharts: React.FC<InstitutionalProps> = () => {
   const institutionAmounts = useSelector(selectPercentageByInstitutions);
 
   return (
@@ -33,4 +33,4 @@ const CardInstitutions: React.FC<CardInstitutionsProps> = () => {
   );
 };
 
-export default CardInstitutions;
+export default InstitutionalCharts;

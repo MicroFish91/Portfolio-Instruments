@@ -2,7 +2,7 @@ import { Form, Formik, FormikHelpers } from "formik";
 import React from "react";
 import { customBenchmarkAssetSchema } from "../../../validation/benchmark";
 import { CustomBenchmarkAssetsForm } from "../../../validation/types";
-import { selectAssetTypeMap } from "../../CardAddSnapshotsForm/constants";
+import { selectAssetTypeMap } from "../../AddSnapshotsForm/constants";
 import Button from "../../forms/Button";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";

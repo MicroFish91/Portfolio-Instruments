@@ -112,7 +112,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
           <li className="slide">
             <a className="side-menu__item" data-toggle="slide" href="">
-              <i className="side-menu__icon fas fa-table"></i>
+              <i className="side-menu__icon fas fa-coins"></i>
               <span className="side-menu__label">Portfolio Wizard</span>
               <i className="angle fas fa-angle-right"></i>
             </a>
@@ -141,10 +141,28 @@ const Sidebar: React.FC<SidebarProps> = () => {
             </ul>
           </li>
 
+          <li className="slide">
+            <a className="side-menu__item" data-toggle="slide" href="">
+              <i className="side-menu__icon fas fa-calculator"></i>
+              <span className="side-menu__label">Portfolio Calculators</span>
+              <i className="angle fas fa-angle-right"></i>
+            </a>
+            <ul className="slide-menu">
+              <li>
+                <Link
+                  to="/portfolio-calculators/compound-annual-growth"
+                  className="slide-item"
+                >
+                  Compound Annual Growth
+                </Link>
+              </li>
+            </ul>
+          </li>
+
           {/* Investment Guidance */}
           <li className="slide">
             <a className="side-menu__item" data-toggle="slide" href="">
-              <i className="side-menu__icon fas fa-table"></i>
+              <i className="side-menu__icon fas fa-chart-pie"></i>
               <span className="side-menu__label">Benchmark Portfolios</span>
               <i className="angle fas fa-angle-right"></i>
             </a>
