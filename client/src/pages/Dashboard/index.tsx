@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import CardInstitutions from "../../components/CardInstitutions";
-import CardPieChart from "../../components/CardPieChart";
-import CardTaxShelter from "../../components/CardTaxShelter";
 import CardTotals from "../../components/CardTotals";
+import InstitutionalCharts from "../../components/InstitutionalCharts";
 import Linechart from "../../components/Linechart";
+import PieChart from "../../components/PieChart";
+import TaxShelterCharts from "../../components/TaxShelterCharts";
 import { initGetBenchmarkAction } from "../../redux/Benchmarks/benchmarkSlice";
 import {
   selectAssetRatios,
@@ -63,23 +63,23 @@ const Dashboard = () => {
           </div>
           <Linechart />
           <div className="row">
-            <CardInstitutions />
-            <CardTaxShelter />
+            <InstitutionalCharts />
+            <TaxShelterCharts />
           </div>
           <div className="row">
-            <CardPieChart
+            <PieChart
               cardTitle={`Current Portfolio - Macro Breakdown: `}
               titles={["Main", "Variable"]}
               ratios={macroBreakdown}
             />
-            <CardPieChart
+            <PieChart
               cardTitle={`Variable Portfolio - Asset Breakdown: `}
               titles={vpAssetTitles}
               ratios={vpAssetRatios}
             />
           </div>
           <div className="row">
-            <CardPieChart
+            <PieChart
               cardTitle={`Current Portfolio (Main) - Benchmark Breakdown: `}
               titles={(() => {
                 const newAssetTitles = [...assetTitles, "other (non-VP)"];
@@ -87,7 +87,7 @@ const Dashboard = () => {
               })()}
               ratios={benchmarkBreakdown}
             />
-            <CardPieChart
+            <PieChart
               cardTitle={`Current Benchmark: ${capitalizeWords(
                 benchmarkTitle
               )}`}

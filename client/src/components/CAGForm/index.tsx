@@ -3,17 +3,31 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectTotalNetWorth } from "../../redux/Holdings/Selectors";
 import { cagFormSchema } from "../../validation/cag";
-import { cagForm } from "../../validation/types";
+import { cagForm, cagFormConverted } from "../../validation/types";
 import Button from "../forms/Button";
 import InputField from "../forms/InputField";
 
-interface CAGFormProps {}
+interface CAGFormProps {
+  setGrowthSettings: (settings: cagFormConverted) => void;
+}
 
-const CardCAGForm: React.FC<CAGFormProps> = ({}) => {
+const CAGForm: React.FC<CAGFormProps> = ({ setGrowthSettings }) => {
   const userNetWorth = useSelector(selectTotalNetWorth).toFixed(2);
 
   const calculateCAG = (holding: cagForm, _setFieldValue: any) => {
-    console.log(holding);
+    const convertedHolding = {
+      annualExpenses: parseFloat(holding.annualExpenses),
+      annualInflation: parseFloat(holding.annualInflation) / 100,
+      annualReturn: parseFloat(holding.annualReturn) / 100,
+      numberOfYears: parseFloat(holding.numberOfYears),
+      principal: parseFloat(holding.principal),
+      periodsPerYear: parseFloat(holding.periodsPerYear),
+      recurringInvestment: parseFloat(holding.recurringInvestment),
+      safeWithdrawalRate: parseFloat(holding.safeWithdrawalRate) / 100,
+      stdDeviation: parseFloat(holding.stdDeviation) / 100,
+    };
+
+    setGrowthSettings(convertedHolding);
   };
 
   return (
@@ -37,29 +51,19 @@ const CardCAGForm: React.FC<CAGFormProps> = ({}) => {
       {({ values, setFieldValue }) => (
         <Form className="card">
           <div className="card-header">
-            <h3 className="card-title">CAG Settings</h3>
+            <h3 className="card-title">Annual Growth Settings</h3>
           </div>
           <div className="card-body">
             <div className="row">
               {/* Left Column */}
               <div className="col-md-6 col-lg-6">
                 <InputField
-                  label="Principal ($)"
+                  label="Starting Amount ($)"
                   name="principal"
                   placeholder="Ex. 100000.55"
                   type="text"
                   value={values.principal}
                   onChange={(e) => setFieldValue("principal", e.target.value)}
-                />
-                <InputField
-                  label="Annual Expenses ($)"
-                  name="annualExpenses"
-                  placeholder="Ex. 50000"
-                  type="text"
-                  value={values.annualExpenses}
-                  onChange={(e) =>
-                    setFieldValue("annualExpenses", e.target.value)
-                  }
                 />
                 <InputField
                   label="Annual Return (%)"
@@ -72,16 +76,6 @@ const CardCAGForm: React.FC<CAGFormProps> = ({}) => {
                   }
                 />
                 <InputField
-                  label="Std Deviation (%)"
-                  name="stdDeviation"
-                  placeholder="Ex. 7.5"
-                  type="text"
-                  value={values.stdDeviation}
-                  onChange={(e) =>
-                    setFieldValue("stdDeviation", e.target.value)
-                  }
-                />
-                <InputField
                   label="Number of Years"
                   name="numberOfYears"
                   placeholder="Ex. 10"
@@ -89,30 +83,6 @@ const CardCAGForm: React.FC<CAGFormProps> = ({}) => {
                   value={values.numberOfYears}
                   onChange={(e) =>
                     setFieldValue("numberOfYears", e.target.value)
-                  }
-                />
-              </div>
-
-              {/* Right Column */}
-              <div className="col-md-6 col-lg-6">
-                <InputField
-                  label="Safe Withdrawal Rate (%)"
-                  name="safeWithdrawalRate"
-                  placeholder="Ex. 4"
-                  type="text"
-                  value={values.safeWithdrawalRate}
-                  onChange={(e) =>
-                    setFieldValue("safeWithdrawalRate", e.target.value)
-                  }
-                />
-                <InputField
-                  label="Annual Inflation (%)"
-                  name="annualInflation"
-                  placeholder="Ex. 3.5"
-                  type="text"
-                  value={values.annualInflation}
-                  onChange={(e) =>
-                    setFieldValue("annualInflation", e.target.value)
                   }
                 />
                 <InputField
@@ -126,6 +96,40 @@ const CardCAGForm: React.FC<CAGFormProps> = ({}) => {
                   }
                 />
                 <InputField
+                  label="Safe Withdrawal Rate (%)"
+                  name="safeWithdrawalRate"
+                  placeholder="Ex. 4"
+                  type="text"
+                  value={values.safeWithdrawalRate}
+                  onChange={(e) =>
+                    setFieldValue("safeWithdrawalRate", e.target.value)
+                  }
+                />
+              </div>
+
+              {/* Right Column */}
+              <div className="col-md-6 col-lg-6">
+                <InputField
+                  label="Annual Inflation (%)"
+                  name="annualInflation"
+                  placeholder="Ex. 3.5"
+                  type="text"
+                  value={values.annualInflation}
+                  onChange={(e) =>
+                    setFieldValue("annualInflation", e.target.value)
+                  }
+                />
+                <InputField
+                  label="Std Deviation (%)"
+                  name="stdDeviation"
+                  placeholder="Ex. 7.5"
+                  type="text"
+                  value={values.stdDeviation}
+                  onChange={(e) =>
+                    setFieldValue("stdDeviation", e.target.value)
+                  }
+                />
+                <InputField
                   label="Periods per Year"
                   name="periodsPerYear"
                   placeholder="Ex. 12 (represents monthly investment)"
@@ -135,9 +139,19 @@ const CardCAGForm: React.FC<CAGFormProps> = ({}) => {
                     setFieldValue("periodsPerYear", e.target.value)
                   }
                 />
+                <InputField
+                  label="Annual Expenses ($)"
+                  name="annualExpenses"
+                  placeholder="Ex. 50000"
+                  type="text"
+                  value={values.annualExpenses}
+                  onChange={(e) =>
+                    setFieldValue("annualExpenses", e.target.value)
+                  }
+                />
               </div>
               <div className="ml-3">
-                <Button title="Compute CAG" />
+                <Button title="Compute Growth" />
                 <Button title="Reset Settings" type="reset" />
               </div>
             </div>
@@ -148,4 +162,4 @@ const CardCAGForm: React.FC<CAGFormProps> = ({}) => {
   );
 };
 
-export default CardCAGForm;
+export default CAGForm;

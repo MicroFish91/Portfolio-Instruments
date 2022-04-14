@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import CardAddSnapshotsForm from "../../components/CardAddSnapshotsForm";
-import CardAddSnapshotsTable from "../../components/CardAddSnapshotsTable";
+import AddSnapshotsForm from "../../components/AddSnapshotsForm";
+import AddSnapshotsTable from "../../components/AddSnapshotsTable";
 import SnapshotsFallback from "../../components/ErrorFallbacks/SnapshotsFallback";
 import {
   selectBenchmarkTitle,
@@ -178,8 +178,8 @@ const AddSnapshots = () => {
       <div className="col-md-12 col-lg-12">
         {!error.message && hasBenchmark && (
           <>
-            <CardAddSnapshotsForm addHolding={addHolding} />
-            <CardAddSnapshotsTable
+            <AddSnapshotsForm addHolding={addHolding} />
+            <AddSnapshotsTable
               deleteHolding={deleteHolding}
               resetSnapshotData={resetSnapshotData}
               submitSnapshotData={submitSnapshotData}

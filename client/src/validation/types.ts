@@ -85,3 +85,15 @@ export interface cagForm {
   safeWithdrawalRate: string;
   stdDeviation: string;
 }
+
+export interface cagFormConverted {
+  annualExpenses: number;
+  annualInflation: number;
+  annualReturn: number;
+  numberOfYears: number;
+  principal: number;
+  periodsPerYear: number;
+  recurringInvestment: number;
+  safeWithdrawalRate: number;
+  stdDeviation: number;
+}
