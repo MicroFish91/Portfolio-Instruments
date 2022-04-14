@@ -86,6 +86,10 @@ export interface cagForm {
   stdDeviation: string;
 }
 
+export interface cagUserSettingsForm extends cagForm {
+  principal: never;
+}
+
 export interface cagFormConverted {
   annualExpenses: number;
   annualInflation: number;

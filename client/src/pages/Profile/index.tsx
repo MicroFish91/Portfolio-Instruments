@@ -1,3 +1,4 @@
+import CAGSettingsForm from "../../components/Profile/CAGSettingsForm";
 import DeleteAccountForm from "../../components/Profile/DeleteAccountForm";
 import ExportDataForm from "../../components/Profile/ExportDataForm";
 import NotificationForm from "../../components/Profile/NotificationForm";
@@ -8,6 +9,7 @@ const Profile = () => {
     <div className="row">
       <div className="col-lg-12">
         <NotificationForm />
+        <CAGSettingsForm />
         <PasswordForm />
         <ExportDataForm />
         <DeleteAccountForm />
