@@ -115,3 +115,9 @@ export interface IncomeTaxFormConverted {
   state: number;
   other: number;
 }
+
+export interface AllocationCategoryForm {
+  allocationLabel: string;
+  allocationAmount: string;
+  periodsPerYear: string;
+}

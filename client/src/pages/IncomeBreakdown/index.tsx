@@ -11,7 +11,7 @@ const IncomeBreakdownCalculator = () => {
   return (
     <div>
       <IncomeTaxForm setTaxBreakdown={setTaxBreakdown} />
-      {taxBreakdown && <IncomeAllocator />}
+      {taxBreakdown && <IncomeAllocator taxBreakdown={taxBreakdown} />}
     </div>
   );
 };

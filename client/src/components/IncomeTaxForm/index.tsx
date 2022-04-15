@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
 import React from "react";
-import { incomeTaxFormSchema } from "../../validation/savingsRate";
+import { incomeTaxFormSchema } from "../../validation/incomeBreakdown";
 import { IncomeTaxForm, IncomeTaxFormConverted } from "../../validation/types";
 import Button from "../forms/Button";
 import InputField from "../forms/InputField";
@@ -13,7 +13,7 @@ const srIncomeTaxForm: React.FC<srIncomeTaxFormProps> = ({
   setTaxBreakdown,
 }) => {
   const submitTaxForm = (holding: IncomeTaxForm, _setFieldValue: any) => {
-    const taxBreakdown = {
+    const taxBreakdown: IncomeTaxFormConverted = {
       grossPay: parseFloat(holding.grossPay),
       federalTax: parseFloat(holding.federalTax),
       fica: parseFloat(holding.fica),
@@ -103,7 +103,7 @@ const srIncomeTaxForm: React.FC<srIncomeTaxFormProps> = ({
                 />
               </div>
               <div className="ml-3">
-                <Button title="Compute Growth" />
+                <Button title="Initialize Breakdown" />
                 <Button title="Reset Settings" type="reset" />
               </div>
             </div>
