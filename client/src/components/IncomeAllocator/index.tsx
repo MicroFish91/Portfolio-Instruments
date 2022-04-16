@@ -2,10 +2,18 @@ import React, { useState } from "react";
 import { IncomeTaxFormConverted } from "../../validation/types";
 import AllocationForm from "./AllocationForm";
 import AllocationGraph from "./AllocationGraph";
+import IntervalPercentForm from "./IntervalPercentForm";
 import IntervalSizeForm from "./IntervalSizeForm";
 import ResetOptions from "./ResetOptions";
-import { IntervalSize } from "./types";
-import { getColors, getLabels, getNormalized, getValues } from "./utils";
+import { IntervalPercent, IntervalSize } from "./types";
+import {
+  aftTaxPercents,
+  befTaxPercents,
+  getColors,
+  getLabels,
+  getNormalized,
+  getValues,
+} from "./utils";
 
 interface incomeAllocatorProps {
   taxBreakdown: IncomeTaxFormConverted;
@@ -17,18 +25,31 @@ const IncomeAllocator: React.FC<incomeAllocatorProps> = ({
   setTaxBreakdown,
 }) => {
   const [intervalSize, setIntervalSize] = useState(1 as IntervalSize);
+  const [percentView, setPercentView] = useState(
+    null as IntervalPercent | null
+  );
   const [incomeBreakdown, setIncomeBreakdown] = useState(
     {} as Record<string, number>
   );
   const numberOfFields =
     Object.keys(incomeBreakdown).length + Object.keys(taxBreakdown).length - 1;
-  const colors = getColors(numberOfFields);
-  const labels = getLabels(incomeBreakdown);
-  const allocations = getValues(incomeBreakdown, taxBreakdown);
-  const normalizedAllocations = getNormalized(allocations, intervalSize);
 
-  console.log("Tax Breakdown: ", taxBreakdown);
-  console.log("Income Breakdown: ", incomeBreakdown);
+  const allocations = getValues(incomeBreakdown, taxBreakdown);
+  let colors = getColors(numberOfFields);
+  let labels = getLabels(incomeBreakdown);
+
+  let normalizedAllocations;
+
+  // Normalize allocations based on user's view settings
+  if (percentView === IntervalPercent.After_Tax) {
+    normalizedAllocations = aftTaxPercents(allocations, taxBreakdown);
+    colors = colors.slice(5);
+    labels = labels.slice(5);
+  } else if (percentView === IntervalPercent.Before_Tax) {
+    normalizedAllocations = befTaxPercents(allocations, taxBreakdown.grossPay);
+  } else {
+    normalizedAllocations = getNormalized(allocations, intervalSize);
+  }
 
   return (
     <div className="card">
@@ -48,6 +69,9 @@ const IncomeAllocator: React.FC<incomeAllocatorProps> = ({
             <br />
             <br />
             <IntervalSizeForm setIntervalSize={setIntervalSize} />
+            <br />
+            <br />
+            <IntervalPercentForm setPercentView={setPercentView} />
             <br />
             <br />
             <ResetOptions

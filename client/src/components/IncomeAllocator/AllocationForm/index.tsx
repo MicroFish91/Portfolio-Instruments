@@ -19,10 +19,7 @@ const AllocationForm: React.FC<allocationFormProps> = ({
   incomeBreakdown,
   setIncomeBreakdown,
 }) => {
-  const submitAllocation = (
-    holding: AllocationCategoryForm,
-    setFieldValue: any
-  ) => {
+  const submitAllocation = (holding: AllocationCategoryForm, actions: any) => {
     const unallocated = getUnallocated(allocations, grossLimit);
     const ib = {
       [`${holding.allocationLabel}`]: parseFloat(
@@ -39,9 +36,7 @@ const AllocationForm: React.FC<allocationFormProps> = ({
       setIncomeBreakdown({ ...incomeBreakdown, ...ib });
     }
 
-    setFieldValue("allocationLabel", "");
-    setFieldValue("allocationAmount", "");
-    setFieldValue("periodsPerYear", "");
+    actions.resetForm();
   };
 
   return (

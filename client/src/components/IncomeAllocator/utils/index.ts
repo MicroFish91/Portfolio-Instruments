@@ -96,3 +96,25 @@ export function getUnallocated(
 
   return grossLimit - allocated;
 }
+
+export function befTaxPercents(
+  allocations: number[],
+  grossPay: number
+): number[] {
+  return allocations.map((val) =>
+    parseFloat(((val / grossPay) * 100).toFixed(2))
+  );
+}
+
+export function aftTaxPercents(
+  allocations: number[],
+  { grossPay, federalTax, fica, medicare, state, other }: IncomeTaxFormConverted
+): number[] {
+  const totalTax = federalTax + fica + medicare + state + other;
+  const adjustedGross = grossPay - totalTax;
+  const allocsWithoutTax = allocations.slice(5);
+
+  return allocsWithoutTax.map((val) =>
+    parseFloat(((val / adjustedGross) * 100).toFixed(2))
+  );
+}

@@ -4,3 +4,8 @@ export enum IntervalSize {
   Monthly = 12,
   Biweekly = 26,
 }
+
+export enum IntervalPercent {
+  After_Tax = "at",
+  Before_Tax = "bt",
+}

@@ -40,8 +40,6 @@ export function getYearlyProjectionData({
     currentYear += 1;
     xAxisLabels.push(currentYear);
 
-    console.log("ri", ri);
-
     if (i === 0) {
       // Initial interval since it might already be the middle of the year
       const si = computeStartInterval(n);
