@@ -1,13 +1,13 @@
 import { Form, Formik } from "formik";
 import { getExportedRecordsJson } from "../../../redux/api/endpoints/logEndpoints";
 import { exportDataSchema } from "../../../validation/exportData";
-import { exportDataForm } from "../../../validation/types";
+import { ExportDataForm } from "../../../validation/types";
 import Button from "../../forms/Button";
 import InputField from "../../forms/InputField";
 import { download } from "./exportUtils";
 
-const ExportDataForm = () => {
-  const submitExportRequest = async (values: exportDataForm, actions: any) => {
+const ProfileExportDataForm = () => {
+  const submitExportRequest = async (values: ExportDataForm, actions: any) => {
     const { exportDataLength } = values;
     const exportedJson = await getExportedRecordsJson(exportDataLength);
 
@@ -27,7 +27,7 @@ const ExportDataForm = () => {
       initialValues={
         {
           exportDataLength: "",
-        } as exportDataForm
+        } as ExportDataForm
       }
       validationSchema={exportDataSchema}
       onSubmit={(values, actions) => submitExportRequest(values, actions)}
@@ -67,4 +67,4 @@ const ExportDataForm = () => {
   );
 };
 
-export default ExportDataForm;
+export default ProfileExportDataForm;

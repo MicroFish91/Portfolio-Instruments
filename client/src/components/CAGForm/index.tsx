@@ -3,18 +3,18 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectTotalNetWorth } from "../../redux/Holdings/Selectors";
 import { cagFormSchema } from "../../validation/cag";
-import { cagForm, cagFormConverted } from "../../validation/types";
+import { CagForm, CagFormConverted } from "../../validation/types";
 import Button from "../forms/Button";
 import InputField from "../forms/InputField";
 
 interface CAGFormProps {
-  setGrowthSettings: (settings: cagFormConverted) => void;
+  setGrowthSettings: (settings: CagFormConverted) => void;
 }
 
 const CAGForm: React.FC<CAGFormProps> = ({ setGrowthSettings }) => {
   const userNetWorth = useSelector(selectTotalNetWorth).toFixed(2);
 
-  const calculateCAG = (holding: cagForm, _setFieldValue: any) => {
+  const calculateCAG = (holding: CagForm, _setFieldValue: any) => {
     const convertedHolding = {
       annualExpenses: parseFloat(holding.annualExpenses),
       annualInflation: parseFloat(holding.annualInflation) / 100,
@@ -43,7 +43,7 @@ const CAGForm: React.FC<CAGFormProps> = ({ setGrowthSettings }) => {
           recurringInvestment: "0",
           safeWithdrawalRate: "4",
           stdDeviation: "0",
-        } as cagForm
+        } as CagForm
       }
       validationSchema={cagFormSchema}
       onSubmit={(values, actions) => calculateCAG(values, actions)}

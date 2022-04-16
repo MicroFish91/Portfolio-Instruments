@@ -16,6 +16,7 @@ import EmailConfirmation from "./pages/EmailConfirmation";
 import ForgotPassword from "./pages/ForgotPassword";
 import GettingStarted from "./pages/GettingStarted";
 import Home from "./pages/Home";
+import IncomeBreakdownCalculator from "./pages/IncomeBreakdown";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import RebalanceWizard from "./pages/RebalanceWizard";
@@ -121,6 +122,19 @@ const App = () => {
               minorTitle={"Portfolio Calculators"}
             >
               <CompoundAnnualGrowth />
+            </ContentWrapper>
+          )}
+        />
+        <Route
+          exact
+          path="/portfolio-calculators/income-breakdown"
+          render={() => (
+            <ContentWrapper
+              fallback={PortfolioCalculatorsFallback}
+              majorTitle={"Income Breakdown"}
+              minorTitle={"Portfolio Calculators"}
+            >
+              <IncomeBreakdownCalculator />
             </ContentWrapper>
           )}
         />

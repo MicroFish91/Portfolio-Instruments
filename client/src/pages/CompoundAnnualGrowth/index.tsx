@@ -1,11 +1,11 @@
 import { useState } from "react";
 import CAGBar from "../../components/CAGBar";
 import CAGForm from "../../components/CAGForm";
-import { cagFormConverted } from "../../validation/types";
+import { CagFormConverted } from "../../validation/types";
 
 const CompoundAnnualGrowth = () => {
   const [growthSettings, setGrowthSettings] = useState(
-    null as cagFormConverted | null
+    null as CagFormConverted | null
   );
 
   return (
