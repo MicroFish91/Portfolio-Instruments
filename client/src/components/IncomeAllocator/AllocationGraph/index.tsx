@@ -28,12 +28,6 @@ const AllocationGraph: React.FC<graphBreakdownProps> = ({
   return (
     <div>
       <Doughnut data={data} />
-      <u>
-        <b>Notes</b>
-      </u>
-      : <br />
-      Unallocated Remaining (Monthly): $
-      {(allocations[allocations.length - 1] / 12).toFixed(2)}
     </div>
   );
 };

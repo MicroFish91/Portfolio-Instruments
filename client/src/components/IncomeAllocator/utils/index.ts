@@ -1,4 +1,5 @@
 import { IncomeTaxFormConverted } from "../../../validation/types";
+import { IntervalSize } from "../types";
 
 const DOUGHNUT_COLORS = [
   "#B6D0E2",
@@ -36,6 +37,13 @@ export function getLabels(incomeBreakdown: Record<string, number>): string[] {
   taxLabels.push("Other Tax");
 
   return [...taxLabels, ...Object.keys(ib), "Unallocated"];
+}
+
+export function getNormalized(
+  allocations: number[],
+  size: IntervalSize
+): number[] {
+  return allocations.map((val) => parseFloat((val / size).toFixed(2)));
 }
 
 export function getValues(

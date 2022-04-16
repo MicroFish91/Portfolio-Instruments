@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import { IncomeTaxFormConverted } from "../../validation/types";
 import AllocationForm from "./AllocationForm";
 import AllocationGraph from "./AllocationGraph";
-import { getColors, getLabels, getValues } from "./utils";
+import IntervalSizeForm from "./IntervalSizeForm";
+import ResetOptions from "./ResetOptions";
+import { IntervalSize } from "./types";
+import { getColors, getLabels, getNormalized, getValues } from "./utils";
 
 interface incomeAllocatorProps {
   taxBreakdown: IncomeTaxFormConverted;
+  setTaxBreakdown: (tb: IncomeTaxFormConverted | null) => void;
 }
 
-const IncomeAllocator: React.FC<incomeAllocatorProps> = ({ taxBreakdown }) => {
+const IncomeAllocator: React.FC<incomeAllocatorProps> = ({
+  taxBreakdown,
+  setTaxBreakdown,
+}) => {
+  const [intervalSize, setIntervalSize] = useState(1 as IntervalSize);
   const [incomeBreakdown, setIncomeBreakdown] = useState(
     {} as Record<string, number>
   );
@@ -17,10 +25,10 @@ const IncomeAllocator: React.FC<incomeAllocatorProps> = ({ taxBreakdown }) => {
   const colors = getColors(numberOfFields);
   const labels = getLabels(incomeBreakdown);
   const allocations = getValues(incomeBreakdown, taxBreakdown);
+  const normalizedAllocations = getNormalized(allocations, intervalSize);
 
-  console.log(colors);
-  console.log(labels);
-  console.log(allocations);
+  console.log("Tax Breakdown: ", taxBreakdown);
+  console.log("Income Breakdown: ", incomeBreakdown);
 
   return (
     <div className="card">
@@ -37,8 +45,15 @@ const IncomeAllocator: React.FC<incomeAllocatorProps> = ({ taxBreakdown }) => {
               incomeBreakdown={incomeBreakdown}
               setIncomeBreakdown={setIncomeBreakdown}
             />
-            biweekly vs monthly vs annually <br />
-            reset chart button
+            <br />
+            <br />
+            <IntervalSizeForm setIntervalSize={setIntervalSize} />
+            <br />
+            <br />
+            <ResetOptions
+              setIncomeBreakdown={setIncomeBreakdown}
+              setTaxBreakdown={setTaxBreakdown}
+            />
           </div>
 
           {/* Right Column */}
@@ -46,7 +61,7 @@ const IncomeAllocator: React.FC<incomeAllocatorProps> = ({ taxBreakdown }) => {
             <AllocationGraph
               colors={colors}
               labels={labels}
-              allocations={allocations}
+              allocations={normalizedAllocations}
             />
           </div>
         </div>

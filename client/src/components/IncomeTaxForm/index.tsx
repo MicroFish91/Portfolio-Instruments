@@ -103,8 +103,8 @@ const srIncomeTaxForm: React.FC<srIncomeTaxFormProps> = ({
                 />
               </div>
               <div className="ml-3">
-                <Button title="Initialize Breakdown" />
-                <Button title="Reset Settings" type="reset" />
+                <Button title="Set Tax Breakdown" />
+                <Button title="Reset Fields" type="reset" />
               </div>
             </div>
           </div>

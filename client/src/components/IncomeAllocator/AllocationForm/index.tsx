@@ -33,9 +33,6 @@ const AllocationForm: React.FC<allocationFormProps> = ({
       ),
     };
 
-    console.log(unallocated);
-    console.log(ib[`${holding.allocationLabel}`]);
-
     if (ib[`${holding.allocationLabel}`] > unallocated) {
       alert("Entered amount exceeds limits, please try again.");
     } else {
@@ -44,6 +41,7 @@ const AllocationForm: React.FC<allocationFormProps> = ({
 
     setFieldValue("allocationLabel", "");
     setFieldValue("allocationAmount", "");
+    setFieldValue("periodsPerYear", "");
   };
 
   return (
@@ -52,60 +50,55 @@ const AllocationForm: React.FC<allocationFormProps> = ({
         {
           allocationLabel: "",
           allocationAmount: "",
-          periodsPerYear: "1",
+          periodsPerYear: "",
         } as AllocationCategoryForm
       }
       validationSchema={allocationCategoryFormSchema}
       onSubmit={(values, actions) => submitAllocation(values, actions)}
     >
       {({ values, setFieldValue }) => (
-        <Form className="card">
-          <div className="card-header">
-            <h3 className="card-title">Annual Growth Settings</h3>
-          </div>
-          <div className="card-body">
-            <div className="row">
-              {/* Left Column */}
-              <div className="col-md-6 col-lg-6">
-                <InputField
-                  label="Allocation Label"
-                  name="allocationLabel"
-                  placeholder="Ex. Housing"
-                  type="text"
-                  value={values.allocationLabel}
-                  onChange={(e) =>
-                    setFieldValue("allocationLabel", e.target.value)
-                  }
-                />
-                <InputField
-                  label="Periods per Year"
-                  name="periodsPerYear"
-                  placeholder="Ex. 12 (represents monthly investment)"
-                  type="text"
-                  value={values.periodsPerYear}
-                  onChange={(e) =>
-                    setFieldValue("periodsPerYear", e.target.value)
-                  }
-                />
-              </div>
+        <Form>
+          <div className="row">
+            {/* Left Column */}
+            <div className="col-md-6 col-lg-6">
+              <InputField
+                label="Allocation Label"
+                name="allocationLabel"
+                placeholder="Ex. Housing"
+                type="text"
+                value={values.allocationLabel}
+                onChange={(e) =>
+                  setFieldValue("allocationLabel", e.target.value)
+                }
+              />
+              <InputField
+                label="Periods per Year"
+                name="periodsPerYear"
+                placeholder="Ex. 12 (represents monthly investment)"
+                type="text"
+                value={values.periodsPerYear}
+                onChange={(e) =>
+                  setFieldValue("periodsPerYear", e.target.value)
+                }
+              />
+            </div>
 
-              {/* Right Column */}
-              <div className="col-md-6 col-lg-6">
-                <InputField
-                  label="Allocation Amount ($)"
-                  name="allocationAmount"
-                  placeholder="Ex. 3500"
-                  type="text"
-                  value={values.allocationAmount}
-                  onChange={(e) =>
-                    setFieldValue("allocationAmount", e.target.value)
-                  }
-                />
-              </div>
-              <div className="ml-3">
-                <Button title="Add Category" />
-                <Button title="Reset Settings" type="reset" />
-              </div>
+            {/* Right Column */}
+            <div className="col-md-6 col-lg-6">
+              <InputField
+                label="Allocation Amount ($)"
+                name="allocationAmount"
+                placeholder="Ex. 3500"
+                type="text"
+                value={values.allocationAmount}
+                onChange={(e) =>
+                  setFieldValue("allocationAmount", e.target.value)
+                }
+              />
+            </div>
+            <div className="ml-3">
+              <Button title="Add Category" />
+              <Button title="Reset Fields" type="reset" />
             </div>
           </div>
         </Form>
