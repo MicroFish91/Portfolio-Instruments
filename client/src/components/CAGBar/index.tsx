@@ -1,7 +1,7 @@
 // import "chartjs-plugin-annotation";
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import { cagFormConverted } from "../../validation/types";
+import { CagFormConverted } from "../../validation/types";
 import {
   buildBarData,
   getSWRBreakdown,
@@ -10,7 +10,7 @@ import {
 } from "./utils";
 
 interface CAGBarProps {
-  growthSettings: cagFormConverted;
+  growthSettings: CagFormConverted;
 }
 
 const CAGBar: React.FC<CAGBarProps> = ({ growthSettings }) => {

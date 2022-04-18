@@ -1,4 +1,4 @@
-import { cagFormConverted } from "../../../validation/types";
+import { CagFormConverted } from "../../../validation/types";
 
 // Safe Withdrawal Amounts Projected into the Future Adjusted for Inflation
 export function getSWRBreakdown(
@@ -29,7 +29,7 @@ export function getYearlyProjectionData({
   principal: p,
   recurringInvestment: ri,
   stdDeviation: sd,
-}: cagFormConverted): [number[], number[], number[], number[]] {
+}: CagFormConverted): [number[], number[], number[], number[]] {
   let currentYear = new Date().getFullYear();
   const xAxisLabels = [currentYear];
   const [lBounds, mBounds, uBounds] = [[p], [p], [p]];
@@ -39,8 +39,6 @@ export function getYearlyProjectionData({
   for (let i = 0; i < t; i++) {
     currentYear += 1;
     xAxisLabels.push(currentYear);
-
-    console.log("ri", ri);
 
     if (i === 0) {
       // Initial interval since it might already be the middle of the year

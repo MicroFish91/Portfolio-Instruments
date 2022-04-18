@@ -1,14 +1,17 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectAssetTitles } from "../../redux/Benchmarks/Selectors";
 import { holdingFormSchema } from "../../validation/holdings";
 import { HoldingForm } from "../../validation/types";
 import Button from "../forms/Button";
 import Checkbox from "../forms/Checkbox";
 import InputField from "../forms/InputField";
 import SelectField from "../forms/SelectField";
-import { selectAccountTypeMap, selectAssetTypeMap } from "./constants";
+import { selectAccountTypeMap } from "./constants";
 import ScrapeResults from "./ScrapeResults";
 import { scrapedData } from "./ScrapeResults/scrapeUtils/types";
+import { addStarsToBenchmarks } from "./utils";
 
 interface AddSnapshotsFormProps {
   addHolding: (holding: HoldingForm) => void;
@@ -17,6 +20,8 @@ interface AddSnapshotsFormProps {
 const AddSnapshotsForm: React.FC<AddSnapshotsFormProps> = ({ addHolding }) => {
   const [holdingCache, setHoldingCache] = useState([] as HoldingForm[]);
   const [toggleScrapeResults, setToggleScrapeResults] = useState(false);
+
+  const benchmarkAssets = useSelector(selectAssetTitles);
 
   // Parse Scraped Yahoo Finance Data into Forms ("Whenever we type '`'")
   const addScraped = (scrapeData: scrapedData, setFieldValue: any) => {
@@ -166,7 +171,7 @@ const AddSnapshotsForm: React.FC<AddSnapshotsFormProps> = ({ addHolding }) => {
 
                 <SelectField
                   label="Asset Type"
-                  selectMap={selectAssetTypeMap}
+                  selectMap={addStarsToBenchmarks(benchmarkAssets)}
                   name="assetType"
                   type="text"
                 />

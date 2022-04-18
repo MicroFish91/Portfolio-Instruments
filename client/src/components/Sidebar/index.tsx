@@ -150,6 +150,16 @@ const Sidebar: React.FC<SidebarProps> = () => {
             <ul className="slide-menu">
               <li>
                 <Link
+                  to="/portfolio-calculators/income-breakdown"
+                  className="slide-item"
+                >
+                  Income Breakdown
+                </Link>
+              </li>
+            </ul>
+            <ul className="slide-menu">
+              <li>
+                <Link
                   to="/portfolio-calculators/compound-annual-growth"
                   className="slide-item"
                 >
